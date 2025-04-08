@@ -26,8 +26,6 @@ namu.wiki##span:has-text(더 보기):upward(2):has([target])
 
 ! 광고 (영역) 숨기기
 #@#.appBanner:not(body)
-/ads/*.gif
-/banner/*.gif
 *##.ad-view
 *##.basic-banner
 *##.happy-header
