@@ -3,3 +3,10 @@
 ! Description: Adguard DNS 필터의 오차단을 해제합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
+@@||ad*.cgv.co.kr^
+@@||buzzvil.com^
+||ad-creative.pstatic.net^$badfilter
+||adcr.naver.com^$badfilter
+||adtouch.adbrix.io^$badfilter
+||dadispapi.gmarket.co.kr^$badfilter
+||searchad-phinf.pstatic.net^$badfilter
