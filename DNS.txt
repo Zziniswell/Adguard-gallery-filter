@@ -1,0 +1,5 @@
+! Title: 애드가드 갤러리 DNS 필터
+! Version: 2025.07.09
+! Description: Adguard DNS 필터의 오차단을 해제합니다.
+! Homepage: https://gallog.dcinside.com/cent8649
+
