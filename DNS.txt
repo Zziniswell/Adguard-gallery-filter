@@ -1,12 +1,51 @@
 ! Title: 애드가드 갤러리 DNS 필터
-! Version: 2025.07.09
-! Description: Adguard DNS 필터의 오차단을 해제합니다.
+! Version: 2025.07.13
+! Description: Adguard DNS 필터의 오차단을 해제하고 일부 https 검열을 우회합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
+! Disable incorrect blocking
 @@||ad*.cgv.co.kr^
-@@||buzzvil.com^
 ||ad-creative.pstatic.net^$badfilter
 ||adcr.naver.com^$badfilter
 ||adtouch.adbrix.io^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
 ||searchad-phinf.pstatic.net^$badfilter
+
+! Bypass censorship
+||booktoki*.com^$dnsrewrite=104.16.181.45
+||donmai.us^$dnsrewrite=104.16.181.45
+||e-hentai.org^$dnsrewrite=104.16.181.45
+||funbe*.com^$dnsrewrite=104.16.181.45
+||gelbooru.com^$dnsrewrite=104.16.181.45
+||hellven.net^$dnsrewrite=104.16.181.45
+||hitomi.la^$dnsrewrite=104.16.181.45
+||hoduhodu.com^$dnsrewrite=104.16.181.45
+||imhentai.xxx^$dnsrewrite=104.16.181.45
+||kissjav.com^$dnsrewrite=104.16.181.45
+||konachan.com^$dnsrewrite=104.16.181.45
+||linkkf.net^$dnsrewrite=104.16.181.45
+||lover*.net^$dnsrewrite=104.16.181.45
+||manatoki*.net^$dnsrewrite=104.16.181.45
+||mingky*.net^$dnsrewrite=104.16.181.45
+||newtoki*.*$dnsrewrite=104.16.181.45
+||nhentai.*^$dnsrewrite=104.16.181.45
+||ohli24.net^$dnsrewrite=104.16.181.45
+||rule34.xxx^$dnsrewrite=104.16.181.45
+||sexbjcam.com^$dnsrewrite=104.16.181.45
+||sogirl.*$dnsrewrite=104.16.181.45
+||tkr*.com^$dnsrewrite=104.16.181.45
+||toonkor*.com^$dnsrewrite=104.16.181.45
+||torrentbam*.com^$dnsrewrite=104.16.181.45
+||torrentbot*.com^$dnsrewrite=104.16.181.45
+||torrentqq*.com^$dnsrewrite=104.16.181.45
+||torrentreel*.site^$dnsrewrite=104.16.181.45
+||torrentrj*.com^$dnsrewrite=104.16.181.45
+||torrentsee*.com^$dnsrewrite=104.16.181.45
+||torrentsome*.com^$dnsrewrite=104.16.181.45
+||torrenttip*.com^$dnsrewrite=104.16.181.45
+||torrenttop*.com^$dnsrewrite=104.16.181.45
+||torrentzota*.com^$dnsrewrite=104.16.181.45
+||twidouga.net^$dnsrewrite=104.16.181.45
+||wftoon*.com^$dnsrewrite=104.16.181.45
+||wfwf*.com^$dnsrewrite=104.16.181.45
+||xhamster.com^$dnsrewrite=104.16.181.45
