@@ -5,6 +5,7 @@
 
 ! Disable incorrect blocking
 @@||buzzvil.com^
+||action.adoffice.11st.co.kr^$badfilter
 ||ad-creative.pstatic.net^$badfilter
 ||adcr.naver.com^$badfilter
 ||adshnk.com^$badfilter
