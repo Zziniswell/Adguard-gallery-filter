@@ -17,7 +17,6 @@
 ||booktoki*.com^$dnsrewrite=104.16.181.45
 ||donmai.us^$dnsrewrite=104.16.181.45
 ||e-hentai.org^$dnsrewrite=104.16.181.45
-||funbe*.com^$dnsrewrite=104.16.181.45
 ||gelbooru.com^$dnsrewrite=104.16.181.45
 ||hellven.net^$dnsrewrite=104.16.181.45
 ||hoduhodu.com^$dnsrewrite=104.16.181.45
@@ -26,7 +25,8 @@
 ||manatoki*.net^$dnsrewrite=104.16.181.45
 ||mingky*.net^$dnsrewrite=104.16.181.45
 ||newtoki*.*$dnsrewrite=104.16.181.45
-||rule34*.*$dnsrewrite=104.16.181.45
+||rule34.xxx$dnsrewrite=104.16.181.45
+||rule34hentai.net^$dnsrewrite=104.16.181.45
 ||sogirl.*$dnsrewrite=104.16.181.45
 ||tkr*.com^$dnsrewrite=104.16.181.45
 ||toonkor*.com^$dnsrewrite=104.16.181.45
