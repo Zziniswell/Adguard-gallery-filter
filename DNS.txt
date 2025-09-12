@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 DNS 필터
-! Version: 2025.09.08
+! Version: 2025.09.12
 ! Description: Adguard DNS 필터의 오차단을 해제하고 일부 https 검열을 우회합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
@@ -18,16 +18,16 @@
 ||donmai.us^$dnsrewrite=104.16.181.45
 ||e-hentai.org^$dnsrewrite=104.16.181.45
 ||gelbooru.com^$dnsrewrite=104.16.181.45
-||hellven.net^$dnsrewrite=104.16.181.45
 ||hoduhodu.com^$dnsrewrite=104.16.181.45
 ||kissjav.com^$dnsrewrite=104.16.181.45
 ||lover*.net^$dnsrewrite=104.16.181.45
 ||manatoki*.net^$dnsrewrite=104.16.181.45
 ||mingky*.net^$dnsrewrite=104.16.181.45
+||missav.ws^$dnsrewrite=104.16.181.45
 ||newtoki*.*$dnsrewrite=104.16.181.45
 ||rule34.xxx$dnsrewrite=104.16.181.45
 ||rule34hentai.net^$dnsrewrite=104.16.181.45
-||sogirl.*$dnsrewrite=104.16.181.45
+||sogirl.so$dnsrewrite=104.16.181.45
 ||tkr*.com^$dnsrewrite=104.16.181.45
 ||toonkor*.com^$dnsrewrite=104.16.181.45
 ||torrentbot*.com^$dnsrewrite=104.16.181.45
