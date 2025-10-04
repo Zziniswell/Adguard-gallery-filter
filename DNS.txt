@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 DNS 필터
-! Version: 2025.10.02
+! Version: 2025.10.04
 ! Description: Adguard DNS 필터의 오차단을 해제하고 일부 https 검열을 우회합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
@@ -14,6 +14,7 @@
 ||tivan.naver.com^$badfilter
 
 ! Ads
+||kamp.kakao.com^
 ||shortformstats.kakao.com^
 ||veta.naver.com^
 ||vs*.play.kakao.com^
@@ -28,7 +29,7 @@
 ||lover*.net^$dnsrewrite=104.16.181.45
 ||manatoki*.net^$dnsrewrite=104.16.181.45
 ||mingky*.net^$dnsrewrite=104.16.181.45
-||missav.ws^$dnsrewrite=104.16.181.45
+||missav.*^$dnsrewrite=104.16.181.45
 ||newtoki*.*$dnsrewrite=104.16.181.45
 ||rule34.xxx$dnsrewrite=104.16.181.45
 ||rule34hentai.net^$dnsrewrite=104.16.181.45
