@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      2.03
+// @version      2.04
 // @description  펨코 파워링크 제거, 제휴링크 정상화, 댓글 이미지 삽입
 // @match        https://*.fmkorea.com/*
 // @icon         https://www.google.com/s2/favicons?domain=fmkorea.com
@@ -11,8 +11,6 @@
 // @run-at       document-start
 // ==/UserScript==
 
-// 안드로이드는 필터로 되기 때문에 광고제거랑 제휴링크 정상화는 패스함
-
 (function() {
     'use strict';
 
@@ -22,6 +20,14 @@
         imgEncRx: /\.(jpe?g|JPE?G|png|PNG|webp|WEBP|avif|gif|GIF|avif|AVIF)%3F/i,
         imgHosts: ['pbs.twimg.com', 'images?q', '/image/', '/img', 'thumb', '/_next/image?url=']
     };
+
+    function neutralizeAd() {
+        try {
+            Object.defineProperty(unsafeWindow, 'link_url', {value: '', writable: false, configurable: false});
+            Object.defineProperty(unsafeWindow, 'board_block_check', {value: function() {}, writable: false, configurable: false});
+            Object.defineProperty(unsafeWindow, '_make_power_link_identifier', {value: function() {}, writable: false, configurable: false});
+        } catch (e) {}
+    }
 
     function removeAds() {
         if (!document.body.classList.contains('mac_os')) return;
@@ -133,6 +139,8 @@
 
         requestIdleCallback ? requestIdleCallback(() => {embed(); watch();}) : setTimeout(() => {embed(); watch();}, 0);
     }
+
+    neutralizeAd();
 
     if (document.readyState === 'loading') {
         document.addEventListener('readystatechange', () => {
