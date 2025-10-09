@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.07
+! Version: 2025.10.07 (test)
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 ! Expires: 6 hours
