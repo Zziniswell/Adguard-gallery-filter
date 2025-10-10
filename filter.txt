@@ -24,7 +24,7 @@ For iOS
 com###bannerList
 com###viewCover
 com,net##.board-tail-banner
-com,net##.col-sm-9.col-md-9.col-15:has([src^='/tokinbtoki'])
+com,net##.col-sm-9.col-md-9.col-15
 com,net##[style='margin-bottom: 20px;'].row.row-15
 m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px 0px/):matches-css(padding: 0px):remove()
 m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: 0px):remove()
@@ -212,6 +212,7 @@ sportschosun.com##div.mobile-ad:has([class^='adfork'])
 sportschosun.com##div[style*='height:']:not(:has([id])):not(:has(.article_top))
 svrforum.com$$ins[class="adsbygoogle"]
 talk.op.gg##+js(set-cookie, _talkg_banner, 1)
+teamblind.com##.coupang_gnb
 teamblind.com##[href^='https://link.coupang.com/re/AFFSDP']
 teamblind.com##div.article-list-pre:has([href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.article:has(> a[href^='https://link.coupang.com/re/AFFSDP'])
@@ -291,6 +292,7 @@ web.joongna.com#@#a[rel*="sponsored"]
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.airbridge.io/sdk/$badfilter
+||wcs.naver.net/wcslog.js^$badfilter
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##.btn_imgcmtopen:style(opacity: 0.4 !important;)
