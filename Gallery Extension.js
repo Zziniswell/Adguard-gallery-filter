@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      2.04
+// @version      2.05
 // @description  펨코 파워링크 제거, 제휴링크 정상화, 댓글 이미지 삽입
 // @match        https://*.fmkorea.com/*
 // @icon         https://www.google.com/s2/favicons?domain=fmkorea.com
 // @homepage     https://gall.dcinside.com/mgallery/board/view/?id=adguard&no=2348
-// @downloadURL https://raw.githubusercontent.com/Zziniswell/Adguard-gallery-filter/refs/heads/main/Gallery%20Extension.js
-// @updateURL https://raw.githubusercontent.com/Zziniswell/Adguard-gallery-filter/refs/heads/main/Gallery%20Extension.js
+// @downloadURL https://github.com/Zziniswell/Adguard-gallery-filter/raw/refs/heads/main/Gallery%20Extension.user.js
+// @updateURL https://github.com/Zziniswell/Adguard-gallery-filter/raw/refs/heads/main/Gallery%20Extension.user.js
 // @grant        unsafeWindow
 // @run-at       document-start
 // ==/UserScript==
