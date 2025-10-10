@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      2.05
+// @version      2.06
 // @description  펨코 파워링크 제거, 제휴링크 정상화, 댓글 이미지 삽입
 // @match        https://*.fmkorea.com/*
 // @icon         https://www.google.com/s2/favicons?domain=fmkorea.com
