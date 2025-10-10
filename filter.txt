@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.07 (test)
+! Version: 2025.10.10
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 ! Expires: 6 hours
@@ -9,7 +9,6 @@
 ! https://raw.githubusercontent.com/Zziniswell/Adguard-gallery-filter/refs/heads/main/DNS.txt
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||searchad-phinf.pstatic.net^$app=com.nhn.android.search
-@@||tivan.naver.com^$app=com.nhn.android.search
 
 ! G마켓 메인화면 복원 - DNS 보호 사용시 갤러리 DNS 필터 추가 필요
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
@@ -117,7 +116,6 @@ etoland.co.kr##[src*='/data/daumeditor']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap
 etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
 fmkorea.com##.relevant_products_from_ad
-fmkorea.com##p:nth-of-type(2) > span
 gall.dcinside.com##.clear.gnb_list > li:nth-of-type(6)
 gall.dcinside.com##.clear.gnb_list > li:nth-of-type(7)
 gall.dcinside.com##.gall_list tr[class='ub-content ']
@@ -140,12 +138,12 @@ inven.co.kr##.sc-banner
 inven.co.kr##.show-ads
 k-hentai.org##.my-3.container
 loawa.com###popup
-m.blog.naver.com##div[class^='card__']:has-text(/내 이웃이 반응한 글|당신을 위한 추천글|블로그씨의 추천글/):remove()
+m.blog.naver.com##div[class^='card__']:has-text(/블로그씨의 추천글/):remove()
 m.bobaedream.co.kr##div[style$='height:50px;']
 m.cafe.daum.net##.bottom_banner
 m.cafe.naver.com###articleFeedList
 m.cafe.naver.com##.bottom.banner_add
-m.cafe.naver.com##.list_item
+m.cafe.naver.com##.join_layer
 m.cafe.naver.com##.popular_toast_popup
 m.cafe.naver.com##.subscribe_layer_wrap
 m.danawa.com###mdnw-main-bottomSheet-container
@@ -177,7 +175,7 @@ m.ppomppu.co.kr#@#tr:has([src$='/icon_ppom_coupon_pc.png'])
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
 m.wowtv.co.kr##div[id*='Banner']
-maple.gg##+js(set-cookie, hideFrontPagePopup, true)
+maple.gg,dak.gg##+js(set-cookie, hideFrontPagePopup, true)
 mapleland.gg##main.relative > .z-\[999\]
 mlbpark.donga.com##.coupang_cont
 mlbpark.donga.com##li.items:has([target='_blank'])
@@ -189,9 +187,8 @@ namu.*##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener
 namu.*##div[class]:matches-attr(class=/^[a-zA-Z0-9_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal))
 namu.*##div[class][id]:empty
 namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
-new-m.pay.naver.com##[class^='AiTEMS_article__']
+new-m.pay.naver.com##[class^='AiTEMS_article']
 new-m.pay.naver.com##[class^='BottomAds_article__']
-play.sooplive.co.kr##+js(nowoif, andinstall)
 ppomppu.co.kr##.bottom > div[style]
 ppomppu.co.kr##tr:has(#ad-icon)
 ppomppu.co.kr##tr:has([src$='/icon_ppom_coupon_pc.png'])
@@ -247,8 +244,6 @@ booktoki468.com,booktoki469.com###novel_content:style(-webkit-touch-callout: def
 cafe.naver.com##+js(remove-class, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
 fmkorea.com#%#//scriptlet('set-constant', 'link_url', '')
-m.dcinside.com##.subjectin:style(white-space: normal !important;)
-m.ppomppu.co.kr#$#.view.bbs > h4 { background-color: rgb(238, 238, 238) !important; }
 manatoki468.net,manatoki469.net,newtoki468.com,newtoki469.com#%#//scriptlet('abort-current-inline-script', 'oncontextmenu')
 ppomppu.co.kr#%#//scriptlet('href-sanitizer', 'a[href^="https://s.ppomppu.co.kr?"][href*="&target="]', '?target', 'base64decode')
 
@@ -263,7 +258,6 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ! Incorrect blocking
 #@#.appBanner:not(body)
 /img.gif?$badfilter
-@@*$stealth=dpi,app=com.kakao.talk,badfilter
 @@*$stealth=dpi,app=com.nhn.android.navercafe
 @@||192.168.$stealth
 @@||action.adoffice.11st.co.kr^$domain=search.11st.co.kr
@@ -271,9 +265,8 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||adtouch.adbrix.io^$app=com.kakao.talk
 @@||app.link^$stealth=dpi
 @@||co.kr^$stealth=dpi
-@@||coupang*.com^$stealth
+@@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc|ip
-@@||google.*/search$stealth=useragent|ip
 @@||graph.facebook.com^$domain=fmkorea.com
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
@@ -283,23 +276,21 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||skstoa.com^$jsinject
 @@||smartstore.naver.com^$stealth
 @@||t1.daumcdn.net/*/static/kp.js
+@@||tivan.naver.com^$app=com.nhn.android.search
 algumon.com#@#ul.post-list > li[class^="post-"]:not([id]):not([data-post-id])
 etoland.co.kr#$#div.hit_latest_ad { display: grid !important; }
 m.11st.co.kr#@$##banner-gnb { display: none !important; }
-m.hoyolab.com#@#.guide-download-drawer
 mitem.auction.co.kr#@#[class*="app-install"]
 mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
 search.11st.co.kr#@#[data-log-actionid-area^="focus"]
 web.joongna.com#@#a[rel*="sponsored"]
-||cdn.oaistatic.com/assets/*.js$replace=/Error\(.\(418\,""\)\);throw ..\(..\(.\,.\)\)\,../null;/,domain=chatgpt.com,badfilter
 ||dcinside.com^$cookie=ci_c,badfilter
 ||edge-live.joongna.com/api/web-ads/$badfilter
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.airbridge.io/sdk/$badfilter
-||wcs.naver.net/wcslog.js^$badfilter
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##.btn_imgcmtopen:style(opacity: 0.4 !important;)
@@ -312,6 +303,3 @@ m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-mweb) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'MOBILE')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:not(:has(span.sp-icon)) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'PC')
 dcinside.com#%#(function(){'use strict';const u=location.href,h=location.hostname;let dcbest=!1;if(h==='m.dcinside.com'){const m=u.match(/^https:\/\/m\.dcinside\.com\/(board|mini|person)\/([^\/]+)\/\d+/);dcbest=!!(m&&m[2]==='dcbest');}else if(h==='gall.dcinside.com'){const p=new URLSearchParams(location.search);dcbest=p.get('id')==='dcbest'&&p.has('no');}else return;let s;if(h==='gall.dcinside.com')s='button.img_comment_toggle,.btn_imgcmtopen,.img_comment';else if(h==='m.dcinside.com')s='button.btn-imgcomment,.img-comment';else return;const e=document.createElement('style');e.textContent=`${s}{display:none!important;}`;if(!dcbest)document.head.appendChild(e);document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('[alt="imgtoggle"]');if(t)t.style.cursor='pointer',t.addEventListener('click',()=>{e.disabled=!e.disabled;if(!e.parentNode&&!e.disabled)document.head.appendChild(e);});});})();
-
-! Quickfixes
-m.dcinside.com#@%#//scriptlet('abort-current-inline-script', 'setTimeout', 'ajax/naverad')
