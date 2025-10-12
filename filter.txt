@@ -107,7 +107,6 @@ etoland.co.kr##div.comment_wrap.comment_extra_wrap
 etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
 fmkorea.com##.relevant_products_from_ad
 gall.dcinside.com##.clear.gnb_list > li:nth-of-type(6)
-gall.dcinside.com##.clear.gnb_list > li:nth-of-type(7)
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.list_trend
 gall.dcinside.com##.r_dcmedia
@@ -145,7 +144,7 @@ m.dcinside.com##.media-group.grid
 m.dcinside.com##.outside-search-box
 m.dcinside.com##.trend-rank:style(padding:0px!important; border-top:0px!important;)
 m.dcinside.com##.trend.cont
-m.dcinside.com##[href="javascript:go_statistics('log_gnb','https://dctrend.ai/news/trend', 'DT');"]
+m.dcinside.com##[href="javascript:go_statistics('pandalive','https://mdcinside.pandalive.co.kr/');"]
 m.dcinside.com##section.grid > .md-tit-box:has-text(Daum)
 m.dcinside.com##section.grid:has(.news-schthum-lst)
 m.dcinside.com##ul[style] li.swiper-slide:nth-of-type(5)
@@ -264,7 +263,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||graph.facebook.com^$domain=fmkorea.com
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
-@@||naver*.$stealth=dpi
+@@||naver.$stealth=dpi
 @@||nexon.$stealth=dpi
 @@||onelink.me^$stealth=dpi
 @@||search.shopping.naver.com^$stealth
