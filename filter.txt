@@ -1,8 +1,7 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.10
+! Version: 2025.10.12
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
-! Expires: 6 hours
 
 
 ! NAVER 앱 검색페이지 깨짐 복원 - DNS 보호 사용시 갤러리 DNS 필터 추가 필요 ↓
@@ -61,14 +60,6 @@ org##.banner_wrap2
 [$domain=/^torrentsee[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
 [$domain=/^tvmon[0-9]*\.org/]##.banner_wrap2
 [$domain=/^tvmon[0-9]*\.org/]##[src*='/AD/']
-[$domain=/^tvroom[0-9]*\.org/]###mq-notice
-[$domain=/^tvroom[0-9]*\.org/]###n_b_2
-[$domain=/^tvroom[0-9]*\.org/]##.banners_area
-[$domain=/^tvroom[0-9]*\.org/]##.iziModal-overlay
-[$domain=/^tvroom[0-9]*\.org/]##.supermarquee-item
-[$domain=/^tvroom[0-9]*\.org/]##[id^='modal-anc-']
-[$domain=/^tvroom[0-9]*\.org/]##body,html:style(overflow:auto!important)
-[$domain=/^tvroom[0-9]*\.org/]##div.banner_l
 [$domain=/^tvwiki[0-9]*\.com/]###bannerList
 [$domain=/^tvwiki[0-9]*\.com/]###viewCover
 [$domain=/^tvwiki[0-9]*\.com/]##[src*='/banner/']
@@ -76,7 +67,6 @@ org##.banner_wrap2
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[class*='carousel'][id]:not(:has(li))
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[href*='/ad'][target='_blank']:has(img)
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##div[class$='gallery'][id] [target='_blank']:upward(1)
-[$domain=/torrentpi[0-9]*\.com/]##.post-image > [target='_blank']:has(img)
 [$domain=/yako[a-z0-9]*\.[a-z]{2,}/]###banner, .banner
 a-ha.io##.bg-white
 a-ha.io##[class*='adsense-inject']
@@ -142,8 +132,8 @@ m.blog.naver.com##div[class^='card__']:has-text(/블로그씨의 추천글/):rem
 m.bobaedream.co.kr##div[style$='height:50px;']
 m.cafe.daum.net##.bottom_banner
 m.cafe.naver.com###articleFeedList
-m.cafe.naver.com##.bottom.banner_add
-m.cafe.naver.com##.join_layer
+m.cafe.naver.com##.FloatingJoinButton
+m.cafe.naver.com##.banner_add
 m.cafe.naver.com##.popular_toast_popup
 m.cafe.naver.com##.subscribe_layer_wrap
 m.danawa.com###mdnw-main-bottomSheet-container
@@ -217,6 +207,8 @@ teamblind.com##[href^='https://link.coupang.com/re/AFFSDP']
 teamblind.com##div.article-list-pre:has([href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.article:has(> a[href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.comment_area.wrap-comment[style='cursor: pointer;']
+torrentpi150.com##.h20 +.widget-box
+torrentpi150.com##div.col-sm-12 > .widget-box > .basic-post-gallery
 twidouga.net##iframe[width='300'][height='250']
 twidouga.net##+js(aeld, click, preventDefault)
 web.joongna.com##.pb-12
@@ -268,9 +260,11 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||co.kr^$stealth=dpi
 @@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc|ip
+@@||eyejokerdb.com^$stealth=dpi
 @@||graph.facebook.com^$domain=fmkorea.com
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
+@@||naver*.$stealth=dpi
 @@||nexon.$stealth=dpi
 @@||onelink.me^$stealth=dpi
 @@||search.shopping.naver.com^$stealth
@@ -280,6 +274,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||tivan.naver.com^$app=com.nhn.android.search
 algumon.com#@#ul.post-list > li[class^="post-"]:not([id]):not([data-post-id])
 etoland.co.kr#$#div.hit_latest_ad { display: grid !important; }
+hotword.site#@#div[class^="col-md-"] div:is([style^="width:"], [style^="min-width:"])
 m.11st.co.kr#@$##banner-gnb { display: none !important; }
 mitem.auction.co.kr#@#[class*="app-install"]
 mlbpark.donga.com#@#div[class*="_ad"]
