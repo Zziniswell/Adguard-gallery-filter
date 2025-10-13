@@ -1,16 +1,14 @@
 ! Title: 애드가드 갤러리 DNS 필터
-! Version: 2025.10.04
+! Version: 2025.10.14
 ! Description: Adguard DNS 필터의 오차단을 해제하고 일부 https 검열을 우회합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
 ! Disable incorrect blocking
 @@||buzzvil.com^
 ||ad-creative.pstatic.net^$badfilter
-||adcr.naver.com^$badfilter
 ||adshnk.com^$badfilter
 ||adtouch.adbrix.io^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
-||searchad-phinf.pstatic.net^$badfilter
 ||tivan.naver.com^$badfilter
 
 ! Ads
@@ -34,8 +32,8 @@
 ||rule34.xxx$dnsrewrite=104.16.181.45
 ||rule34hentai.net^$dnsrewrite=104.16.181.45
 ||sogirl.so$dnsrewrite=104.16.181.45
+||tkor*.com^$dnsrewrite=104.16.181.45
 ||tkr*.com^$dnsrewrite=104.16.181.45
-||toonkor*.com^$dnsrewrite=104.16.181.45
 ||torrentbot*.com^$dnsrewrite=104.16.181.45
 ||torrentqq*.com^$dnsrewrite=104.16.181.45
 ||torrentreel*.site^$dnsrewrite=104.16.181.45
