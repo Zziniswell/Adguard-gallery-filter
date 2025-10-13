@@ -12,8 +12,8 @@ com###viewCover
 com,net##.board-tail-banner
 com,net##.col-sm-9.col-md-9.col-15
 com,net##[style='margin-bottom: 20px;'].row.row-15
-m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px 0px/):matches-css(padding: [0-5]px/):remove()
-m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: [0-5]px/):remove()
+m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px 0px/):matches-css(padding: /[0-5]px/):remove()
+m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
 org##.banner_wrap2
 !#endif
 
