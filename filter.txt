@@ -55,6 +55,7 @@ org##.banner_wrap2
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[href*='/ad'][target='_blank']:has(img)
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##div[class$='gallery'][id] [target='_blank']:upward(1)
 [$domain=/yako[a-z0-9]*\.[a-z]{2,}/]###banner, .banner
+a-ha.io##.bg-white
 a-ha.io##[class*='adsense-inject']
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 algumon.com##.a-post-detail-bottom
@@ -136,7 +137,6 @@ m.dcinside.com##section.grid:has(.news-schthum-lst)
 m.dcinside.com##ul[style] li.swiper-slide:nth-of-type(5)
 m.dcinside.com#$##notice_list > li:has(.ct):not(:has(.ntc-line-pink.round)) { display: table !important; }
 m.dcinside.com#@#.trend-rank
-m.fmkorea.com##.bd_mobile.bd:matches-css(border:)
 m.fmkorea.com##.search_assist_hover
 m.gmarket.co.kr##.box__ad-banner
 m.gmarket.co.kr##.box__banner-promotion
@@ -237,7 +237,6 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ! Incorrect blocking
 #@#.appBanner:not(body)
 /img.gif?$badfilter
-@@*$stealth=dpi,app=com.nhn.android.navercafe
 @@||192.168.$stealth
 @@||action.adoffice.11st.co.kr^$domain=search.11st.co.kr
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
@@ -249,9 +248,8 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||graph.facebook.com^$domain=fmkorea.com
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
-@@||nexon.$stealth=dpi
+@@||nexon.com^$stealth=dpi
 @@||search.shopping.naver.com^$stealth
-@@||skstoa.com^$jsinject
 @@||smartstore.naver.com^$stealth
 @@||t1.daumcdn.net/*/static/kp.js
 @@||tivan.naver.com^$app=com.nhn.android.search
