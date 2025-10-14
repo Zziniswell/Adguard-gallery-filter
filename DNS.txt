@@ -4,6 +4,7 @@
 ! Homepage: https://gallog.dcinside.com/cent8649
 
 ! Disable incorrect blocking
+@@||adoffice.11st.co.kr^
 @@||buzzvil.com^
 ||ad-creative.pstatic.net^$badfilter
 ||adshnk.com^$badfilter
@@ -27,21 +28,12 @@
 ||lover*.net^$dnsrewrite=104.16.181.45
 ||manatoki*.net^$dnsrewrite=104.16.181.45
 ||mingky*.net^$dnsrewrite=104.16.181.45
-||missav.*^$dnsrewrite=104.16.181.45
+||missav.*$dnsrewrite=104.16.181.45
 ||newtoki*.*$dnsrewrite=104.16.181.45
 ||rule34.xxx$dnsrewrite=104.16.181.45
 ||rule34hentai.net^$dnsrewrite=104.16.181.45
-||sogirl.so$dnsrewrite=104.16.181.45
+||sogirl.*$dnsrewrite=104.16.181.45
 ||tkor*.com^$dnsrewrite=104.16.181.45
 ||tkr*.com^$dnsrewrite=104.16.181.45
-||torrentbot*.com^$dnsrewrite=104.16.181.45
-||torrentqq*.com^$dnsrewrite=104.16.181.45
-||torrentreel*.site^$dnsrewrite=104.16.181.45
-||torrentrj*.com^$dnsrewrite=104.16.181.45
-||torrentsee*.com^$dnsrewrite=104.16.181.45
-||torrentsome*.com^$dnsrewrite=104.16.181.45
-||torrentzota*.com^$dnsrewrite=104.16.181.45
 ||twidouga.net^$dnsrewrite=104.16.181.45
-||wftoon*.com^$dnsrewrite=104.16.181.45
-||wfwf*.com^$dnsrewrite=104.16.181.45
 ||xhamster.com^$dnsrewrite=104.16.181.45
