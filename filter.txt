@@ -160,7 +160,7 @@ mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
 my.gmarket.co.kr##.box__component--inner
 namu.*##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
-namu.*##div[class]:matches-attr(class=/^[a-zA-Z0-9_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal))
+namu.*##div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal))
 namu.*##div[class][id]:empty
 namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
 new-m.pay.naver.com##[class^='AiTEMS_article']
@@ -177,6 +177,7 @@ ruliweb.com##.gallery.table_body
 ruliweb.com,ppomppu.co.kr,naver.com,daum.net##[id$='_ad']
 sbs.co.kr##[src^='https://adservice.sbs.co.kr/']
 search.danawa.com##[id^='powerShoppingArea']
+search.danawa.com##li[data-itemtype='adsmart']
 search.dcinside.com##.news_result
 search.dcinside.com##.right_content
 section.blog.naver.com##.area_advertisement
