@@ -7,13 +7,13 @@
 For iOS
 !#if (adguard && adguard_app_ios)
 ###img_row_container
-com###bannerList
-com###viewCover
 com,net##.board-tail-banner
 com,net##.col-sm-9.col-md-9.col-15
 com,net##[style='margin-bottom: 20px;'].row.row-15
 m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px 0px/):matches-css(padding: /[0-5]px/):remove()
 m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
+net###bannerList
+net###viewCover
 org##.banner_wrap2
 !#endif
 
@@ -47,9 +47,8 @@ org##.banner_wrap2
 [$domain=/^torrentsee[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
 [$domain=/^tvmon[0-9]*\.org/]##.banner_wrap2
 [$domain=/^tvmon[0-9]*\.org/]##[src*='/AD/']
-[$domain=/^tvwiki[0-9]*\.com/]###bannerList
-[$domain=/^tvwiki[0-9]*\.com/]###viewCover
-[$domain=/^tvwiki[0-9]*\.com/]##[src*='/banner/']
+[$domain=/^tvwiki[0-9]*\.net/]###bannerList
+[$domain=/^tvwiki[0-9]*\.net/]###viewCover
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[alt*='광고'], [alt*='배너'], [data-ride]
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[class*='carousel'][id]:not(:has(li))
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[href*='/ad'][target='_blank']:has(img)
@@ -142,6 +141,7 @@ m.gmarket.co.kr##.box__ad-banner
 m.gmarket.co.kr##.box__banner-promotion
 m.gmarket.co.kr##.box__top-banner
 m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
+m.inven.co.kr##li.games.list > [href^='https://mkt.shopping.naver.com/link/']
 m.naver.com###sb-kh-shortents-wrap
 m.ppomppu.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr##.board-sponsor.board-thumb.bbsList
