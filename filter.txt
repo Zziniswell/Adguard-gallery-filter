@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.14
+! Version: 2025.10.16
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
@@ -39,14 +39,14 @@ org##.banner_wrap2
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
 [$domain=/^booktoki[0-9]*\.com/]##.col-sm-9.col-md-9.col-15
-[$domain=/^hoohootv[0-9]*\.[a-z]{2,}$/]###img_row_container
+[$domain=/^hoohootv[0-9]*\.[a-z]{2,}/]###img_row_container
 [$domain=/^tkor[0-9]*\.com/]##.bnt.bn
 [$domain=/^tkor[0-9]*\.com/]##[id^='banner']
 [$domain=/^torrentbot[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
 [$domain=/^torrentsee[0-9]*\.com/]#@#[alt*='광고'], [alt*='배너'], [data-ride]
 [$domain=/^torrentsee[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
-[$domain=/^tvmon[0-9]*\.org/]##.banner_wrap2
-[$domain=/^tvmon[0-9]*\.org/]##[src*='/AD/']
+[$domain=/^tvmon[0-9]*\.[a-z]{2,}/]##.banner_wrap2
+[$domain=/^tvmon[0-9]*\.[a-z]{2,}/]##[src*='/AD/']
 [$domain=/^tvwiki[0-9]*\.net/]###bannerList
 [$domain=/^tvwiki[0-9]*\.net/]###viewCover
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[alt*='광고'], [alt*='배너'], [data-ride]
@@ -145,8 +145,7 @@ m.inven.co.kr##li.games.list > [href^='https://mkt.shopping.naver.com/link/']
 m.naver.com###sb-kh-shortents-wrap
 m.ppomppu.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr##.board-sponsor.board-thumb.bbsList
-m.ppomppu.co.kr##div[style]:has(> ins)
-m.ppomppu.co.kr##div[style^='margin:10px']
+m.ppomppu.co.kr##div[style^='text-align:center;']
 m.ppomppu.co.kr#@#tr:has([src$='/icon_ppom_coupon_pc.png'])
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
