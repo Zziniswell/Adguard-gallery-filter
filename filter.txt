@@ -1,7 +1,7 @@
 ! Title: 애드가드 갤러리 필터
 ! Version: 2025.10.16
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
-! Homepage: https://gall.dcinside.com/mgallery/board/view/?id=adguard&no=2348
+! Homepage: https://m.dcinside.com/gallog/cent8649
 
 
 For iOS
@@ -124,16 +124,13 @@ m.cafe.naver.com##.subscribe_layer_wrap
 m.danawa.com###mdnw-main-bottomSheet-container
 m.danawa.com###mdnw-main-dimm
 m.dcinside.com###notice_list > li
-m.dcinside.com##.dna-group.grid
 m.dcinside.com##.layer-bottom-popup
 m.dcinside.com##.media-group.grid
 m.dcinside.com##.outside-search-box
 m.dcinside.com##.trend-rank:style(padding:0px!important; border-top:0px!important;)
-m.dcinside.com##.trend.cont
 m.dcinside.com##[href="javascript:go_statistics('pandalive','https://mdcinside.pandalive.co.kr/');"]
 m.dcinside.com##section.grid > .md-tit-box:has-text(Daum)
 m.dcinside.com##section.grid:has(.news-schthum-lst)
-m.dcinside.com##ul[style] li.swiper-slide:nth-of-type(5)
 m.dcinside.com#$##notice_list > li:has(.ct):not(:has(.ntc-line-pink.round)) { display: table !important; }
 m.dcinside.com#@#.trend-rank
 m.fmkorea.com##.search_assist_hover
@@ -157,6 +154,7 @@ mlbpark.donga.com##li.items:has([target='_blank'])
 mlbpark.donga.com##ul.sub_lists_today.lists > li.items:nth-of-type(6)::before
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
+mt.co.kr##.article_ads
 my.gmarket.co.kr##.box__component--inner
 namu.*##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
 namu.*##div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal))
@@ -246,6 +244,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc|ip
 @@||graph.facebook.com^$domain=fmkorea.com
+@@||hanaroetf.com^$stealth=dpi
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
 @@||nexon.com^$stealth=dpi
