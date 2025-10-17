@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 DNS 필터
-! Version: 2025.10.14
+! Version: 2025.10.17
 ! Description: Adguard DNS 필터의 오차단을 해제하고 일부 https 검열을 우회합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
@@ -10,6 +10,7 @@
 ||adshnk.com^$badfilter
 ||adtouch.adbrix.io^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
+||static.airbridge.io^$badfilter
 ||tivan.naver.com^$badfilter
 
 ! Ads
