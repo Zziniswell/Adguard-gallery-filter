@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.17
+! Version: 2025.10.18
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -141,7 +141,6 @@ m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
 m.inven.co.kr##li.games.list > [href^='https://mkt.shopping.naver.com/link/']
 m.naver.com###sb-kh-shortents-wrap
 m.ppomppu.co.kr###ask_app_usage_popup
-m.ppomppu.co.kr##.board-sponsor.board-thumb.bbsList
 m.ppomppu.co.kr##div[style^='text-align:center;']
 m.ppomppu.co.kr#@#tr:has([src$='/icon_ppom_coupon_pc.png'])
 m.ruliweb.com##tr:has(.nbp_container)
@@ -233,7 +232,6 @@ dcinside.com$$script:has-text(blockedState)
 dcinside.com#%#//scriptlet('set-constant', 'isBlockDetectedOnDiv', 'noopFunc')
 m.dcinside.com###moveOverlay
 m.dcinside.com##+js(nostif, adblock_detected7)
-m.dcinside.com#%#//scriptlet('set-constant', 'runAnimation', 'noopFunc')
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
