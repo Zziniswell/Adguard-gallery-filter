@@ -230,7 +230,10 @@ ppomppu.co.kr#%#//scriptlet('href-sanitizer', 'a[href^="https://s.ppomppu.co.kr?
 #%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 @@||piku.co.kr^$generichide
 dcinside.com$$script:has-text(blockedState)
+dcinside.com#%#//scriptlet('set-constant', 'isBlockDetectedOnDiv', 'noopFunc')
+m.dcinside.com###moveOverlay
 m.dcinside.com##+js(nostif, adblock_detected7)
+m.dcinside.com#%#//scriptlet('set-constant', 'runAnimation', 'noopFunc')
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
