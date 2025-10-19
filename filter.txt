@@ -26,8 +26,6 @@ org##.banner_wrap2
 ##[class*='ad'][id^='AD']
 ##[class*='basic-banner'][id]
 ##[class^='happy-header']
-##[id*='powerLink']
-##[id*='powerlink']
 ##[id^='hd_pop']
 ##div.banner_m
 ##div[class^='AD'][style]
@@ -69,11 +67,11 @@ avsee.ru##.title div[style^='width:100%']
 avsee.ru##.widget-side-box div.main-box:first-child
 avsee.ru##[alt$='gif']
 bbs.ruliweb.com##tr:has(.nick[style^='display: inline-block'])
+blog.naver.com,comic.naver.com##[class*='banner_area']
 cafe.naver.com##.ArticleFormBanner
 chimhaha.net##.powerLinkAdsCenter
 chimhaha.net##[id^='slot']
 chimhaha.net##div[style='margin-top: 50px; ']
-chzzk.naver.com##[class^='top_banner_item']:has([class^='top_banner_ad'])
 coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
 coinpan.com##.flatBoard > .clearfix.title-wrap
 coinpan.com##p > strong
@@ -149,11 +147,12 @@ m.wowtv.co.kr##div[id*='Banner']
 maple.gg,dak.gg##+js(set-cookie, hideFrontPagePopup, true)
 mapleland.gg##main.relative > .z-\[999\]
 mlbpark.donga.com##.coupang_cont
-mlbpark.donga.com##li.items:has([target='_blank'])
+mlbpark.donga.com##li.items:has-text(/엠팍제휴팀/)
 mlbpark.donga.com##ul.sub_lists_today.lists > li.items:nth-of-type(6)::before
+mlbpark.donga.com$$li:has-text(엠팍제휴팀)
+mt.co.kr##.article_ads
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
-mt.co.kr##.article_ads
 my.gmarket.co.kr##.box__component--inner
 namu.*##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
 namu.*##div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal))
@@ -192,17 +191,17 @@ teamblind.com##div.article:has(> a[href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.comment_area.wrap-comment[style='cursor: pointer;']
 torrentpi150.com##.h20 +.widget-box
 torrentpi150.com##div.col-sm-12 > .widget-box > .basic-post-gallery
-twidouga.net##iframe[width='300'][height='250']
 twidouga.net##+js(aeld, click, preventDefault)
+twidouga.net##iframe[width='300'][height='250']
 web.joongna.com##.pb-12
 web.joongna.com##div:has([alt='ad']):has([target^='_bla']):not(:has(h2))
 web.joongna.com##li:has(span:has-text(광고))
 web.joongna.com,top.cafe.daum.net,nexon.*,gg,ps,xyz#@#[target='_blank']:has([src*='/banner/'])
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##.wrap-BannerBox
-xportsnews.com$$div[class="ad mobile"]  
+xportsnews.com$$div[class="ad mobile"]
+zod.kr##.horizontal.zod-widgets--deal_partner
 zod.kr##[data-href^='https://zod.kr/go/']:has(img)
-zod.kr##main.app-clearfix.app-content > div[class*='swiper'][id]:first-child
 ||ad-img.gmarket.com^$app=com.ebay.kr.gmarket|com.ebay.kr.auction
 ||ader.naver.com/*?c=m_$all
 ||arca.live/static/assets/js/adult.min.js
@@ -228,7 +227,6 @@ ppomppu.co.kr#%#//scriptlet('href-sanitizer', 'a[href^="https://s.ppomppu.co.kr?
 #%#//scriptlet('prevent-fetch','pagead2.googlesyndication.com')
 #%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 @@||piku.co.kr^$generichide
-dcinside.com$$script:has-text(blockedState)
 dcinside.com#%#//scriptlet('set-constant', 'isBlockDetectedOnDiv', 'noopFunc')
 m.dcinside.com###moveOverlay
 m.dcinside.com##+js(nostif, adblock_detected7)
