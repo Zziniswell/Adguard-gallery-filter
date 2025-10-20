@@ -10,7 +10,7 @@ For iOS
 com,net##.board-tail-banner
 com,net##.col-sm-9.col-md-9.col-15
 com,net##[style='margin-bottom: 20px;'].row.row-15
-m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px 0px/):matches-css(padding: /[0-5]px/):remove()
+m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
 m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
 net###bannerList
 net###viewCover
@@ -200,6 +200,7 @@ web.joongna.com,top.cafe.daum.net,nexon.*,gg,ps,xyz#@#[target='_blank']:has([src
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##.wrap-BannerBox
 xportsnews.com$$div[class="ad mobile"]
+zod.kr##.app-clearfix.app-content > div[class][id]:first-child
 zod.kr##.horizontal.zod-widgets--deal_partner
 zod.kr##[data-href^='https://zod.kr/go/']:has(img)
 ||ad-img.gmarket.com^$app=com.ebay.kr.gmarket|com.ebay.kr.auction
@@ -241,7 +242,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.adbrix.io^$app=com.kakao.talk
-@@||coupang.com^$jsinject
+@@||coupang*.com^$jsinject
 @@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc|ip
 @@||graph.facebook.com^$domain=fmkorea.com
