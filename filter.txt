@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.18
+! Version: 2025.10.21
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -7,14 +7,13 @@
 For iOS
 !#if (adguard && adguard_app_ios)
 ###img_row_container
+##.banner_wrap2
 com,net##.board-tail-banner
 com,net##.col-sm-9.col-md-9.col-15
 com,net##[style='margin-bottom: 20px;'].row.row-15
 m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
-m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
 net###bannerList
 net###viewCover
-org##.banner_wrap2
 !#endif
 
 ! Ads & Annoyances(banner, overlay, popup and widget)
@@ -86,9 +85,13 @@ dvdprime.com##.rc_ad
 dvdprime.com##[id$='top_banner']
 etoland.co.kr###inhouse-banner-top
 etoland.co.kr###login_popup
-etoland.co.kr##[src*='/data/daumeditor']
+etoland.co.kr###underGoodBtn_freeRecharge
+etoland.co.kr##.banner-content
+etoland.co.kr##[href^='https://www.etoland.co.kr/pages/short.php']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap
 etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
+etoland.co.kr##li:has-text(/비밀상점|이토보험상담실|이토상담실/)
+etoland.co.kr##li:has([href^='https://etoland.co.kr/pages/short.php'])
 fmkorea.com##.relevant_products_from_ad
 gall.dcinside.com##.clear.gnb_list > li:nth-of-type(6)
 gall.dcinside.com##.gall_list tr[class='ub-content ']
@@ -140,7 +143,6 @@ m.inven.co.kr##li.games.list > [href^='https://mkt.shopping.naver.com/link/']
 m.naver.com###sb-kh-shortents-wrap
 m.ppomppu.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr##div[style^='text-align:center;']
-m.ppomppu.co.kr#@#tr:has([src$='/icon_ppom_coupon_pc.png'])
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
 m.wowtv.co.kr##div[id*='Banner']
@@ -162,7 +164,6 @@ new-m.pay.naver.com##[class^='AiTEMS_article']
 new-m.pay.naver.com##[class^='BottomAds_article__']
 ppomppu.co.kr##.bottom > div[style]
 ppomppu.co.kr##tr:has(#ad-icon)
-ppomppu.co.kr##tr:has([src$='/icon_ppom_coupon_pc.png'])
 quasarzone.com##.best-official-news
 quasarzone.com##.new-official-news
 quasarzone.com##.new-partner-saleinfo-container
@@ -191,14 +192,14 @@ teamblind.com##div.article:has(> a[href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.comment_area.wrap-comment[style='cursor: pointer;']
 torrentpi150.com##.h20 +.widget-box
 torrentpi150.com##div.col-sm-12 > .widget-box > .basic-post-gallery
-twidouga.net##+js(aeld, click, preventDefault)
 twidouga.net##iframe[width='300'][height='250']
-web.joongna.com##.pb-12
-web.joongna.com##div:has([alt='ad']):has([target^='_bla']):not(:has(h2))
-web.joongna.com##li:has(span:has-text(광고))
+twidouga.net,chimhaha.net##+js(aeld, click, preventDefault)
+web.joongna.com##hr +.pb-12
+web.joongna.com##main > div:has([src^='/main-web/_next/static/media/ad'])
 web.joongna.com,top.cafe.daum.net,nexon.*,gg,ps,xyz#@#[target='_blank']:has([src*='/banner/'])
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##.wrap-BannerBox
+www.ppomppu.co.kr##tr:has([src$='/icon_ppom_coupon_pc.png'])
 xportsnews.com$$div[class="ad mobile"]
 zod.kr##.app-clearfix.app-content > div[class][id]:first-child
 zod.kr##.horizontal.zod-widgets--deal_partner
@@ -230,7 +231,6 @@ ppomppu.co.kr#%#//scriptlet('href-sanitizer', 'a[href^="https://s.ppomppu.co.kr?
 @@||piku.co.kr^$generichide
 dcinside.com#%#//scriptlet('set-constant', 'isBlockDetectedOnDiv', 'noopFunc')
 m.dcinside.com###moveOverlay
-m.dcinside.com##+js(nostif, adblock_detected7)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
@@ -242,7 +242,6 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.adbrix.io^$app=com.kakao.talk
-@@||coupang*.com^$jsinject
 @@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc|ip
 @@||graph.facebook.com^$domain=fmkorea.com
