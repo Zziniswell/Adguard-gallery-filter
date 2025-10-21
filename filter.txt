@@ -85,7 +85,6 @@ dvdprime.com##.rc_ad
 dvdprime.com##[id$='top_banner']
 etoland.co.kr###inhouse-banner-top
 etoland.co.kr###login_popup
-etoland.co.kr###underGoodBtn_freeRecharge
 etoland.co.kr##.banner-content
 etoland.co.kr##[href^='https://www.etoland.co.kr/pages/short.php']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap
@@ -199,7 +198,6 @@ web.joongna.com##main > div:has([src^='/main-web/_next/static/media/ad'])
 web.joongna.com,top.cafe.daum.net,nexon.*,gg,ps,xyz#@#[target='_blank']:has([src*='/banner/'])
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##.wrap-BannerBox
-www.ppomppu.co.kr##tr:has([src$='/icon_ppom_coupon_pc.png'])
 xportsnews.com$$div[class="ad mobile"]
 zod.kr##.app-clearfix.app-content > div[class][id]:first-child
 zod.kr##.horizontal.zod-widgets--deal_partner
@@ -264,6 +262,7 @@ mitem.auction.co.kr#@#[class*="app-install"]
 mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
+newautopost.co.kr#@#.news-view-wrap:style(padding-top: 0px !important;)
 search.11st.co.kr#@#[data-log-actionid-area^="focus"]
 web.joongna.com#@#a[rel*="sponsored"]
 ||dadispapi.gmarket.co.kr^$badfilter
