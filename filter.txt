@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.21
+! Version: 2025.10.22
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -7,6 +7,7 @@
 For iOS
 !#if (adguard && adguard_app_ios)
 ###img_row_container
+##.at-banner
 ##.banner_wrap2
 com,net##.board-tail-banner
 com,net##.col-sm-9.col-md-9.col-15
@@ -83,8 +84,8 @@ dcinside.com##.vote.trend
 dogdrip.net###oa-list_upper
 dvdprime.com##.rc_ad
 dvdprime.com##[id$='top_banner']
-etoland.co.kr###inhouse-banner-top
 etoland.co.kr###login_popup
+etoland.co.kr###underGoodBtn_freeRecharge
 etoland.co.kr##.banner-content
 etoland.co.kr##[href^='https://www.etoland.co.kr/pages/short.php']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap
@@ -200,6 +201,7 @@ windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##.wrap-BannerBox
 xportsnews.com$$div[class="ad mobile"]
 zod.kr##.app-clearfix.app-content > div[class][id]:first-child
+zod.kr##.app-footer > nav
 zod.kr##.horizontal.zod-widgets--deal_partner
 zod.kr##[data-href^='https://zod.kr/go/']:has(img)
 ||ad-img.gmarket.com^$app=com.ebay.kr.gmarket|com.ebay.kr.auction
@@ -241,7 +243,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.adbrix.io^$app=com.kakao.talk
 @@||coupang.com^$stealth
-@@||discord.$stealth=push|webrtc|ip
+@@||discord.$stealth=push|webrtc
 @@||graph.facebook.com^$domain=fmkorea.com
 @@||hanaroetf.com^$stealth=dpi
 @@||isplus.$stealth=dpi
@@ -249,6 +251,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||nexon.com^$stealth=dpi
 @@||search.shopping.naver.com^$stealth
 @@||smartstore.naver.com^$stealth
+@@||sprintenergy.kr^$stealth=dpi
 @@||t1.daumcdn.net/*/static/kp.js
 @@||tivan.naver.com^$app=com.nhn.android.search
 algumon.com#@#ul.post-list > li[class^="post-"]:not([id]):not([data-post-id])
