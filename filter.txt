@@ -1,20 +1,20 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.10.22
+! Version: 2025.10.23
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
 
 For iOS
 !#if (adguard && adguard_app_ios)
+###bannerList
 ###img_row_container
+###viewCover
 ##.at-banner
 ##.banner_wrap2
 com,net##.board-tail-banner
 com,net##.col-sm-9.col-md-9.col-15
 com,net##[style='margin-bottom: 20px;'].row.row-15
 m.fmkorea.com##.bd_mobile.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
-net###bannerList
-net###viewCover
 !#endif
 
 ! Ads & Annoyances(banner, overlay, popup and widget)
@@ -24,7 +24,6 @@ net###viewCover
 ##.textwidget
 ##[alt$='광고']
 ##[class*='ad'][id^='AD']
-##[class*='basic-banner'][id]
 ##[class^='happy-header']
 ##[id^='hd_pop']
 ##div.banner_m
@@ -32,8 +31,8 @@ net###viewCover
 ##iframe[src*='digitalcamp.co.kr']
 ##iframe[src*='targetpush.co.kr']
 ##ins.adsbyaiinad
+*##[class*='adsense']:not([style*='1px']):not(:has(p))
 *##[target='_blank']:has([src*='/banner/'])
-11st.co.kr##iframe[src*='ads.adoffice.11st.co.kr']
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
 [$domain=/^booktoki[0-9]*\.com/]##.col-sm-9.col-md-9.col-15
@@ -53,7 +52,6 @@ net###viewCover
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##div[class$='gallery'][id] [target='_blank']:upward(1)
 [$domain=/yako[a-z0-9]*\.[a-z]{2,}/]###banner, .banner
 a-ha.io##.bg-white
-a-ha.io##[class*='adsense-inject']
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 algumon.com##.a-post-detail-bottom
 algumon.com##li.mobile[class*='post-min-height-']
@@ -75,7 +73,7 @@ chimhaha.net##div[style='margin-top: 50px; ']
 coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
 coinpan.com##.flatBoard > .clearfix.title-wrap
 coinpan.com##p > strong
-danawa.com##[class^='banner']
+danawa.com,etoland.co.kr##[class^='banner']
 dcinside.com###dna_content
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
@@ -86,7 +84,6 @@ dvdprime.com##.rc_ad
 dvdprime.com##[id$='top_banner']
 etoland.co.kr###login_popup
 etoland.co.kr###underGoodBtn_freeRecharge
-etoland.co.kr##.banner-content
 etoland.co.kr##[href^='https://www.etoland.co.kr/pages/short.php']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap
 etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
@@ -140,6 +137,9 @@ m.gmarket.co.kr##.box__banner-promotion
 m.gmarket.co.kr##.box__top-banner
 m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
 m.inven.co.kr##li.games.list > [href^='https://mkt.shopping.naver.com/link/']
+m.naver.*#@##MM_search_container
+m.naver.*##.id_comp_home_quicklink.grid1 ~div
+m.naver.*##.id_search.wrap > .main_footer > footer > .mf_info_wrap:style(margin-top: 400px !important;)
 m.naver.com###sb-kh-shortents-wrap
 m.ppomppu.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr##div[style^='text-align:center;']
@@ -149,9 +149,9 @@ m.wowtv.co.kr##div[id*='Banner']
 maple.gg,dak.gg##+js(set-cookie, hideFrontPagePopup, true)
 mapleland.gg##main.relative > .z-\[999\]
 mlbpark.donga.com##.coupang_cont
-mlbpark.donga.com##li.items:has-text(/엠팍제휴팀/)
 mlbpark.donga.com##ul.sub_lists_today.lists > li.items:nth-of-type(6)::before
 mlbpark.donga.com$$li:has-text(엠팍제휴팀)
+mlbpark.donga.com$$tr:has-text(엠팍제휴팀)
 mt.co.kr##.article_ads
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
@@ -163,7 +163,7 @@ namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
 new-m.pay.naver.com##[class^='AiTEMS_article']
 new-m.pay.naver.com##[class^='BottomAds_article__']
 ppomppu.co.kr##.bottom > div[style]
-ppomppu.co.kr##tr:has(#ad-icon)
+ppomppu.co.kr$$tr:has-text(AD)
 quasarzone.com##.best-official-news
 quasarzone.com##.new-official-news
 quasarzone.com##.new-partner-saleinfo-container
@@ -238,7 +238,6 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 #@#.appBanner:not(body)
 /img.gif?$badfilter
 @@||192.168.$stealth
-@@||action.adoffice.11st.co.kr^$domain=search.11st.co.kr
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.adbrix.io^$app=com.kakao.talk
@@ -266,7 +265,6 @@ mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
 newautopost.co.kr#@#.news-view-wrap:style(padding-top: 0px !important;)
-search.11st.co.kr#@#[data-log-actionid-area^="focus"]
 web.joongna.com#@#a[rel*="sponsored"]
 ||dadispapi.gmarket.co.kr^$badfilter
 ||dcinside.com^$cookie=ci_c,badfilter
