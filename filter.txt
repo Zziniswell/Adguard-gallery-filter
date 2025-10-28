@@ -3,6 +3,8 @@
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
+! temp
+inven.co.kr##.ad-bbs-view-bottom
 
 For iOS, MV3
 !#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium)
