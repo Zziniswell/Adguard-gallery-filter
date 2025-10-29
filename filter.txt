@@ -274,6 +274,11 @@ web.joongna.com#@#a[rel*="sponsored"]
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.airbridge.io/sdk/$badfilter
+! ==test==
+@@*$xhr,extension,app=Discord.exe|EpicGamesLauncher.exe|Tslgame.exe|RiotClientServices.exe|Overwatch.exe|Wow.exe|StarRail.exe|EternalReturn.exe
+@@*$xhr,app=com.HoYoverse.Nap|com.HoYoverse.hkrpgoversea|com.smilegate.chaoszero.stove.google
+@@*$xhr,extension,jsinject,elemhide,app=steam.exe|steamwebhelper.exe
+@@||discord*.$extension='Adguard Assistant'
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##.btn_imgcmtopen:style(opacity: 0.4 !important;)
