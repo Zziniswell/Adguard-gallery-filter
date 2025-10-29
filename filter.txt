@@ -276,7 +276,8 @@ web.joongna.com#@#a[rel*="sponsored"]
 ||static.airbridge.io/sdk/$badfilter
 ! ==test==
 @@*$extension='Adguard Assistant',app=launcher.exe
-@@*$xhr,extension,app=steam.exe|steamwebhelper.exe|Discord.exe|EpicGamesLauncher.exe|Tslgame.exe|Overwatch.exe|Wow.exe|StarRail.exe|EternalReturn.exe
+@@*$xhr,extension,app=Discord.exe|EpicGamesLauncher.exe|Tslgame.exe|Overwatch.exe|Wow.exe|StarRail.exe|EternalReturn.exe
+@@*$xhr,extension,jsinject,elemhide,app=Steam.exe|steamwebhelper.exe
 @@*$xhr,app=com.HoYoverse.Nap|com.HoYoverse.hkrpgoversea|com.smilegate.chaoszero.stove.google
 @@||discord*.$extension='Adguard Assistant'
 
