@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.2
+! Version: 2025.11.4
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -88,7 +88,6 @@ etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
 etoland.co.kr##li:has-text(/비밀상점|이토보험상담실|이토상담실/)
 etoland.co.kr##li:has([href^='https://etoland.co.kr/pages/short.php'])
 fmkorea.com##.relevant_products_from_ad
-fmkorea.com##p:nth-of-type(2) > span > b > .night_default
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.list_trend
 gall.dcinside.com##.r_dcmedia
@@ -132,8 +131,8 @@ m.dcinside.com##section.grid:has(.news-schthum-lst)
 m.dcinside.com#$##notice_list > li:has(.ct):not(:has(.ntc-line-pink.round)) { display: table !important; }
 m.dcinside.com#@#.trend-rank
 m.fmkorea.com##.search_assist_hover
-m.fmkorea.com##section.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
-m.fmkorea.com##script ~ div[class*=' ']:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
+m.fmkorea.com##section.fmWidgetStyle2019.bd_mobile.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
+m.fmkorea.com##script ~ div[class*=' '].bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
 m.gmarket.co.kr##.box__ad-banner
 m.gmarket.co.kr##.box__banner-promotion
 m.gmarket.co.kr##.box__top-banner
@@ -158,11 +157,11 @@ mt.co.kr##.article_ads
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
 my.gmarket.co.kr##.box__component--inner
-namu.*##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
-namu.*##div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal))
-namu.*##div[class][id]:empty
-namu.*##div[class][id]:has(> iframe[id^='google_ads_iframe_'])
-namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
+namu.*#$#div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/) { display: none !important; }
+namu.*#$#div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has(a[href='/RecentChanges'])):not(:has(.equal)) { display: none !important; }
+namu.*#$#div[class][id]:empty { display: none !important; }
+namu.*#$#div[class][id]:has(> iframe[id^='google_ads_iframe_']) { display: none !important; }
+namu.*#$#li:has(time):not(:has([href*='/raw/'])):upward(2) { display: none !important; }
 pay.naver.com##div[class^='BottomAds_article__']
 ppomppu.co.kr##.bottom > div[style]
 ppomppu.co.kr$$tr:has-text(AD)
@@ -271,11 +270,6 @@ zod.kr#@#a[data-href^="https://zod.kr/go/"]
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.airbridge.io/sdk/$badfilter
-! ==test==
-@@*$extension='Adguard Assistant',app=launcher.exe
-@@*$xhr,extension,app=Discord.exe|EpicGamesLauncher.exe|Tslgame.exe|Overwatch.exe|Wow.exe|StarRail.exe|EternalReturn.exe
-@@*$xhr,app=com.HoYoverse.Nap|com.HoYoverse.hkrpgoversea|com.smilegate.chaoszero.stove.google
-@@||discord*.$extension='Adguard Assistant'
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##.btn_imgcmtopen:style(opacity: 0.4 !important;)
