@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.6
+! Version: 2025.11.8
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -61,6 +61,7 @@ avsee.ru##.title div[style^='width:100%']
 avsee.ru##.widget-side-box div.main-box:first-child
 avsee.ru##[alt$='gif']
 battlecats-db.com#$#body { display: block!important; }
+bbs.ruliweb.com##div.clear:has([style*='overflow-x'])
 bbs.ruliweb.com##tr:has(.nick[style^='display: inline-block'])
 blog.naver.com,comic.naver.com##[class*='banner_area']
 cafe.naver.com##.ArticleFormBanner
@@ -223,7 +224,8 @@ ppomppu.co.kr#%#//scriptlet('href-sanitizer', 'a[href^="https://s.ppomppu.co.kr?
 #%#//scriptlet('prevent-fetch','pagead2.googlesyndication.com')
 #%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 @@||piku.co.kr^$generichide
-dcinside.com##+js(set, isBlockDetectedOnDiv, noopFunc)
+chzzkban.xyz#%#//scriptlet('set-constant', '__adsToken', 'true')
+dcinside.com$$script:has-text(blockedState)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
@@ -234,6 +236,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.adbrix.io^$app=com.kakao.talk
+@@||bouquetgarni.kr^$stealth=dpi
 @@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc
 @@||fs2.joycity.com^$stealth=dpi
