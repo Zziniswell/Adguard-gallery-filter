@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.8
+! Version: 2025.11.11
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -68,7 +68,6 @@ cafe.naver.com##.ArticleFormBanner
 chimhaha.net##.powerLinkAdsCenter
 chimhaha.net##[id^='slot']
 chimhaha.net##div[style='margin-top: 50px; ']
-chzzk.naver.com##div[class^='band_banner_container__']
 chzzk.naver.com##div[class^='top_banner_item']:has([class^='top_banner_ad'])
 coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
 coinpan.com##.flatBoard > .clearfix.title-wrap
@@ -202,7 +201,6 @@ web.joongna.com,top.cafe.daum.net,nexon.*,gg,ps,xyz#@#[target='_blank']:has([src
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##.wrap-BannerBox
 xportsnews.com$$div[class="ad mobile"]
-zod.kr##[data-href^='https://zod.kr/go/']:has(img)
 ||ader.naver.com/*?c=m_$all
 ||arca.live/static/assets/js/adult.min.js
 ||avsee.ru/imgs/*.gif
@@ -225,7 +223,8 @@ ppomppu.co.kr#%#//scriptlet('href-sanitizer', 'a[href^="https://s.ppomppu.co.kr?
 #%#//scriptlet('prevent-fetch','pagead2.googlesyndication.com')
 #%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 @@||piku.co.kr^$generichide
-dcinside.com$$script:has-text(blockedState)
+dcinside.com##+js(set, isBlockDetectedOnDiv, noopFunc)
+kio.ac#%#//scriptlet('prevent-element-src-loading', 'script', 'lib.wtg-ads.com/publisher/kio.ac/sb_interstitial_wtg.js')
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
@@ -263,12 +262,11 @@ mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
 web.joongna.com#@#a[rel*="sponsored"]
-zod.kr#@#a[data-href^="https://zod.kr/go/"]
 ||dadispapi.gmarket.co.kr^$badfilter
 ||dcinside.com^$cookie=ci_c,badfilter
 ||edge-live.joongna.com/api/web-ads/$badfilter
-||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
+||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##.btn_imgcmtopen:style(opacity: 0.4 !important;)
