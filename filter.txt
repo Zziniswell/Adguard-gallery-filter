@@ -206,6 +206,7 @@ xportsnews.com$$div[class="ad mobile"]
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Annoyances(others)
+adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'fakepage')
 booktoki469.com,booktoki470.com###novel_content:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
 cafe.naver.com##+js(remove-class, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
@@ -220,7 +221,7 @@ manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com#%#//scriptlet('abo
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 battlecats-db.com#$#body { display: block!important; }
 dcinside.com##+js(set, isBlockDetectedOnDiv, noopFunc)
-kio.ac#%#//scriptlet('prevent-element-src-loading', 'script', 'lib.wtg-ads.com/publisher/kio.ac/sb_interstitial_wtg.js')
+kio.ac#%#//scriptlet('prevent-element-src-loading', 'script', '/sb_interstitial_wtg.js')
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
@@ -228,12 +229,14 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 #@#.appBanner:not(body)
 $@$link[rel="manifest"]
 /img.gif?$badfilter
+@@*$doc,app=com.deaguowl.fallcent
 @@||192.168.$stealth
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.adbrix.io^$app=com.kakao.talk
 @@||bouquetgarni.kr^$stealth=dpi
 @@||coupang.com^$stealth
+@@||discord.$extension='Adguard Assistant'
 @@||discord.$stealth=push|webrtc
 @@||fs2.joycity.com^$stealth=dpi
 @@||graph.facebook.com^$domain=fmkorea.com
@@ -262,6 +265,7 @@ web.joongna.com#@#a[rel*="sponsored"]
 ||dadispapi.gmarket.co.kr^$badfilter
 ||dcinside.com^$cookie=ci_c,badfilter
 ||edge-live.joongna.com/api/web-ads/$badfilter
+||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
 
