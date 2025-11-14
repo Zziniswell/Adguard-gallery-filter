@@ -131,10 +131,10 @@ m.gmarket.co.kr##.box__ad-banner
 m.gmarket.co.kr##.box__banner-promotion
 m.gmarket.co.kr##.box__top-banner
 m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
+m.naver.com###sb-kh-shortents-wrap
 m.naver.com##.id_search.wrap > .main_footer > footer > .mf_info_wrap:style(margin-top: 400px !important;)
 m.naver.com##div.comp_card:not(.comp_weather)
 m.naver.com#@##MM_search_container
-m.naver.com###sb-kh-shortents-wrap
 m.ppomppu.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr##.board-sponsor.board-thumb.bbsList
 m.ppomppu.co.kr##div[style^='text-align:center;']
@@ -152,11 +152,11 @@ mt.co.kr##.article_ads
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
 my.gmarket.co.kr##.box__component--inner
+namu.wiki##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
+namu.wiki##li:has(time):not(:has([href*='/raw/'])):upward(2)
+namu.wiki#$#div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has([href='/RecentChanges'])):not(:has(.equal)) { display: none !important; }
 namu.wiki#$#div[class][id]:empty { display: none !important; }
 namu.wiki#$#div[class][id]:has(> iframe[id^='google_ads_iframe_']) { display: none !important; }
-namu.*##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
-namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
-namu.*#$#div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has([href='/RecentChanges'])):not(:has(.equal)) { display: none !important; }
 pay.naver.com##div[class^='BottomAds_article__']
 play.sooplive.co.kr##+js(nowoif, andinstall)
 ppomppu.co.kr##.bottom > div[style]
