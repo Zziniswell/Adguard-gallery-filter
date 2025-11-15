@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.13
+! Version: 2025.11.15
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -83,6 +83,7 @@ etoland.co.kr##div.comment_wrap.comment_extra_wrap
 etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
 etoland.co.kr##li:has([href^='https://etoland.co.kr/pages/short.php'])
 etoland.co.kr##li:has-text(/비밀상점|이토보험상담실|이토상담실/)
+fc-info.com##div[class^='Venatus_']
 fmkorea.com##.relevant_products_from_ad
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.list_trend
@@ -134,7 +135,6 @@ m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
 m.naver.com###sb-kh-shortents-wrap
 m.naver.com##.id_search.wrap > .main_footer > footer > .mf_info_wrap:style(margin-top: 400px !important;)
 m.naver.com##div.comp_card:not(.comp_weather)
-m.naver.com#@##MM_search_container
 m.ppomppu.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr##.board-sponsor.board-thumb.bbsList
 m.ppomppu.co.kr##div[style^='text-align:center;']
@@ -152,7 +152,6 @@ mt.co.kr##.article_ads
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
 my.gmarket.co.kr##.box__component--inner
-namu.wiki##div[class*=' '] > div[class*=' ']:has(> a[target='_blank'][rel='noopener']):has-text(/^더 보기$/)
 namu.wiki##li:has(time):not(:has([href*='/raw/'])):upward(2)
 namu.wiki#$#div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has([href='/RecentChanges'])):not(:has(.equal)) { display: none !important; }
 namu.wiki#$#div[class][id]:empty { display: none !important; }
@@ -211,6 +210,7 @@ xportsnews.com$$div[class="ad mobile"]
 adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'fakepage')
 booktoki469.com,booktoki470.com###novel_content:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
 cafe.naver.com##+js(remove-class, disable-select, #ct)
+dcinside.com#$#li[id^='comment_']:has(p[class*='txt']:has-text(/1ill\.kr/)) { opacity: 0.1 !important; }
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
 fmkorea.com#%#//scriptlet('set-constant', 'link_url', '')
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com#%#//scriptlet('abort-current-inline-script', 'oncontextmenu')
@@ -231,7 +231,6 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 #@#.appBanner:not(body)
 $@$link[rel="manifest"]
 /img.gif?$badfilter
-@@*$xhr,app=com.deaguowl.fallcent
 @@/gaScript.js
 @@||192.168.$stealth
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
