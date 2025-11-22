@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.18
+! Version: 2025.11.22
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -72,9 +72,11 @@ coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
 coinpan.com##.flatBoard > .clearfix.title-wrap
 coinpan.com##p > strong
 danawa.com,etoland.co.kr##[class^='banner']
+dcinside.com###moveOverlay, #moveimg, #gaejukimg
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
 dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[A-Z])[A-Za-z0-9_]{2,10})$/):not(:has-text(/github|g2sh|imgur|pastebin|privatebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me/i))):style(opacity: 0.1 !important;)
+dcinside.com#$#li[id^='comment_']:has(p[class*='txt']:has-text(/1ill\.kr/)) { opacity: 0.1 !important; }
 dogdrip.net###oa-list_upper
 dvdprime.com##.rc_ad
 dvdprime.com##[id$='top_banner']
@@ -202,7 +204,7 @@ xportsnews.com$$div[class="ad mobile"]
 ||arca.live/static/assets/js/adult.min.js
 ||avsee.ru/imgs/*.gif
 ||dctrend.ai/widget/
-||hoduhodu.com/_next/image?url=*banner*$image
+||hoduhodu.com/_next/image?url=*banner$image
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||vs*.play.kakao.com^$app=com.kakao.talk
@@ -222,7 +224,7 @@ manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com#%#//scriptlet('abo
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 battlecats-db.com#$#body { display: block!important; }
-kio.ac#%#//scriptlet('prevent-element-src-loading', 'script', '/sb_interstitial_wtg.js')
+dcinside.com$$script:has-text(/pwlink|blockedState/)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 
@@ -247,7 +249,6 @@ $@$link[rel="manifest"]
 @@||smartstore.naver.com^$stealth
 @@||sprintenergy.kr^$stealth=dpi
 @@||static.airbridge.io^
-@@||supabase.co^$stealth=dpi
 @@||t1.daumcdn.net/*/static/kp.js
 @@||tivan.naver.com^$app=com.nhn.android.search
 algumon.com#@#ul.post-list > li[class^="post-"]:not([id]):not([data-post-id])
