@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.27
+! Version: 2025.11.27.2
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -79,13 +79,11 @@ dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-
 dogdrip.net###oa-list_upper
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
-etoland.co.kr###login_popup
 etoland.co.kr###underGoodBtn_freeRecharge
-etoland.co.kr##[href^='https://www.etoland.co.kr/pages/short.php']
-etoland.co.kr##div.comment_wrap.comment_extra_wrap
-etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
+etoland.co.kr##.banner-content
+etoland.co.kr##.bottom-banner
 etoland.co.kr##li.content_box_item:first-child
-etoland.co.kr##li:has([href^='https://etoland.co.kr/pages/short.php'])
+etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
 fc-info.com##div[class^='Venatus_']
 fmkorea.com##.relevant_products_from_ad
 gall.dcinside.com##.gall_list tr[class='ub-content ']
@@ -138,7 +136,6 @@ m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
 m.naver.com###sb-kh-shortents-wrap
 m.naver.com##.id_search.wrap > .main_footer > footer > .mf_info_wrap:style(margin-top: 400px !important;)
 m.naver.com##div.comp_card:not(.comp_weather)
-m.ppomppu.co.kr,m.ppomppu1.co.kr###ask_app_usage_popup
 m.ppomppu.co.kr,m.ppomppu1.co.kr##div[style^='text-align:center;']
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
