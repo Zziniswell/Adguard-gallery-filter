@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.22
+! Version: 2025.11.27
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -29,14 +29,14 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##iframe[src*='targetpush.co.kr']
 ##ins.adsbyaiinad
 *##[class*='adsense']:not([style*='1px']):not(:has(p))
-*##[target='_blank']:has([src*='/banner/'])
+*##a[target='_blank']:has([src*='/banner/'])
 *tcid=$all
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
 [$domain=/^booktoki[0-9]*\.com/]##.col-sm-9.col-md-9.col-15
 [$domain=/^hoohootv[0-9]*\.[a-z]{2,}/]###img_row_container
 [$domain=/^tkor[0-9]*\.com/]##.bnt.bn
-[$domain=/^tkor[0-9]*\.com/]##[id^='banner']
+[$domain=/^toonkor[0-9]*\.net/]##.bnt.bn
 [$domain=/^torrentbot[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
 [$domain=/^torrentsee[0-9]*\.com/]#@#[alt*='광고'], [alt*='배너'], [data-ride]
 [$domain=/^torrentsee[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
@@ -75,17 +75,17 @@ danawa.com,etoland.co.kr##[class^='banner']
 dcinside.com###moveOverlay, #moveimg, #gaejukimg
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
-dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[a-z0-9_]{5,9})$/):not(:has-text(/github|g2sh|img|pastebin|privatebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
+dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/github|g2sh|img|pastebin|privatebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
 dogdrip.net###oa-list_upper
-dvdprime.com##.rc_ad
 dvdprime.com##[id$='top_banner']
+dvdprime.com##[id^='ad_mobile']
 etoland.co.kr###login_popup
 etoland.co.kr###underGoodBtn_freeRecharge
 etoland.co.kr##[href^='https://www.etoland.co.kr/pages/short.php']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap
 etoland.co.kr##div[style^='text-align: center;'][style$='height: 100px;']
+etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr##li:has([href^='https://etoland.co.kr/pages/short.php'])
-etoland.co.kr##li:has-text(/비밀상점|이토보험상담실|이토상담실/)
 fc-info.com##div[class^='Venatus_']
 fmkorea.com##.relevant_products_from_ad
 gall.dcinside.com##.gall_list tr[class='ub-content ']
@@ -101,6 +101,7 @@ harpi.in##div:has(> script[src])
 hoduhodu.com##.md\:hidden.z-50.p-2.bg-black.w-full.left-0.bottom-0.fixed
 hygall.com##div[style='display: flex;justify-content: center; width:100%;height:100px;']
 instiz.net##.view_top
+instiz.net##div:has(> [id^='sense'])
 instiz.net##div[style='min-height:250px;']
 inven.co.kr###topLinkBanner
 inven.co.kr##.inven-float-alarm
@@ -125,7 +126,6 @@ m.dcinside.com##.outside-search-box
 m.dcinside.com##.trend-rank:style(padding:0px!important; border-top:0px!important;)
 m.dcinside.com##.view-btm-con
 m.dcinside.com##section.grid > .md-tit-box:has-text(Daum)
-m.dcinside.com##section.grid:has(.news-schthum-lst)
 m.dcinside.com#$##notice_list > li:has(.ct):not(:has(.ntc-line-pink.round)) { display: table !important; }
 m.dcinside.com#@#.trend-rank
 m.fmkorea.com##.search_assist_hover
@@ -138,14 +138,12 @@ m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
 m.naver.com###sb-kh-shortents-wrap
 m.naver.com##.id_search.wrap > .main_footer > footer > .mf_info_wrap:style(margin-top: 400px !important;)
 m.naver.com##div.comp_card:not(.comp_weather)
-m.ppomppu.co.kr###ask_app_usage_popup
-m.ppomppu.co.kr##div[style^='text-align:center;']
+m.ppomppu.co.kr,m.ppomppu1.co.kr###ask_app_usage_popup
+m.ppomppu.co.kr,m.ppomppu1.co.kr##div[style^='text-align:center;']
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
 m.wowtv.co.kr##div[id*='Banner']
 maple.gg,dak.gg##+js(set-cookie, hideFrontPagePopup, true)
-mapleland.gg##main.relative > .z-\[999\]
-maplescouter.com##.z-\[902\]
 mlbpark.donga.com##.coupang_cont
 mlbpark.donga.com##.the_hottest
 mlbpark.donga.com##li:has-text(/엠팍제휴팀|폰판기/)
@@ -155,8 +153,8 @@ mt.co.kr##.article_ads
 mule.co.kr##.board-ad-box
 mule.co.kr##.youtubeHideAdBanner
 my.gmarket.co.kr##.box__component--inner
-namu.wiki##li:has(time):not(:has([href*='/raw/'])):upward(2)
-namu.wiki#$#div[class]:matches-attr(class=/^[a-zA-Z0-9+_-]{7,9}$/):has(span:has-text(/^더 보기$/)):not(:has([href='/RecentChanges'])):not(:has(.equal)) { display: none !important; }
+namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
+namu.*##div[class]:matches-css(position: sticky)
 namu.wiki#$#div[class][id]:empty { display: none !important; }
 pay.naver.com##div[class^='BottomAds_article__']
 play.sooplive.co.kr##+js(nowoif, andinstall)
@@ -203,18 +201,21 @@ xportsnews.com$$div[class="ad mobile"]
 ||arca.live/static/assets/js/adult.min.js
 ||avsee.ru/imgs/*.gif
 ||dctrend.ai/widget/
+||dvdprime.com/file/*/banner
+||hellkaiv.net/data/nimpfile/
 ||hoduhodu.com/_next/image?url=*banner$image
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
+||t*kor*.*/images/
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Annoyances(others)
 adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'fakepage')
 booktoki469.com,booktoki470.com###novel_content:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
-cafe.naver.com##+js(remove-class, disable-select, #ct)
+cafe.naver.com##+js(rc, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
 fmkorea.com#%#//scriptlet('set-constant', 'link_url', '')
-manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com#%#//scriptlet('abort-current-inline-script', 'oncontextmenu')
+manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 
 ! Anti-adblock
 #%#//scriptlet('prevent-fetch', 'doubleclick.net')
@@ -232,10 +233,10 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 $@$link[rel="manifest"]
 /img.gif?$badfilter
 @@/gaScript.js
-@@||192.168.$stealth
+@@||192.168.$stealth=dpi|ip
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
-@@||adtouch.adbrix.io^$app=com.kakao.talk
+@@||adtouch.$app=com.kakao.talk
 @@||bouquetgarni.kr^$stealth=dpi
 @@||coupang.com^$stealth
 @@||discord.$stealth=push|webrtc
@@ -247,7 +248,7 @@ $@$link[rel="manifest"]
 @@||shopping.naver.com^$stealth
 @@||smartstore.naver.com^$stealth
 @@||sprintenergy.kr^$stealth=dpi
-@@||static.airbridge.io^
+@@||static.airbridge.io/sdk
 @@||t1.daumcdn.net/*/static/kp.js
 @@||tivan.naver.com^$app=com.nhn.android.search
 algumon.com#@#ul.post-list > li[class^="post-"]:not([id]):not([data-post-id])
@@ -269,12 +270,12 @@ web.joongna.com#@#a[rel*="sponsored"]
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
 
 ! 디시 이미지 댓글 토글 버튼 추가
-gall.dcinside.com##.btn_imgcmtopen:style(opacity: 0.4 !important;)
-gall.dcinside.com##div.img_area button.btn:style(opacity: 0.6 !important;)
+gall.dcinside.com##div.img_area button.btn:style(opacity: 0.4 !important;)
+gall.dcinside.com#$#.btn_imgcmtopen { opacity: 0.4 !important; transform: translate(8px, 7px) !important; }
 gall.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview_head:has(em.icon_write_app) > div.gall_writer > div.fl', 'span', 'alt="imgtoggle"', 'ㅤAPP')
 gall.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview_head:has(em.icon_write_mbl) > div.gall_writer > div.fl', 'span', 'alt="imgtoggle"', 'ㅤMOBILE')
 gall.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview_head:not(:has(em.icon_write_mbl)):not(:has(em.icon_write_app)) > div.gall_writer > div.fl', 'span', 'alt="imgtoggle"', 'ㅤPC')
-m.dcinside.com##.btn-imgcomment:style(opacity: 0.5 !important;)
+m.dcinside.com#$#button.btn-imgcomment { transform: scale(0.7) translate(20px, 15px) !important; opacity: 0.6 !important; }
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-app) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'APP')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-mweb) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'MOBILE')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:not(:has(span.sp-icon)) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'PC')
