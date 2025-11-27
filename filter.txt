@@ -80,8 +80,7 @@ dogdrip.net###oa-list_upper
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
 etoland.co.kr###underGoodBtn_freeRecharge
-etoland.co.kr##.banner-content
-etoland.co.kr##.bottom-banner
+etoland.co.kr##[class*='naver-store-search-']
 etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
 fc-info.com##div[class^='Venatus_']
