@@ -1,5 +1,22 @@
 ! Title: 애드가드 갤러리 DNS 필터
-! Version: 2025.07.09
+! Version: 2025.11.28
 ! Description: Adguard DNS 필터의 오차단을 해제합니다.
 ! Homepage: https://gallog.dcinside.com/cent8649
 
+
+! Disable incorrect blocking
+@@||buzzvil.com^
+||ad-creative.pstatic.net^$badfilter
+||action.adoffice.11st.co.kr^$badfilter
+||adshnk.com^$badfilter
+||adtouch.adbrix.io^$badfilter
+||dadispapi.gmarket.co.kr^$badfilter
+||sdk.airbridge.io^$badfilter
+||searchad-phinf.pstatic.net^$badfilter
+||tivan.naver.com^$badfilter
+
+! Ads
+||kamp.kakao.com^
+||shortformstats.kakao.com^
+||veta.naver.com^
+||vs*.play.kakao.com^
