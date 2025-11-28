@@ -234,6 +234,7 @@ $@$link[rel="manifest"]
 @@||hanaroetf.com^$stealth=dpi
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
+@@||searchad-phinf.pstatic.net^$app=com.nhn.android.search
 @@||shopping.naver.com^$stealth
 @@||smartstore.naver.com^$stealth
 @@||sprintenergy.kr^$stealth=dpi
@@ -252,6 +253,7 @@ mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
 web.joongna.com#@#a[rel*="sponsored"]
+||action.adoffice.11st.co.kr^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
 ||edge-live.joongna.com/api/web-ads/$badfilter
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
