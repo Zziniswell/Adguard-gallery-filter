@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.28
+! Version: 2025.11.28.2
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -18,19 +18,18 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ! Ads & Annoyances(banner, overlay, popup and widget)
 ##.ad-view
 ##.banner_m
-##.happy-under-player-mobile
 ##.textwidget
 ##[alt$='광고']
 ##[class*='ad'][id^='AD']
 ##[class^='AD'][style]
-##[class^='happy-header']
 ##[id^='hd_pop']
 ##iframe[src*='digitalcamp.co.kr']
 ##iframe[src*='targetpush.co.kr']
-##ins.adsbyaiinad
 *##[class*='adsense']:not([style*='1px']):not(:has(p))
 *##[target='_blank']:has([src*='/banner/'])
 *tcid=$all
+4kjav.co,sogirl.so##.happy-under-player-mobile
+4kjav.co,sogirl.so##[class^='happy-header']
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
 [$domain=/^booktoki[0-9]*\.com/]##.col-sm-9.col-md-9.col-15
@@ -74,7 +73,7 @@ danawa.com,etoland.co.kr,m.cafe.naver.com##[class^='banner']
 dcinside.com###moveOverlay, #moveimg, #gaejukimg
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
-dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/github|g2sh|img|pastebin|privatebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
+dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/git|g2sh|img|pastebin|privatebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
 dogdrip.net###oa-list_upper
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
@@ -83,7 +82,6 @@ etoland.co.kr##[class*='naver-store-search']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap.mw_basic_comment_content
 etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
-fc-info.com##div[class^='Venatus_']
 fmkorea.com##[class$='_ad']
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.list_trend
@@ -95,14 +93,14 @@ gmarket.co.kr##.section__main-banner.section__main
 greend.kr#@#[class*='ad'][id^='AD']
 harpi.in##div > iframe
 harpi.in##div:has(> script[src])
-hoduhodu.com##.md\:hidden.z-50.p-2.bg-black.w-full.left-0.bottom-0.fixed
-hoduhodu.com##.py-4 > a[target='_blank']:is(:first-child, :last-child)
+hoduhodu.com,mzgtoon.com###imagescroll > a[target='_blank']:is(:first-child, :last-child)
+hoduhodu.com,mzgtoon.com##.mt-4.flex-wrap.flex:first-child
+hoduhodu.com,mzgtoon.com##.z-50
 hygall.com##div[style='display: flex;justify-content: center; width:100%;height:100px;']
 instiz.net##.view_top
-instiz.net##div:has(> [id^='sense'])
+instiz.net##div[class^='hot_u']
 instiz.net##div[style='min-height:250px;']
 inven.co.kr##.inven-float-alarm
-inven.co.kr##.inven-games.menuGroup
 inven.co.kr##li.games.list > [href*='naver.com']
 inven.co.kr,mt.co.kr##[class$='ads']
 inven.co.kr,wowtv.co.kr##[class*='-banner']
@@ -117,13 +115,10 @@ m.danawa.com###mdnw-main-bottomSheet-container
 m.danawa.com###mdnw-main-dimm
 m.dcinside.com###notice_list > li
 m.dcinside.com##.layer-bottom-popup
-m.dcinside.com##.media-group.grid
 m.dcinside.com##.outside-search-box
-m.dcinside.com##.trend-rank:style(padding:0px!important; border-top:0px!important;)
 m.dcinside.com##.view-btm-con
 m.dcinside.com##section.grid > .md-tit-box:has-text(Daum)
 m.dcinside.com#$##notice_list > li:has(.ct):not(:has(.ntc-line-pink.round)) { display: table !important; }
-m.dcinside.com#@#.trend-rank
 m.fmkorea.com##.search_assist_hover
 m.fmkorea.com##script ~ div.bd_mobile.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
 m.fmkorea.com##section.fmWidgetStyle2019.bd_mobile.bd:matches-css(margin: /[0-5]px [0-5]px/):matches-css(padding: /[0-5]px/):remove()
@@ -161,7 +156,6 @@ ruliweb.com,ppomppu.co.kr,naver.com,daum.net##[id$='_ad']
 sbs.co.kr##iframe[src^='https://adservice.sbs.co.kr/']
 search.danawa.com##[id^='powerShoppingArea']
 search.danawa.com##li[data-itemtype='adsmart']
-search.dcinside.com##.news_result
 search.dcinside.com##.right_content
 section.blog.naver.com##.area_advertisement
 seoul.co.kr###bottomScrollBox
@@ -189,17 +183,13 @@ xportsnews.com$$div[class="ad mobile"]
 ||ader.naver.com/*?c=m_$all
 ||arca.live/static/assets/js/adult.min.js
 ||avsee.ru/imgs/*.gif
-||dctrend.ai/widget/
 ||dvdprime.com/file/*/banner
-||hellkaiv.net/data/nimpfile/
-||hoduhodu.com/_next/image?url=*banner$image
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.*/images/
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Annoyances(others)
-adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'fakepage')
 booktoki469.com,booktoki470.com###novel_content:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
 cafe.naver.com##+js(rc, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
@@ -207,8 +197,6 @@ fmkorea.com#%#//scriptlet('set-constant', 'link_url', '')
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 
 ! Anti-adblock
-#%#//scriptlet('prevent-fetch', 'doubleclick.net')
-#%#//scriptlet('prevent-fetch','pagead2.googlesyndication.com')
 #%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
@@ -216,6 +204,8 @@ battlecats-db.com#$#body { display: block!important; }
 dcinside.com$$script:has-text(/pwlink|blockedState/)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
+~adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'doubleclick.net')
+~adblock.turtlecute.org#%#//scriptlet('prevent-fetch','pagead2.googlesyndication.com')
 
 ! Incorrect blocking
 #@#.appBanner:not(body)
