@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.11.27.2
+! Version: 2025.11.28
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -21,15 +21,15 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##.happy-under-player-mobile
 ##.textwidget
 ##[alt$='광고']
-##div[class*='ad'][id^='AD']
-##div[class^='AD'][style]
-##div[class^='happy-header']
-##div[id^='hd_pop']
+##[class*='ad'][id^='AD']
+##[class^='AD'][style]
+##[class^='happy-header']
+##[id^='hd_pop']
 ##iframe[src*='digitalcamp.co.kr']
 ##iframe[src*='targetpush.co.kr']
 ##ins.adsbyaiinad
 *##[class*='adsense']:not([style*='1px']):not(:has(p))
-*##a[target='_blank']:has([src*='/banner/'])
+*##[target='_blank']:has([src*='/banner/'])
 *tcid=$all
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
@@ -64,14 +64,13 @@ bbs.ruliweb.com##div.clear:has([style*='overflow-x'])
 bbs.ruliweb.com##tr:has(.nick[style^='display: inline-block'])
 blog.naver.com,comic.naver.com##[class*='banner_area']
 cafe.naver.com##.ArticleFormBanner
-chimhaha.net##.powerLinkAdsCenter
 chimhaha.net##[id^='slot']
 chimhaha.net##div[style='margin-top: 50px; ']
-chzzk.naver.com##div[class^='top_banner_item']:has([class^='top_banner_ad'])
+chimhaha.net,seoul.co.kr,mule.co.kr##[class*='Ad']
 coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
 coinpan.com##.flatBoard > .clearfix.title-wrap
 coinpan.com##p > strong
-danawa.com,etoland.co.kr##[class^='banner']
+danawa.com,etoland.co.kr,m.cafe.naver.com##[class^='banner']
 dcinside.com###moveOverlay, #moveimg, #gaejukimg
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
@@ -80,11 +79,12 @@ dogdrip.net###oa-list_upper
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
 etoland.co.kr###underGoodBtn_freeRecharge
-etoland.co.kr##[class*='naver-store-search-']
+etoland.co.kr##[class*='naver-store-search']
+etoland.co.kr##div.comment_wrap.comment_extra_wrap.mw_basic_comment_content
 etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
 fc-info.com##div[class^='Venatus_']
-fmkorea.com##.relevant_products_from_ad
+fmkorea.com##[class$='_ad']
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.list_trend
 gall.dcinside.com##.r_dcmedia
@@ -96,22 +96,21 @@ greend.kr#@#[class*='ad'][id^='AD']
 harpi.in##div > iframe
 harpi.in##div:has(> script[src])
 hoduhodu.com##.md\:hidden.z-50.p-2.bg-black.w-full.left-0.bottom-0.fixed
+hoduhodu.com##.py-4 > a[target='_blank']:is(:first-child, :last-child)
 hygall.com##div[style='display: flex;justify-content: center; width:100%;height:100px;']
 instiz.net##.view_top
 instiz.net##div:has(> [id^='sense'])
 instiz.net##div[style='min-height:250px;']
-inven.co.kr###topLinkBanner
 inven.co.kr##.inven-float-alarm
 inven.co.kr##.inven-games.menuGroup
-inven.co.kr##.sc-banner
-inven.co.kr##.show-ads
 inven.co.kr##li.games.list > [href*='naver.com']
+inven.co.kr,mt.co.kr##[class$='ads']
+inven.co.kr,wowtv.co.kr##[class*='-banner']
 k-hentai.org##.my-3.container
 m.blog.naver.com##div[class^='card__']:has-text(/블로그씨의 추천글/):remove()
 m.bobaedream.co.kr##div[style$='height:50px;']
-m.cafe.daum.net##.bottom_banner
+m.cafe.daum.net##[class*='_banner']
 m.cafe.naver.com###articleFeedList
-m.cafe.naver.com##.banner_add
 m.cafe.naver.com##.popular_toast_popup
 m.cafe.naver.com##.subscribe_layer_wrap
 m.danawa.com###mdnw-main-bottomSheet-container
@@ -138,16 +137,13 @@ m.naver.com##div.comp_card:not(.comp_weather)
 m.ppomppu.co.kr,m.ppomppu1.co.kr##div[style^='text-align:center;']
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
-m.wowtv.co.kr##div[id*='Banner']
+m.wowtv.co.kr,inven.co.kr##[id*='Banner']
 maple.gg,dak.gg##+js(set-cookie, hideFrontPagePopup, true)
-mlbpark.donga.com##.coupang_cont
 mlbpark.donga.com##.the_hottest
-mlbpark.donga.com##li:has-text(/엠팍제휴팀|폰판기/)
+mlbpark.donga.com,teamblind.com##[class^='coupang']
 mlbpark.donga.com##ul.sub_lists_today.lists > li.items:nth-of-type(6)::before
 mlbpark.donga.com$$li:has-text(/엠팍제휴팀|폰판기/)
-mt.co.kr##.article_ads
-mule.co.kr##.board-ad-box
-mule.co.kr##.youtubeHideAdBanner
+mule.co.kr##[class*='-ad-']
 my.gmarket.co.kr##.box__component--inner
 namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
 namu.*##div[class]:matches-css(position: sticky)
@@ -162,26 +158,23 @@ quasarzone.com##.new-partner-saleinfo-container
 quasarzone.com##.qz-day-content-area
 quasarzone.com##.recommend-deal-wrap
 ruliweb.com,ppomppu.co.kr,naver.com,daum.net##[id$='_ad']
-sbs.co.kr##[src^='https://adservice.sbs.co.kr/']
+sbs.co.kr##iframe[src^='https://adservice.sbs.co.kr/']
 search.danawa.com##[id^='powerShoppingArea']
 search.danawa.com##li[data-itemtype='adsmart']
 search.dcinside.com##.news_result
 search.dcinside.com##.right_content
 section.blog.naver.com##.area_advertisement
 seoul.co.kr###bottomScrollBox
-seoul.co.kr###rollingAdDiv
-seoul.co.kr##.adBanner
+seoul.co.kr##[class^='ad']
 soccerline.kr##.bottBann
 sportschosun.com##div.mobile-ad:has([class^='adfork'])
 sportschosun.com##div[style*='height:']:not(:has([id])):not(:has(.article_top))
 svrforum.com$$ins[class="adsbygoogle"]
 talk.op.gg##+js(set-cookie, _talkg_banner, 1)
-teamblind.com##.coupang_gnb
 teamblind.com##[href^='https://link.coupang.com/re/AFFSDP']
 teamblind.com##div.article-list-pre:has([href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.article:has(> a[href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.comment_area.wrap-comment[style='cursor: pointer;']
-teamblind.com##div.coupang-ad
 torrentpi150.com##.h20 +.widget-box
 torrentpi150.com##div.col-sm-12 > .widget-box > .basic-post-gallery
 twidouga.net##iframe[width='300'][height='250']
@@ -191,7 +184,7 @@ web.joongna.com##hr +.pb-12
 web.joongna.com##main > div:has([src^='/main-web/_next/static/media/ad']):not(:has(p))
 web.joongna.com,top.cafe.daum.net,nexon.com,gg,ps,xyz,loawa.com#@#[target='_blank']:has([src*='/banner/'])
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
-wowtv.co.kr##.wrap-BannerBox
+wowtv.co.kr##[class*='Banner']
 xportsnews.com$$div[class="ad mobile"]
 ||ader.naver.com/*?c=m_$all
 ||arca.live/static/assets/js/adult.min.js
@@ -229,7 +222,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 $@$link[rel="manifest"]
 /img.gif?$badfilter
 @@/gaScript.js
-@@||192.168.$stealth=dpi|ip
+@@||192.168.$stealth=dpi
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.$app=com.kakao.talk
