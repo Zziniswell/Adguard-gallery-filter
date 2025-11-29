@@ -84,7 +84,6 @@ etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
 fmkorea.com##[class$='_ad']
 gall.dcinside.com##.gall_list tr[class='ub-content ']
-gall.dcinside.com##.list_trend
 gall.dcinside.com##.r_dcmedia
 gmarket.co.kr##.box__component-sponsor-link.box__component
 gmarket.co.kr##.js-impressionable.box__head-ad
@@ -143,7 +142,7 @@ my.gmarket.co.kr##.box__component--inner
 namu.*##li:has(time):not(:has([href*='/raw/'])):upward(2)
 namu.*##div[class]:matches-css(position: sticky)
 namu.wiki#$#div[class][id]:empty { display: none !important; }
-pay.naver.com##div[class^='BottomAds_article__']
+pay.naver.com##div[class^='BottomAds_article']
 play.sooplive.co.kr##+js(nowoif, andinstall)
 ppomppu.co.kr##.bottom > div[style]
 ppomppu.co.kr$$tr:has-text(AD)
@@ -153,7 +152,7 @@ quasarzone.com##.new-partner-saleinfo-container
 quasarzone.com##.qz-day-content-area
 quasarzone.com##.recommend-deal-wrap
 ruliweb.com,ppomppu.co.kr,naver.com,daum.net##[id$='_ad']
-sbs.co.kr##iframe[src^='https://adservice.sbs.co.kr/']
+sbs.co.kr##[src^='https://adservice.sbs.co.kr/']
 search.danawa.com##[id^='powerShoppingArea']
 search.danawa.com##li[data-itemtype='adsmart']
 search.dcinside.com##.right_content
@@ -182,7 +181,6 @@ wowtv.co.kr##[class*='Banner']
 xportsnews.com$$div[class="ad mobile"]
 ||ader.naver.com/*?c=m_$all
 ||arca.live/static/assets/js/adult.min.js
-||avsee.ru/imgs/*.gif
 ||dvdprime.com/file/*/banner
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
@@ -191,13 +189,12 @@ xportsnews.com$$div[class="ad mobile"]
 
 ! Annoyances(others)
 booktoki469.com,booktoki470.com###novel_content:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
-cafe.naver.com##+js(rc, disable-select, #ct)
+cafe.naver.com##+js(remove-class, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
 fmkorea.com#%#//scriptlet('set-constant', 'link_url', '')
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 
 ! Anti-adblock
-#%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 battlecats-db.com#$#body { display: block!important; }
@@ -205,7 +202,8 @@ dcinside.com$$script:has-text(/pwlink|blockedState/)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 ~adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'doubleclick.net')
-~adblock.turtlecute.org#%#//scriptlet('prevent-fetch','pagead2.googlesyndication.com')
+~adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'pagead2.googlesyndication.com')
+~adblock.turtlecute.org#%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 
 ! Incorrect blocking
 #@#.appBanner:not(body)
