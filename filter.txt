@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.12.1
+! Version: 2025.12.6
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -22,6 +22,7 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##[alt$='광고']
 ##[class*='ad'][id^='AD']
 ##[class^='AD'][style]
+##[id*='powerlink']
 ##[id^='hd_pop']
 ##iframe[src*='digitalcamp.co.kr']
 ##iframe[src*='targetpush.co.kr']
@@ -34,6 +35,8 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
 [$domain=/^booktoki[0-9]*\.com/]##.col-sm-9.col-md-9.col-15
 [$domain=/^hoohootv[0-9]*\.[a-z]{2,}/]###img_row_container
+[$domain=/^tkor[0-9]*\.com/]##.bnt.bn
+[$domain=/^toonkor[0-9]*\.net/]##.bnt.bn
 [$domain=/^torrentbot[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
 [$domain=/^torrentsee[0-9]*\.com/]#@#[alt*='광고'], [alt*='배너'], [data-ride]
 [$domain=/^torrentsee[0-9]*\.com/]#@#[class*='carousel'][id]:not(:has(li))
@@ -79,6 +82,7 @@ etoland.co.kr##[class*='naver-store-search']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap.mw_basic_comment_content
 etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
+fc-info.com##div[class^='Venatus_']
 fmkorea.com##[class$='_ad']
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.r_dcmedia
@@ -126,7 +130,6 @@ m.ppomppu.co.kr,m.ppomppu1.co.kr##div[style^='text-align:center;']
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
 m.wowtv.co.kr,inven.co.kr##[id*='Banner']
-maple.gg,dak.gg##+js(set-cookie, hideFrontPagePopup, true)
 mlbpark.donga.com##.the_hottest
 mlbpark.donga.com,teamblind.com##[class^='coupang']
 mlbpark.donga.com##ul.sub_lists_today.lists > li.items:nth-of-type(6)::before
@@ -178,12 +181,13 @@ xportsnews.com$$div[class="ad mobile"]
 ||dvdprime.com/file/*/banner
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
+||t*kor*.com/images/
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Annoyances(others)
 cafe.naver.com##+js(remove-class, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
-fmkorea.com#%#//scriptlet('set-constant', 'link_url', '')
+fmkorea.com##+js(set, link_url, )
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 
 ! Anti-adblock
@@ -198,6 +202,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ~adblock.turtlecute.org#%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
 
 ! Incorrect blocking
+$@$link[rel="manifest"]
 /img.gif?$badfilter
 @@/gaScript.js
 @@||192.168.$stealth=dpi
@@ -214,6 +219,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 @@||kamp.daum.net^$xhr
 @@||searchad-phinf.pstatic.net^$app=com.nhn.android.search
 @@||shopping.naver.com^$stealth
+@@||slrclub.com/rss/today_photo.slr
 @@||smartstore.naver.com^$stealth
 @@||sprintenergy.kr^$stealth=dpi
 @@||static.airbridge.io/sdk
