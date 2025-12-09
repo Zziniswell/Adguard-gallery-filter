@@ -1,11 +1,11 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.12.6
+! Version: 2025.12.9
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
 
 For iOS, MV3
-!#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium)
+!#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox)
 ###bannerList
 ###img_row_container
 ###viewCover
@@ -74,7 +74,7 @@ danawa.com,etoland.co.kr,m.cafe.naver.com##[class^='banner']
 dcinside.com###moveOverlay, #moveimg, #gaejukimg
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
-dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/git|g2sh|img|pastebin|privatebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
+dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/git|g2sh|img|tebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
 etoland.co.kr###underGoodBtn_freeRecharge
@@ -106,10 +106,13 @@ m.blog.naver.com##div[class^='card__']:has-text(/블로그씨의 추천글/):rem
 m.bobaedream.co.kr##div[style$='height:50px;']
 m.cafe.daum.net##[class*='_banner']
 m.cafe.naver.com###articleFeedList
+m.cafe.naver.com##.FloatingJoinButton
+m.cafe.naver.com##.join_layer_wrap
 m.cafe.naver.com##.popular_toast_popup
 m.cafe.naver.com##.subscribe_layer_wrap
 m.danawa.com###mdnw-main-bottomSheet-container
 m.danawa.com###mdnw-main-dimm
+m.daum.net##.box_g:has(> .clip_ad)
 m.dcinside.com###notice_list > li
 m.dcinside.com##.layer-bottom-popup
 m.dcinside.com##.outside-search-box
@@ -168,7 +171,7 @@ teamblind.com##div.comment_area.wrap-comment[style='cursor: pointer;']
 torrentpi150.com##.h20 +.widget-box
 torrentpi150.com##div.col-sm-12 > .widget-box > .basic-post-gallery
 twidouga.net##iframe[width='300'][height='250']
-twidouga.net,chimhaha.net##+js(aeld, click, preventDefault)
+twidouga.net,chimhaha.net#%#//scriptlet('prevent-addEventListener', 'click', 'preventDefault')
 web.joongna.com##.text.w-full ins.adsbygoogle ~div
 web.joongna.com##hr +.pb-12
 web.joongna.com##main > div:has([src^='/main-web/_next/static/media/ad']):not(:has(p))
@@ -197,9 +200,9 @@ battlecats-db.com#$#body { display: block!important; }
 dcinside.com$$script:has-text(/pwlink|blockedState/)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
-~adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'doubleclick.net')
-~adblock.turtlecute.org#%#//scriptlet('prevent-fetch', 'pagead2.googlesyndication.com')
-~adblock.turtlecute.org#%#//scriptlet('prevent-xhr','pagead2.googlesyndication.com')
+~adblock.turtlecute.org##+js(no-fetch-if, doubleclick.net)
+~adblock.turtlecute.org##+js(no-fetch-if, pagead2.googlesyndication.com)
+~adblock.turtlecute.org##+js(no-xhr-if, pagead2.googlesyndication.com)
 
 ! Incorrect blocking
 $@$link[rel="manifest"]
@@ -211,7 +214,6 @@ $@$link[rel="manifest"]
 @@||adtouch.$app=com.kakao.talk
 @@||bouquetgarni.kr^$stealth=dpi
 @@||coupang.com^$stealth
-@@||discord.$stealth=push|webrtc
 @@||fs2.joycity.com^$stealth=dpi
 @@||graph.facebook.com^$domain=fmkorea.com
 @@||hanaroetf.com^$stealth=dpi
@@ -255,3 +257,9 @@ m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-mweb) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'MOBILE')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:not(:has(span.sp-icon)) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'PC')
 dcinside.com#%#(function(){'use strict';const u=location.href,h=location.hostname;let dcbest=!1;if(h==='m.dcinside.com'){const m=u.match(/^https:\/\/m\.dcinside\.com\/(board|mini|person)\/([^\/]+)\/\d+/);dcbest=!!(m&&m[2]==='dcbest');}else if(h==='gall.dcinside.com'){const p=new URLSearchParams(location.search);dcbest=p.get('id')==='dcbest'&&p.has('no');}else return;let s;if(h==='gall.dcinside.com')s='button.img_comment_toggle,.btn_imgcmtopen,.img_comment';else if(h==='m.dcinside.com')s='button.btn-imgcomment,.img-comment';else return;const e=document.createElement('style');e.textContent=`${s}{display:none!important;}`;if(!dcbest)document.head.appendChild(e);document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('[alt="imgtoggle"]');if(t)t.style.cursor='pointer',t.addEventListener('click',()=>{e.disabled=!e.disabled;if(!e.parentNode&&!e.disabled)document.head.appendChild(e);});});})();
+
+!#if (adguard && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox && adguard_ext_safari)
+m.dcinside.*###notice_list > li:not(:has(.ntc-line-orange))
+m.dcinside.*###notice_list > li:nth-of-type(-n+3)
+m.dcinside.*#@##notice_list > li
+!#endif
