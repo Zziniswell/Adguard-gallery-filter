@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.12.9
+! Version: 2025.12.12
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -26,7 +26,7 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##[id^='hd_pop']
 ##iframe[src*='digitalcamp.co.kr']
 ##iframe[src*='targetpush.co.kr']
-*##[class*='adsense']:not([style*='1px']):not(:has(p))
+*##[class*='adsense']:not([style*='1px']):not(:empty):not(:has(p))
 *##[target='_blank']:has([src*='/banner/'])
 *tcid=$all
 4kjav.co,sogirl.so##.happy-under-player-mobile
@@ -77,7 +77,6 @@ dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
 etoland.co.kr###underGoodBtn_freeRecharge
-etoland.co.kr##[class*='naver-store-search']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap.mw_basic_comment_content
 etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
@@ -90,7 +89,6 @@ gmarket.co.kr##.js-impressionable.box__head-ad
 gmarket.co.kr##.js-visiblity.js-impressionable.box__bottom-banner
 gmarket.co.kr##.section__main-banner.section__main
 greend.kr#@#[class*='ad'][id^='AD']
-harpi.in##div > iframe
 harpi.in##div:has(> script[src])
 hygall.com##div[style='display: flex;justify-content: center; width:100%;height:100px;']
 instiz.net##.view_top
@@ -242,6 +240,7 @@ web.joongna.com#@#a[rel*="sponsored"]
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
+||wcs.naver.net/wcslog.js^$badfilter
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##div.img_area button.btn:style(opacity: 0.4 !important;)
