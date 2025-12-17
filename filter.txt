@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.12.14
+! Version: 2025.12.17
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -71,6 +71,7 @@ coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
 coinpan.com##.flatBoard > .clearfix.title-wrap
 coinpan.com##p > strong
 danawa.com,etoland.co.kr,m.cafe.naver.com##[class^='banner']
+dcinside.com###moveOverlay, #moveimg, #gaejukimg
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
 dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/git|g2sh|img|tebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
@@ -130,6 +131,7 @@ m.ppomppu.co.kr,m.ppomppu1.co.kr##div[style^='text-align:center;']
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
 m.wowtv.co.kr,inven.co.kr##[id*='Banner']
+maplescouter.com,loawa.com###popup
 mlbpark.donga.com##.the_hottest
 mlbpark.donga.com##[class^='coupang']
 mlbpark.donga.com##ul.sub_lists_today.lists > li.items:nth-of-type(6)::before
@@ -175,10 +177,11 @@ web.joongna.com,nexon.com,gg,ps,xyz,loawa.com#@#[target='_blank']:has([src*='/ba
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr##[class*='Banner']
 xportsnews.com$$div[class="ad mobile"]
+||ad.mojisead.co.kr^
 ||ader.naver.com/*?c=m_$all
+||arca.live/static/assets/js/adult.min.js
 ||dvdprime.com/file/*/banner
 ||kamp.kakao.com^$app=com.kakao.talk
-||onelink.me/*&af_adset=$all
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
 ||tiktok.com/*incentive$all
@@ -189,13 +192,11 @@ cafe.naver.com##+js(remove-class, disable-select, #ct)
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
 fmkorea.com##+js(set, link_url, )
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
-||arca.live/static/assets/js/adult.min.js
 
 ! Anti-adblock
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 battlecats-db.com#$#body { display: block!important; }
-dcinside.com$$script:has-text(/pwlink|blockedState/)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 ~adblock.turtlecute.org##+js(no-fetch-if, doubleclick.net)
@@ -213,7 +214,6 @@ $@$link[rel="manifest"]
 @@||bouquetgarni.kr^$stealth=dpi
 @@||coupang.com^$stealth
 @@||fs2.joycity.com^$stealth=dpi
-@@||graph.facebook.com^$domain=fmkorea.com
 @@||hanaroetf.com^$stealth=dpi
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
