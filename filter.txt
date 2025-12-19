@@ -63,7 +63,6 @@ avsee.ru##[alt$='gif']
 bbs.ruliweb.com##div.clear:has([style*='overflow-x'])
 bbs.ruliweb.com##tr:has(.nick[style^='display: inline-block'])
 blog.naver.com,comic.naver.com##[class*='banner_area']
-cafe.naver.com##.ArticleFormBanner
 chimhaha.net##[id^='slot']
 chimhaha.net##div[style='margin-top: 50px; ']
 chimhaha.net,seoul.co.kr,mule.co.kr##[class*='Ad']
@@ -126,7 +125,7 @@ m.gmarket.co.kr##.box__top-banner
 m.gmarket.co.kr##.link__banner:not(:has(.swiper-lazy)):not(:has(.text__banner))
 m.naver.com###sb-kh-shortents-wrap
 m.naver.com##.chf_feed_wrap > .type_square.cc_clip_list
-m.naver.com##div.brick-vowel > *:not(.id_comp_home_feed.grid1)
+m.naver.com##script#MM_search_disaster ~*
 m.ppomppu.co.kr,m.ppomppu1.co.kr##div[style^='text-align:center;']
 m.ruliweb.com##tr:has(.nbp_container)
 m.wowtv.co.kr##.container > div[style]
@@ -175,7 +174,7 @@ web.joongna.com##hr +.pb-12
 web.joongna.com##main > div:has([src^='/main-web/_next/static/media/ad']):not(:has(p))
 web.joongna.com,nexon.com,gg,ps,xyz,loawa.com#@#[target='_blank']:has([src*='/banner/'])
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
-wowtv.co.kr##[class*='Banner']
+wowtv.co.kr,cafe.naver.com##[class*='Banner']
 xportsnews.com$$div[class="ad mobile"]
 ||ad.mojisead.co.kr^
 ||ader.naver.com/*?c=m_$all
@@ -184,7 +183,6 @@ xportsnews.com$$div[class="ad mobile"]
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
-||tiktok.com/*incentive$all
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Annoyances(others)
