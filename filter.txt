@@ -151,6 +151,10 @@ xportsnews.com$$div[class="ad mobile"]
 ||dvdprime.com/file/*/banner
 ||get*ads-*-du.a.run.app^
 ||kamp.kakao.com^$app=com.kakao.talk
+||link.coupang.com/re/CSHARE$all
+||link.coupang.com/re/CSHARE$all,reason=수익링크
+||link.gmarket.co.kr/*PARTNERSHIP$all
+||link.gmarket.co.kr/*PARTNERSHIP$all,reason=수익링크
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
 ||vs*.play.kakao.com^$app=com.kakao.talk
