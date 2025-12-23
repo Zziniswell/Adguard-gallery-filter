@@ -211,7 +211,7 @@ $@$link[rel="manifest"]
 @@||slrclub.com/rss/today_photo.slr
 @@||smartstore.naver.com^$stealth
 @@||sprintenergy.kr^$stealth=dpi
-@@||static.airbridge.io/sdk
+@@||static.airbridge.io^
 @@||t1.daumcdn.net/*/static/kp.js
 @@||tivan.naver.com^$app=com.nhn.android.search
 @@||wcs.naver.net^$domain=seorinexpress.com|naver.com
