@@ -16,9 +16,12 @@
 ||tivan.naver.com^$badfilter
 
 ! Ads
-||ad.mojisead.co.kr^
 ||get*ads-*-du.a.run.app^
 ||kamp.kakao.com^
 ||shortformstats.kakao.com^
 ||veta.naver.com^
 ||vs*.play.kakao.com^
+
+! Trackers
+||analytics.immersivetranslate.com^
+||ibytedtos.com^
