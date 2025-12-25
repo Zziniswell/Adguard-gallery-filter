@@ -3,6 +3,9 @@
 ! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
+# Current adguard issue : 에펨코리아, 히토미, 네이버검색 등에서 광고차단 안되는 현상(본 필터와 무관함)
+# https://gall.dcinside.com/mgallery/board/view/?id=adguard&no=7360
+# https://gall.dcinside.com/mgallery/board/view/?id=adguard&no=7348
 
 For iOS, MV3
 !#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox)
