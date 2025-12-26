@@ -1,11 +1,7 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.12.25
-! Description: Adguard/uBo/Brave 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
+! Version: 2025.12.26
+! Description: Adguard, uBlock Origin 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
-
-# Current adguard issue : 에펨코리아, 히토미, 네이버검색 등에서 광고차단 안되는 현상(본 필터와 무관함)
-# https://gall.dcinside.com/mgallery/board/view/?id=adguard&no=7360
-# https://gall.dcinside.com/mgallery/board/view/?id=adguard&no=7348
 
 For iOS, MV3
 !#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox)
@@ -25,8 +21,8 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##.textwidget
 ##[alt$='광고']
 ##[class*='ad'][id^='AD']
-##[class^='AD'][style]
 ##[class^='happy-header']
+##[id^='AD'][style]
 ##[id^='hd_pop']
 ##iframe[src*='digitalcamp.co.kr']
 ##iframe[src*='targetpush.co.kr']
@@ -47,7 +43,6 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[alt*='광고'], [alt*='배너'], [data-ride]
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[href*='/ad'][target='_blank']:has(img)
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##div[class$='gallery'][id] [target='_blank']:upward(1)
-a-ha.io##.bg-white
 algumon.com##.a-post-detail-bottom
 algumon.com##li.mobile[class*='post-min-height-']
 auction.co.kr,gmarket.co.kr##.plcc_banner
@@ -154,6 +149,7 @@ xportsnews.com$$div[class="ad mobile"]
 ||link.gmarket.co.kr/*PARTNERSHIP$all
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
+||trillion.toss.im^
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Minor distractions
@@ -235,11 +231,6 @@ www.gmarket.co.kr#@#.section__main-inner > .box__promotion .box__item > *
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
-!#if (adguard && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox && adguard_ext_safari)
-m.dcinside.*###notice_list > li:not(:has(.ntc-line-orange))
-m.dcinside.*###notice_list > li:nth-of-type(-n+3)
-m.dcinside.*#@##notice_list > li
-!#endif
 
 ! 디시 이미지 댓글 토글 버튼 추가
 gall.dcinside.com##div.img_area button.btn:style(opacity: 0.4 !important;)
