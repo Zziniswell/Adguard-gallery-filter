@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.01
+// @version      3.02
 // @description  사이트 우측 상단에서 메뉴를 열어주세요.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -257,7 +257,7 @@
         if (uiLoaded) return;
         uiLoaded = true;
         const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        addCss(`:root{--fmk-theme:${getTheme()}}#fmk-settings-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99998;opacity:0;visibility:hidden;backdrop-filter:blur(2px);transition:opacity 0.25s ease,visibility 0.25s ease}#fmk-settings-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(0.96);width:90%;max-width:350px;max-height:85vh;background:${isDark?'rgba(40,40,40,0.95)':'rgba(255,255,255,0.98)'};color:${isDark?'#eee':'#333'};border:1px solid ${isDark?'#555':'#ddd'};border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:99999;display:flex;flex-direction:column;font-size:14px;user-select:none;opacity:0;visibility:hidden;transition:opacity 0.25s cubic-bezier(0.2,0.8,0.2,1),transform 0.25s cubic-bezier(0.2,0.8,0.2,1),visibility 0.25s}.fmk-open#fmk-settings-overlay{opacity:1;visibility:visible}.fmk-open#fmk-settings-panel{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}.fmk-panel-header{padding:15px;border-bottom:1px solid ${isDark?'#555':'#eee'};font-weight:bold;font-size:17px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}.fmk-panel-close{cursor:pointer;padding:5px;font-size:20px;line-height:1;color:#888}.fmk-panel-body{padding:15px;overflow-y:auto;flex-grow:1}.fmk-opt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.fmk-opt-label{font-weight:bold;text-align:left;flex:1;margin-right:15px;font-size:15px}.fmk-opt-info{font-size:11px;color:#999;margin-top:-5px;margin-bottom:15px;text-align:left;line-height:1.4}.fmk-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}.fmk-switch input{opacity:0;width:0;height:0}.fmk-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.3s;border-radius:24px}.fmk-slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background-color:white;transition:.3s;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.2)}input:checked+.fmk-slider{background-color:var(--fmk-theme)}input:checked+.fmk-slider:before{transform:translateX(20px)}.fmk-input-group{display:flex;gap:5px;margin-bottom:8px;display:none;width:100%;box-sizing:border-box}.fmk-input-text{flex:1;min-width:0;padding:8px;border-radius:4px;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#fff'};color:inherit;font-size:13px;height:36px;box-sizing:border-box}.fmk-btn{width:60px;flex-shrink:0;height:36px;border-radius:4px;border:none;cursor:pointer;background:${isDark?'#555':'#eee'};color:inherit;font-weight:bold;font-size:13px;white-space:nowrap;display:flex;align-items:center;justify-content:center;transition:background-color 0.2s,color 0.2s}.fmk-btn:active{opacity:0.8}.fmk-btn.error{background-color:#ff5252;color:white}.fmk-btn.save{background-color:rgba(34,139,34,0.85);color:white}.fmk-list-area{width:100%;height:80px;resize:none;box-sizing:border-box;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#f9f9f9'};color:inherit;padding:8px;font-size:12px;margin-bottom:20px;display:none;border-radius:4px}.expanded .fmk-input-group,.expanded .fmk-list-area{display:flex}.expanded textarea.fmk-list-area{display:block}`);
+        addCss(`:root{--fmk-theme:${getTheme()}}#fmk-settings-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99998;opacity:0;visibility:hidden;backdrop-filter:blur(2px);transition:opacity 0.25s ease,visibility 0.25s ease}#fmk-settings-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(0.96);width:90%;max-width:350px;max-height:85vh;background:${isDark?'rgba(40,40,40,0.95)':'rgba(255,255,255,0.98)'};color:${isDark?'#eee':'#333'};border:1px solid ${isDark?'#555':'#ddd'};border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:99999;display:flex;flex-direction:column;font-size:14px;user-select:none;opacity:0;visibility:hidden;transition:opacity 0.25s cubic-bezier(0.2,0.8,0.2,1),transform 0.25s cubic-bezier(0.2,0.8,0.2,1),visibility 0.25s}.fmk-open#fmk-settings-overlay{opacity:1;visibility:visible}.fmk-open#fmk-settings-panel{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}.fmk-panel-header{padding:15px;border-bottom:1px solid ${isDark?'#555':'#eee'};font-weight:bold;font-size:17px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}.fmk-panel-close{cursor:pointer;padding:5px;font-size:20px;line-height:1;color:#888}.fmk-panel-body{padding:15px;overflow-y:auto;flex-grow:1}.fmk-opt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.fmk-opt-label{font-weight:bold;text-align:left;flex:1;margin-right:15px;font-size:15px}.fmk-opt-info{font-size:11px;color:#999;margin-top:-5px;margin-bottom:15px;text-align:left;line-height:1.4}.fmk-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}.fmk-switch input{opacity:0;width:0;height:0}.fmk-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.3s;border-radius:24px}.fmk-slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background-color:white;transition:.3s;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.2)}input:checked+.fmk-slider{background-color:var(--fmk-theme)}input:checked+.fmk-slider:before{transform:translateX(20px)}.fmk-input-group{display:flex;gap:5px;margin-bottom:8px;display:none;width:100%;box-sizing:border-box}.fmk-input-text{flex:1;min-width:0;padding:8px;border-radius:4px;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#fff'};color:inherit;font-size:13px;height:36px;box-sizing:border-box}.fmk-btn{width:60px;flex-shrink:0;height:36px;border-radius:4px;border:none;cursor:pointer;background:${isDark?'#555':'#eee'};color:inherit;font-weight:bold;font-size:13px;white-space:nowrap;display:flex;align-items:center;justify-content:center;transition:background-color 0.2s,color 0.2s}.fmk-btn:active{opacity:0.8}.fmk-btn.error{background-color:#ff5252;color:white}.fmk-list-area{width:100%;height:80px;resize:none;box-sizing:border-box;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#f9f9f9'};color:inherit;padding:8px;font-size:12px;margin-bottom:20px;display:none;border-radius:4px}.expanded .fmk-input-group,.expanded .fmk-list-area{display:flex}.expanded textarea.fmk-list-area{display:block}`);
 
         const overlay = doc.createElement('div'); overlay.id = 'fmk-settings-overlay';
         const panel = doc.createElement('div'); panel.id = 'fmk-settings-panel';
@@ -306,12 +306,12 @@
             txt.addEventListener('focus', () => updState(s));
             inp.addEventListener('focus', () => updState(s));
             inp.addEventListener('input', () => updState(s));
-            
+             
             txt.addEventListener('blur', (e) => { if (chkStr(e.target.value)) { setVal(k, e.target.value); updLists(); rescan(); } });
 
             btn.addEventListener('click', () => {
                 if (btn.classList.contains('error')) return;
-                
+                 
                 if (btn.textContent === '저장') {
                     setVal(k, txt.value); updLists(); rescan();
                     txt.blur(); btn.textContent = '등록'; btn.classList.remove('save');
@@ -321,7 +321,7 @@
                 const v = inp.value.trim();
                 if (!v) return;
                 if (!/^[a-zA-Z가-힣]{1,14}$/.test(v)) return alert('입력값은 1~14자의 한글, 영어만 가능합니다.');
-                
+                 
                 let cur = txt.value.trim();
                 if (cur) cur += ','; cur += v;
                 if (chkStr(cur)) {
