@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.0
+// @version      3.01
 // @description  사이트 우측 상단에서 메뉴를 열어주세요.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -165,21 +165,16 @@
             const el = e.target.closest('a[href="#popup_menu_area"]');
             if (!el) return;
             clr();
-            // 1초 후 복사 실행
             tm = setTimeout(() => {
                 const txt = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
                 if (txt) {
                     navigator.clipboard.writeText(txt.textContent.trim());
-                    if (navigator.vibrate) navigator.vibrate(50); // 햅틱 피드백
+                    if (navigator.vibrate) navigator.vibrate(50);
                 }
             }, 1000);
         };
-
-        // 이벤트 바인딩
         ['touchstart', 'mousedown'].forEach(ev => doc.addEventListener(ev, start, {passive: true}));
         ['touchend', 'mouseup', 'touchmove', 'scroll'].forEach(ev => doc.addEventListener(ev, clr, {passive: true}));
-
-        // 브라우저 기본 컨텍스트 메뉴 차단
         doc.addEventListener('contextmenu', (e) => {
             if (e.target.closest('a[href="#popup_menu_area"]')) e.preventDefault();
         });
@@ -222,22 +217,22 @@
         li.style.cssText += hide ? 'display: none !important;' : (li.style.display === 'none' ? 'display: ;' : '');
     };
 
-    const filterNode = (n) => {
-        if (n.nodeType !== 1) return;
-        n.tagName === 'LI' ? scan(n) : qsa('li', n).forEach(scan);
-    };
-
-    const filterObs = new MutationObserver(ms => {
-        ms.forEach(m => m.addedNodes.forEach(filterNode));
-        if (getVal('redTheme')) redTxt();
-    });
-    
-    const root = doc.documentElement || doc.body;
-    if (root) filterObs.observe(root, {childList: true, subtree: true});
-    else window.addEventListener('DOMContentLoaded', () => {
-        filterObs.observe(doc.documentElement, {childList: true, subtree: true});
-        qsa('li').forEach(scan);
-    });
+    if (getVal('blockUser') || getVal('blockKeyword') || getVal('redTheme')) {
+        const filterNode = (n) => {
+            if (n.nodeType !== 1) return;
+            n.tagName === 'LI' ? scan(n) : qsa('li', n).forEach(scan);
+        };
+        const filterObs = new MutationObserver(ms => {
+            ms.forEach(m => m.addedNodes.forEach(filterNode));
+            if (getVal('redTheme')) redTxt();
+        });
+        const root = doc.documentElement || doc.body;
+        if (root) filterObs.observe(root, {childList: true, subtree: true});
+        else window.addEventListener('DOMContentLoaded', () => {
+            filterObs.observe(doc.documentElement, {childList: true, subtree: true});
+            qsa('li').forEach(scan);
+        });
+    }
 
     const rescan = () => qsa('li').forEach(scan);
     let uiLoaded = false;
@@ -266,7 +261,7 @@
 
         const overlay = doc.createElement('div'); overlay.id = 'fmk-settings-overlay';
         const panel = doc.createElement('div'); panel.id = 'fmk-settings-panel';
-        panel.innerHTML = `<div class="fmk-panel-header"><span>Settings</span><span class="fmk-panel-close">&times;</span></div><div class="fmk-panel-body"><div class="fmk-opt-info" style="text-align:center;margin-bottom:15px">모든 설정은 새로고침 후에 적용됩니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">파워링크 제거</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_powerlink"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">갤러리 필터 또는 Unicorn Pro 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">제휴링크 변환 방지</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_affiliate"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">Adguard 추적보호 필터 또는 갤러리 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">댓글 이미지 임베딩</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_imgembed"><span class="fmk-slider"></span></label></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-block-section" id="section_block_user"><div class="fmk-opt-row"><div class="fmk-opt-label">유저 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_user"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="닉네임 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><div class="fmk-block-section" id="section_block_keyword"><div class="fmk-opt-row"><div class="fmk-opt-label">게시물/댓글 키워드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_keyword"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="키워드 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-opt-row"><div class="fmk-opt-label">공지사항 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_notice"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">검색 어시스턴트 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_assist"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">내비 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_nav"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">최근 방문 보드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_recent"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">새 포텐 알림 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_alert"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row" style="margin-top:15px;"><div class="fmk-opt-label">FM Korea RED 테마</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_red_theme"><span class="fmk-slider"></span></label></div></div>`;
+        panel.innerHTML = `<div class="fmk-panel-header"><span>Settings</span><span class="fmk-panel-close">&times;</span></div><div class="fmk-panel-body"><div class="fmk-opt-info" style="text-align:center;margin-bottom:15px">모든 설정은 새로고침 후에 적용됩니다. 안쓰는 옵션은 끄세요.</div><div class="fmk-opt-row"><div class="fmk-opt-label">파워링크 제거</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_powerlink"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">갤러리 필터 또는 Unicorn Pro 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">핫딜 제휴링크 변환 방지</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_affiliate"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 추적보호 필터 또는 갤러리 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">댓글 이미지 임베딩</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_imgembed"><span class="fmk-slider"></span></label></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-block-section" id="section_block_user"><div class="fmk-opt-row"><div class="fmk-opt-label">유저 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_user"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="닉네임 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><div class="fmk-block-section" id="section_block_keyword"><div class="fmk-opt-row"><div class="fmk-opt-label">게시물/댓글 키워드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_keyword"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="키워드 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-opt-row"><div class="fmk-opt-label">공지사항 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_notice"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">검색 어시스턴트 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_assist"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">내비 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_nav"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">최근 방문 보드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_recent"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">새 포텐 알림 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_alert"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row" style="margin-top:15px;"><div class="fmk-opt-label">FM Korea RED 테마</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_red_theme"><span class="fmk-slider"></span></label></div></div>`;
         doc.body.append(overlay, panel);
         overlay.addEventListener('click', toggleUI);
         qs('.fmk-panel-close', panel).addEventListener('click', toggleUI);
