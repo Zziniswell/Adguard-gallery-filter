@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.12.30
+! Version: 2025.01.06
 ! Description: Adguard, uBlock Origin 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -25,7 +25,7 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##[id^='AD'][style]
 ##[id^='hd_pop']
 ##iframe[src*='digitalcamp.co.kr']
-*##[class*='adsense']:not([style*='1px']):not(:empty):not(:has(p))
+##iframe[src*='targetpush.co.kr']
 *##[target='_blank']:has([src*='/banner/'])
 *tcid=$all
 [$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
@@ -36,7 +36,6 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 [$domain=/^toonkor[0-9]*\.net/]##.bnt.bn
 [$domain=/^torrentsee[0-9]*\.com/]#@#[alt*='광고'], [alt*='배너'], [data-ride]
 [$domain=/^tvmon[0-9]*\.[a-z]{2,}/]##.banner_wrap2
-[$domain=/^tvmon[0-9]*\.[a-z]{2,}/]##[src*='/AD/']
 [$domain=/^tvwiki[0-9]*\.net/]###bannerList
 [$domain=/^tvwiki[0-9]*\.net/]###viewCover
 [$domain=/torrent[a-z0-9]*\.[a-z]{2,}/]##[alt*='광고'], [alt*='배너'], [data-ride]
@@ -57,15 +56,13 @@ blog.naver.com,comic.naver.com##[class*='banner_area']
 chimhaha.net##[id^='slot']
 chimhaha.net##div[style='margin-top: 50px; ']
 chimhaha.net,seoul.co.kr,mule.co.kr##[class*='Ad']
-coinpan.com##*:has(> div[style^='width:390px; max-width:100%;'])
-coinpan.com##.flatBoard > .clearfix.title-wrap
-coinpan.com##p > strong
 danawa.com,etoland.co.kr,m.cafe.naver.com##[class^='banner']
 dcinside.com###moveOverlay, #gaejukimg
 dcinside.com##li[id^='comment_']:has(p[class*='txt']:has-text(/^(https?:\/\/)[A-Za-z0-9]{2,10}(\.[a-z]{2,5}|\.co\.kr)(\/(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9_]{5,9})$/):not(:has-text(/git|g2sh|img|tebin|sendanywhe|twitter|rentry|x\.com|youtu|ibb\.co|archive\.md|t\.me|streamable|dev/i))):style(opacity: 0.1 !important;)
 dvdprime.com##[id$='top_banner']
 dvdprime.com##[id^='ad_mobile']
-etoland.co.kr###underGoodBtn_freeRecharge
+etoland.co.kr###relation_hotdeal_container
+etoland.co.kr##[id*='underGoodBtn']
 etoland.co.kr##div.comment_wrap.comment_extra_wrap.mw_basic_comment_content
 etoland.co.kr##li.content_box_item:first-child
 etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
@@ -78,8 +75,6 @@ hygall.com##div[style='display: flex;justify-content: center; width:100%;height:
 instiz.net##.view_top
 instiz.net##div[class^='hot_u']
 instiz.net##div[style='min-height:250px;']
-inven.co.kr##.inven-float-alarm
-inven.co.kr##li.games.list > [href*='naver.com']
 inven.co.kr,mt.co.kr##[class$='ads']
 inven.co.kr,wowtv.co.kr##[class*='-banner']
 k-hentai.org##.my-3.container
@@ -115,7 +110,7 @@ pay.naver.com##div[class^='BottomAds_article']
 play.sooplive.co.kr##+js(nowoif, andinstall)
 ppomppu.co.kr##.bottom > div[style]
 ppomppu.co.kr$$tr:has-text(AD)
-ruliweb.com,ppomppu.co.kr,naver.com,daum.net##[id$='_ad']
+ruliweb.com,ppomppu.co.kr,naver.com,daum.net,etoland.co.kr##[id$='_ad']
 sbs.co.kr##[src^='https://adservice.sbs.co.kr/']
 search.danawa.com##[id^='powerShoppingArea']
 search.danawa.com##li[data-itemtype='adsmart']
@@ -132,8 +127,10 @@ teamblind.com##div.article:has(> a[href^='https://link.coupang.com/re/AFFSDP'])
 teamblind.com##div.comment_area.wrap-comment[style='cursor: pointer;']
 torrentpi150.com##.h20 +.widget-box
 torrentpi150.com##div.col-sm-12 > .widget-box > .basic-post-gallery
+twidouga.*##+js(aeld, click, cookie)
+twidouga.net##.item:has(> iframe[onload])
 twidouga.net##iframe[width='300'][height='250']
-twidouga.net,chimhaha.net#%#//scriptlet('prevent-addEventListener', 'click', 'preventDefault')
+twidouga.net#%#//scriptlet('trusted-set-attr', 'a[target="_blank"]', 'rel', 'nofollow noopener noreferrer')
 web.joongna.com##.text.w-full ins.adsbygoogle ~div
 web.joongna.com##main > div:has(> div > span.block)
 web.joongna.com,nexon.com,gg,ps,xyz,loawa.com#@#[target='_blank']:has([src*='/banner/'])
@@ -144,12 +141,14 @@ xportsnews.com$$div[class="ad mobile"]
 ||dvdprime.com/file/*/banner
 ||get*ads-*-du.a.run.app^
 ||kamp.kakao.com^$app=com.kakao.talk
-||link.coupang.com/re/CSHARE$all
-||link.gmarket.co.kr/*PARTNERSHIP$all
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
 ||trillion.toss.im^
 ||vs*.play.kakao.com^$app=com.kakao.talk
+
+! Affiliate links
+||link.coupang.com/re/CSHARE$all
+||link.gmarket.co.kr/*PARTNERSHIP$all
 
 ! Minor distractions
 arca.live##.d-lg-none.topbar-area
@@ -157,13 +156,14 @@ dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
 gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.r_dcmedia
+inven.co.kr##.inven-float-alarm
+inven.co.kr##li.games.list > [href*='naver.com']
 m.cafe.naver.com##.FloatingJoinButton
 m.cafe.naver.com##.join_layer_wrap
 m.cafe.naver.com##.popular_toast_popup
 m.cafe.naver.com##.subscribe_layer_wrap
 m.dcinside.com##.outside-search-box
 m.dcinside.com##section.grid > .md-tit-box:has-text(Daum)
-m.fmkorea.com##.search_assist_hover
 mlbpark.donga.com##.the_hottest
 namu.wiki##li:has(time):not(:has([href*='/raw/'])):upward(2)
 quasarzone.com##.best-official-news
@@ -173,17 +173,16 @@ search.dcinside.com##.right_content
 
 ! Annoyances
 cafe.naver.com##+js(remove-class, disable-select, #ct)
-dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
-fmkorea.com##+js(set, link_url, )
+fmkorea.com##+js(set, link_url, '')
+chimhaha.*##+js(aeld, click, bypass)
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 namu.wiki##div[class]:matches-css(position: sticky)
-reddit.com$$script[id="googleid-signin-script"]
 ||arca.live/static/assets/js/adult.min.js
 
 ! Anti-adblock
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
-battlecats-db.com#$#body { display: block!important; }
+battlecats-db.com#$#body { display: block !important; }
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 ~adblock.turtlecute.org##+js(no-fetch-if, doubleclick.net)
@@ -199,12 +198,10 @@ $@$link[rel="manifest"]
 @@||adtouch.$app=com.kakao.talk
 @@||blog.kakaocdn.net*/img.gif
 @@||bouquetgarni.kr^$stealth=dpi
-@@||coupang.com^$stealth
 @@||fs2.joycity.com^$stealth=dpi
 @@||hanaroetf.com^$stealth=dpi
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
-@@||sdk.iad-*.braze.com^$app=kfc_ko.kore.kg.kfc_korea
 @@||searchad-phinf.pstatic.net^$app=com.nhn.android.search
 @@||shopping.naver.com^$stealth
 @@||slrclub.com/rss/today_photo.slr
@@ -216,6 +213,7 @@ $@$link[rel="manifest"]
 algumon.com#@#ul.post-list > li[class^="post-"]:not([id]):not([data-post-id])
 etoland.co.kr#$#div.hit_latest_ad { display: grid !important; }
 m.11st.co.kr#@$##banner-gnb { display: none !important; }
+m.fmkorea.com#@$?#*.bd.bd_mobile:not(:has(#bd_capture ~ #comment)):has(form[action="./"]:matches-css(height: auto)) { remove: true; }
 m.gmarket.co.kr#@#.ReactVirtualized__Grid__innerScrollContainer .box__banner-wrap > .box__banner--today
 m.gmarket.co.kr#@#.js-impressionable
 meeco.kr#@##cCon + aside.sidebar2
@@ -224,13 +222,13 @@ mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
 www.gmarket.co.kr#@#.section__main-inner > .box__promotion .box__item > *
-||action.adoffice.11st.co.kr^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
 
-! 디시 이미지 댓글 토글 버튼 추가
+! Etc
+dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
 gall.dcinside.com##div.img_area button.btn:style(opacity: 0.4 !important;)
 gall.dcinside.com#$#.btn_imgcmtopen { opacity: 0.4 !important; transform: translate(8px, 7px) !important; }
 gall.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview_head:has(em.icon_write_app) > div.gall_writer > div.fl', 'span', 'alt="imgtoggle"', 'ㅤAPP')
