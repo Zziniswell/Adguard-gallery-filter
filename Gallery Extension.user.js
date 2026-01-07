@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.03
-// @description  사이트 좌측 상단에서 메뉴를 열어주세요.
+// @version      3.04
+// @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
+// @match        https://www.fmkorea.com/*
 // @run-at       document-start
 // @grant        GM_setValue
 // @grant        GM_getValue
@@ -19,6 +20,7 @@
 
     const uw = unsafeWindow;
     const doc = document;
+    const isMobile = location.hostname === 'm.fmkorea.com';
     const defs = {
         removePowerLink: true, preventAffiliate: true, imgEmbed: true, blockSearchAssist: true,
         blockUser: false, blockUserList: '', blockKeyword: false, blockKeywordList: '',
@@ -33,7 +35,7 @@
 
     addCss(`a[href="#popup_menu_area"]{-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important}`);
 
-    if (getVal('redTheme')) {
+    if (isMobile && getVal('redTheme')) {
         addCss(`#sphinx_search_tabs>.on>[href^="/index.php"],.STAR-BEST_T,.bd>.fmkorea_m_navi [href],.localNavigation>.on>[href^="/index.php"],.on>[class^="dispM"]{background-color:rgba(165,42,42,0.9)!important}.bd>.fmkorea_m_navi{background-color:rgba(255,225,225,0.4)!important}.board_autosearch_wrapper.msearch{background-color:rgba(205,92,92,0.7)!important}.comment-2.comment_best.clear.fdb_itm{background-color:rgba(255,210,210,0.5)!important}.a,.cr [href],.crhome [href]{color:rgba(165,42,42,0.9)!important}.document_writer .xe_content{color:rgba(220,20,30,0.9)!important}.ft,.hd,.pop.list,.meta>.icon-hit{background-color:rgba(165,42,42,0.9)!important}.hotdeal_var8{color:rgba(0,0,0,0.9)!important}.hotdeal_var8N{color:rgba(0,0,0,0.8)!important}.hotdeal_var8Y{color:rgba(0,0,0,0.45)!important}.inputText,.meta>.icon-hit,.socket_button>[href]{border-color:rgba(165,42,42,0.9)!important}.my_notify{background-color:rgba(165,42,42,0.7)!important}.socket_button>[href]{background-color:rgba(195,62,52,0.9)!important}.strong{color:rgba(205,92,92,0.8)!important}.comment_count{color:rgba(155,62,52,0.9)!important}.bc0.fmkorea_navi>.expanded.list{background-color:rgba(200,0,0,0.1)!important}.bc0.fmkorea_navi>.expanded.list>a[href]{background-color:rgba(155,42,62,0.7)!important}.gn>li>a{background-color:rgba(250,100,100,0.1)!important}.h1{opacity:0.1!important}li.fl{border-color:rgba(229,132,153,0.6)!important}html body .lnb>.icon>li.on>a{background-color:rgba(165,42,42,0.9)!important;box-shadow:inset 0 0 0 100vmax rgba(165,42,42,0.9)!important}body > div.bd_mobile.bd > div.bd_lst_wrp > ol > li.pop1.clear.notice{background-color:transparent!important;box-shadow:inset 0 0 0 100vmax rgba(255,210,210,0.5)!important;border-color:rgba(229,132,153,0.5)!important}body > div.bd_mobile.bd > div.bd_lst_wrp > div > ul > li.on > div.li > div.hotdeal_info > span > a.strong{color:rgba(205,0,0,0.8)!important}`);
         const meta = doc.createElement('meta');
         meta.name = "theme-color";
@@ -44,26 +46,26 @@
     const noop = () => {};
     const freeze = (o, k, v) => Object.defineProperty(o, k, {value: v, writable: false, configurable: false});
 
-    if (getVal('removePowerLink') || getVal('preventAffiliate')) {
-        try {
-            if (getVal('preventAffiliate')) freeze(uw, 'link_url', '');
-            if (getVal('removePowerLink')) {
-                freeze(uw, 'board_block_check', noop);
-                freeze(uw, '_make_power_link_identifier', noop);
-            }
-        } catch(e) {}
-    }
+    try {
+        if (!isMobile || getVal('preventAffiliate')) freeze(uw, 'link_url', '');
+        if (isMobile && getVal('removePowerLink')) {
+            freeze(uw, 'board_block_check', noop);
+            freeze(uw, '_make_power_link_identifier', noop);
+        }
+    } catch(e) {}
 
     const hider = [];
-    if (getVal('blockNotice')) hider.push('.show_folded_notice.pop0.notice, li.pop0.clear.notice');
-    if (getVal('blockSearchAssist')) hider.push('.search_assist_hover');
-    if (getVal('blockNav')) hider.push('.bc0.fmkorea_navi');
-    if (getVal('blockRecent')) hider.push('.main_recent');
-    if (getVal('blockFmAlert')) hider.push('#fm_alert');
-    if (hider.length) addCss(`${hider.join(', ')} { display: none !important; }`);
+    if (isMobile) {
+        if (getVal('blockNotice')) hider.push('.show_folded_notice.pop0.notice, li.pop0.clear.notice');
+        if (getVal('blockSearchAssist')) hider.push('.search_assist_hover');
+        if (getVal('blockNav')) hider.push('.bc0.fmkorea_navi');
+        if (getVal('blockRecent')) hider.push('.main_recent');
+        if (getVal('blockFmAlert')) hider.push('#fm_alert');
+        if (hider.length) addCss(`${hider.join(', ')} { display: none !important; }`);
+    }
 
     const killAds = () => {
-        if (!getVal('removePowerLink')) return;
+        if (!isMobile || !getVal('removePowerLink')) return;
         if (!doc.body) return window.addEventListener('DOMContentLoaded', killAds);
         if (!doc.body.classList.contains('mac_os')) return;
 
@@ -88,7 +90,7 @@
     };
 
     const fixLinks = () => {
-        if (!getVal('preventAffiliate')) return;
+        if (isMobile && !getVal('preventAffiliate')) return;
         if (!doc.body) return window.addEventListener('DOMContentLoaded', fixLinks);
         if (doc.body.dataset.lfx) return;
         doc.body.dataset.lfx = '1';
@@ -105,7 +107,7 @@
     };
 
     const embedMedia = () => {
-        if (!getVal('imgEmbed')) return;
+        if (isMobile && !getVal('imgEmbed')) return;
         const R = { img: /\.(jpe?g|png|webp|avif|gif)([?&#/].*)?$/i, vid: /\.(mp4|mkv)([?&#].*)?$/i, enc: /\.(jpe?g|png|webp|avif|gif)%3F/i, hosts: ['pbs.twimg.com', 'images?q', '/image/', '/img', 'thumb', '/_next/image?url='] };
         const done = new Set();
         let obs = null;
@@ -158,31 +160,9 @@
         (window.requestIdleCallback || setTimeout)(() => { run(); watch(); }, 0);
     };
 
-    const copyNick = () => {
-        let tm;
-        const clr = () => clearTimeout(tm);
-        const start = (e) => {
-            const el = e.target.closest('a[href="#popup_menu_area"]');
-            if (!el) return;
-            clr();
-            tm = setTimeout(() => {
-                const txt = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
-                if (txt) {
-                    navigator.clipboard.writeText(txt.textContent.trim());
-                    if (navigator.vibrate) navigator.vibrate(50);
-                }
-            }, 1000);
-        };
-        ['touchstart', 'mousedown'].forEach(ev => doc.addEventListener(ev, start, {passive: true}));
-        ['touchend', 'mouseup', 'touchmove', 'scroll'].forEach(ev => doc.addEventListener(ev, clr, {passive: true}));
-        doc.addEventListener('contextmenu', (e) => {
-            if (e.target.closest('a[href="#popup_menu_area"]')) e.preventDefault();
-        });
-    };
-
     window.addEventListener('pageshow', (e) => (e.persisted || (window.performance && window.performance.navigation.type === 2)) && killAds());
 
-    const loader = () => { killAds(); fixLinks(); embedMedia(); copyNick(); getVal('redTheme') && redTxt(); };
+    const loader = () => { killAds(); fixLinks(); embedMedia(); if (isMobile && getVal('redTheme')) redTxt(); };
     if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', loader);
     else loader();
 
@@ -194,7 +174,7 @@
         bUValid = chkStr(u); bKValid = chkStr(k);
         bUsers = u ? u.split(',') : []; bKeys = k ? k.split(',') : [];
     };
-    updLists();
+    if (isMobile) updLists();
 
     const redTxt = () => {
         qsa('.xe_content > span').forEach(s => s.textContent.includes('제휴 링크') && s.style.setProperty('color', 'rgba(165,42,42,0.9)', 'important'));
@@ -217,7 +197,7 @@
         li.style.cssText += hide ? 'display: none !important;' : (li.style.display === 'none' ? 'display: ;' : '');
     };
 
-    if (getVal('blockUser') || getVal('blockKeyword') || getVal('redTheme')) {
+    if (isMobile && (getVal('blockUser') || getVal('blockKeyword') || getVal('redTheme'))) {
         const filterNode = (n) => {
             if (n.nodeType !== 1) return;
             n.tagName === 'LI' ? scan(n) : qsa('li', n).forEach(scan);
@@ -261,7 +241,7 @@
 
         const overlay = doc.createElement('div'); overlay.id = 'fmk-settings-overlay';
         const panel = doc.createElement('div'); panel.id = 'fmk-settings-panel';
-        panel.innerHTML = `<div class="fmk-panel-header"><span>Settings</span><span class="fmk-panel-close">&times;</span></div><div class="fmk-panel-body"><div class="fmk-opt-info" style="text-align:center;margin-bottom:15px">모든 설정은 새로고침 후에 적용됩니다. 안쓰는 옵션은 끄세요.</div><div class="fmk-opt-row"><div class="fmk-opt-label">파워링크 제거</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_powerlink"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">갤러리 필터 또는 Unicorn Pro 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">핫딜 제휴링크 변환 방지</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_affiliate"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 추적보호 필터 또는 갤러리 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">댓글 이미지 임베딩</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_imgembed"><span class="fmk-slider"></span></label></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-block-section" id="section_block_user"><div class="fmk-opt-row"><div class="fmk-opt-label">유저 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_user"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="닉네임 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><div class="fmk-block-section" id="section_block_keyword"><div class="fmk-opt-row"><div class="fmk-opt-label">게시물/댓글 키워드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_keyword"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="키워드 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-opt-row"><div class="fmk-opt-label">공지사항 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_notice"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">검색 어시스턴트 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_assist"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">내비 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_nav"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">최근 방문 보드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_recent"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">새 포텐 알림 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_alert"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row" style="margin-top:15px;"><div class="fmk-opt-label">FM Korea RED 테마</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_red_theme"><span class="fmk-slider"></span></label></div></div>`;
+        panel.innerHTML = `<div class="fmk-panel-header"><span>Settings</span><span class="fmk-panel-close">&times;</span></div><div class="fmk-panel-body"><div class="fmk-opt-info" style="text-align:center;margin-bottom:15px">대부분의 설정은 새로고침 후에 적용됩니다. 안 쓰는 옵션은 끄세요.</div><div class="fmk-opt-row"><div class="fmk-opt-label">파워링크 제거</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_powerlink"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">갤러리 필터 또는 Unicorn Pro 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">핫딜 제휴링크 변환 방지</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_affiliate"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 추적보호 필터 또는 갤러리 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">댓글 이미지 임베딩</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_imgembed"><span class="fmk-slider"></span></label></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-block-section" id="section_block_user"><div class="fmk-opt-row"><div class="fmk-opt-label">유저 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_user"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="닉네임 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><div class="fmk-block-section" id="section_block_keyword"><div class="fmk-opt-row"><div class="fmk-opt-label">게시물/댓글 키워드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_keyword"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="키워드 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-opt-row"><div class="fmk-opt-label">공지사항 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_notice"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">검색 어시스턴트 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_assist"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">내비 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_nav"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">최근 방문 보드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_recent"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">새 포텐 알림 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_alert"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row" style="margin-top:15px;"><div class="fmk-opt-label">FM Korea RED 테마</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_red_theme"><span class="fmk-slider"></span></label></div></div>`;
         doc.body.append(overlay, panel);
         overlay.addEventListener('click', toggleUI);
         qs('.fmk-panel-close', panel).addEventListener('click', toggleUI);
@@ -355,5 +335,5 @@
         pn.classList.toggle('fmk-open');
     };
 
-    initUI();
+    if (isMobile) initUI();
 })();
