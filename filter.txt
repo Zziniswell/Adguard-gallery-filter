@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.06
+! Version: 2025.01.08
 ! Description: Adguard, uBlock Origin 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -21,6 +21,7 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##.textwidget
 ##[alt$='광고']
 ##[class*='ad'][id^='AD']
+##[class^='AD'][style]
 ##[class^='happy-header']
 ##[id^='AD'][style]
 ##[id^='hd_pop']
@@ -147,6 +148,7 @@ xportsnews.com$$div[class="ad mobile"]
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Affiliate links
+fmkorea.com##+js(set, link_url, '')
 ||link.coupang.com/re/CSHARE$all
 ||link.gmarket.co.kr/*PARTNERSHIP$all
 
@@ -173,10 +175,10 @@ search.dcinside.com##.right_content
 
 ! Annoyances
 cafe.naver.com##+js(remove-class, disable-select, #ct)
-fmkorea.com##+js(set, link_url, '')
 chimhaha.*##+js(aeld, click, bypass)
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 namu.wiki##div[class]:matches-css(position: sticky)
+reddit.com$$script[id="googleid-signin-script"]
 ||arca.live/static/assets/js/adult.min.js
 
 ! Anti-adblock
@@ -222,6 +224,7 @@ mlbpark.donga.com#@#div[class*="_ad"]
 mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { padding-top: 0px !important; border-bottom: none !important; }
 mule.co.kr#@#.ad-mobile
 www.gmarket.co.kr#@#.section__main-inner > .box__promotion .box__item > *
+||api-ao.adison.co^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
