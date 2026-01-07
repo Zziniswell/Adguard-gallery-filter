@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.04
+// @version      3.05
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -32,8 +32,6 @@
     const qs = (s, p = doc) => p.querySelector(s);
     const qsa = (s, p = doc) => p.querySelectorAll(s);
     const addCss = (c) => (doc.head || doc.documentElement).appendChild(doc.createElement('style')).textContent = c;
-
-    addCss(`a[href="#popup_menu_area"]{-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important}`);
 
     if (isMobile && getVal('redTheme')) {
         addCss(`#sphinx_search_tabs>.on>[href^="/index.php"],.STAR-BEST_T,.bd>.fmkorea_m_navi [href],.localNavigation>.on>[href^="/index.php"],.on>[class^="dispM"]{background-color:rgba(165,42,42,0.9)!important}.bd>.fmkorea_m_navi{background-color:rgba(255,225,225,0.4)!important}.board_autosearch_wrapper.msearch{background-color:rgba(205,92,92,0.7)!important}.comment-2.comment_best.clear.fdb_itm{background-color:rgba(255,210,210,0.5)!important}.a,.cr [href],.crhome [href]{color:rgba(165,42,42,0.9)!important}.document_writer .xe_content{color:rgba(220,20,30,0.9)!important}.ft,.hd,.pop.list,.meta>.icon-hit{background-color:rgba(165,42,42,0.9)!important}.hotdeal_var8{color:rgba(0,0,0,0.9)!important}.hotdeal_var8N{color:rgba(0,0,0,0.8)!important}.hotdeal_var8Y{color:rgba(0,0,0,0.45)!important}.inputText,.meta>.icon-hit,.socket_button>[href]{border-color:rgba(165,42,42,0.9)!important}.my_notify{background-color:rgba(165,42,42,0.7)!important}.socket_button>[href]{background-color:rgba(195,62,52,0.9)!important}.strong{color:rgba(205,92,92,0.8)!important}.comment_count{color:rgba(155,62,52,0.9)!important}.bc0.fmkorea_navi>.expanded.list{background-color:rgba(200,0,0,0.1)!important}.bc0.fmkorea_navi>.expanded.list>a[href]{background-color:rgba(155,42,62,0.7)!important}.gn>li>a{background-color:rgba(250,100,100,0.1)!important}.h1{opacity:0.1!important}li.fl{border-color:rgba(229,132,153,0.6)!important}html body .lnb>.icon>li.on>a{background-color:rgba(165,42,42,0.9)!important;box-shadow:inset 0 0 0 100vmax rgba(165,42,42,0.9)!important}body > div.bd_mobile.bd > div.bd_lst_wrp > ol > li.pop1.clear.notice{background-color:transparent!important;box-shadow:inset 0 0 0 100vmax rgba(255,210,210,0.5)!important;border-color:rgba(229,132,153,0.5)!important}body > div.bd_mobile.bd > div.bd_lst_wrp > div > ul > li.on > div.li > div.hotdeal_info > span > a.strong{color:rgba(205,0,0,0.8)!important}`);
@@ -225,7 +223,7 @@
         if (!hdr || qs('span[role="gallset"]', hdr)) return;
         const btn = doc.createElement('span');
         btn.setAttribute('role', 'gallset');
-        btn.style.cssText = `display:inline;align-items:center;justify-content:center;width:30px;height:30px;margin-left:10px;margin-top:1px;cursor:pointer;z-index:10;position:relative;top:4px;right:10px;color:#ffffff;`;
+        btn.style.cssText = `display:inline;align-items:center;justify-content:center;width:30px;height:30px;margin-left:10px;margin-top:1px;cursor:pointer;z-index:10;position:relative;top:4px;right:20px;color:#ffffff;`;
         btn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>`;
         const load = () => { loadUI(); ['touchstart', 'mousedown', 'mouseover'].forEach(e => btn.removeEventListener(e, load)); };
         ['touchstart', 'mousedown', 'mouseover'].forEach(e => btn.addEventListener(e, load));
