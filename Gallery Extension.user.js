@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.06
+// @version      3.10
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -104,58 +104,89 @@
         ['mousedown', 'touchstart', 'pointerdown'].forEach(ev => doc.body.addEventListener(ev, handler, true));
     };
 
+    // v2.08 로직으로 복원된 embedMedia (안정성 강화)
     const embedMedia = () => {
         if (isMobile && !getVal('imgEmbed')) return;
-        const R = { img: /\.(jpe?g|png|webp|avif|gif)([?&#/].*)?$/i, vid: /\.(mp4|mkv)([?&#].*)?$/i, enc: /\.(jpe?g|png|webp|avif|gif)%3F/i, hosts: ['pbs.twimg.com', 'images?q', '/image/', '/img', 'thumb', '/_next/image?url='] };
-        const done = new Set();
-        let obs = null;
+        
+        const CFG = {
+            imgRx: /\.(jpe?g|png|webp|avif|gif)([?&#/].*)?$/i,
+            vidRx: /\.(mp4|mkv)([?&#].*)?$/i,
+            imgEncRx: /\.(jpe?g|png|webp|avif|gif)%3F/i,
+            imgHosts: ['pbs.twimg.com', 'images?q', '/image/', '/img', 'thumb', '/_next/image?url=']
+        };
+        
+        const processed = new Set();
+        let observerInstance = null;
 
-        const getType = (u) => (R.img.test(u) || R.enc.test(u) || R.hosts.some(h => u.includes(h))) ? 'img' : (R.vid.test(u) ? 'video' : null);
-        const mkEl = (tag, src, txt) => {
-            const el = doc.createElement(tag);
+        const cleanSet = () => {
+            try {
+                const cur = new Set();
+                qsa('li[id^="comment"] a[href]').forEach(a => cur.add(a.getAttribute('href')));
+                processed.forEach(u => !cur.has(u) && processed.delete(u));
+            } catch(e) {}
+        };
+
+        const getType = (url) => {
+            if (CFG.imgRx.test(url) || CFG.imgEncRx.test(url)) return 'img';
+            if (CFG.vidRx.test(url)) return 'video';
+            return CFG.imgHosts.some(host => url.includes(host)) ? 'img' : null;
+        };
+
+        const mkEl = (type, src, txt) => {
+            const el = doc.createElement(type);
             el.src = src.startsWith('//') ? 'https:' + src : src;
             Object.assign(el.style, {maxWidth: '100%', display: 'block', marginTop: '10px', marginBottom: '10px'});
             el.loading = 'lazy';
-            tag === 'img' ? (el.alt = txt) : (el.controls = true);
+            if (type === 'img') el.alt = txt;
+            else el.controls = true;
             return el;
         };
 
-        const run = () => {
-            const cur = new Set();
-            qsa('li[id^="comment"] a[href]').forEach(a => cur.add(a.getAttribute('href')));
-            done.forEach(u => !cur.has(u) && done.delete(u));
+        const embed = () => {
+            try {
+                cleanSet();
+                qsa('li[id^="comment"]:not([data-done])').forEach(comment => {
+                    comment.setAttribute('data-done', 'true');
+                    comment.querySelectorAll('a[href]:not([data-done])').forEach(link => {
+                        try {
+                            const url = link.getAttribute('href');
+                            if ((!url.startsWith('http') && !url.startsWith('//')) || url.includes('wikipedia.org')) return;
+                            
+                            const type = getType(url);
+                            if (!type) return;
 
-            qsa('li[id^="comment"]:not([data-done])').forEach(c => {
-                c.setAttribute('data-done', '1');
-                c.querySelectorAll('a[href]:not([data-done])').forEach(a => {
-                    const u = a.getAttribute('href');
-                    if ((!u.startsWith('http') && !u.startsWith('//')) || u.includes('wikipedia.org')) return;
-                    const t = getType(u);
-                    if (!t) return;
+                            link.setAttribute('data-done', 'true');
+                            processed.add(url);
+                            link.style.display = 'none';
 
-                    a.setAttribute('data-done', '1');
-                    done.add(u);
-                    a.style.display = 'none';
-                    const el = mkEl(t, u, a.textContent);
-                    el.onerror = () => { el.remove(); a.style.display = ''; done.delete(u); };
-                    a.parentNode.insertBefore(el, a.nextSibling);
+                            const element = mkEl(type, url, link.textContent);
+                            element.onerror = () => {
+                                try { element.remove(); link.style.display = ''; processed.delete(url); } catch(e){}
+                            };
+                            link.parentNode.insertBefore(element, link.nextSibling);
+                        } catch(e) {}
+                    });
                 });
-            });
+            } catch(e) {}
         };
 
         const watch = () => {
-            if (obs) return;
-            let tm;
-            obs = new MutationObserver(ms => {
-                if (ms.some(m => [...m.addedNodes].some(n => n.nodeType === 1 && (n.matches?.('li[id^="comment"]') || n.querySelector?.('li[id^="comment"]'))))) {
-                    clearTimeout(tm);
-                    tm = setTimeout(() => (window.requestIdleCallback || setTimeout)(run, 0), 100);
+            if (observerInstance) return;
+            let timeout;
+            observerInstance = new MutationObserver(mutations => {
+                if (mutations.some(m => m.addedNodes.length && [...m.addedNodes].some(n => n.nodeType === 1 && (n.matches?.('li[id^="comment"]') || n.querySelector?.('li[id^="comment"]'))))) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        window.requestIdleCallback ? window.requestIdleCallback(embed) : setTimeout(embed, 0);
+                    }, 100);
                 }
             });
             const ctr = qs('.comment_list') || doc.body;
-            if (ctr) obs.observe(ctr, {childList: true, subtree: true});
+            if (ctr) observerInstance.observe(ctr, {childList: true, subtree: true});
         };
-        (window.requestIdleCallback || setTimeout)(() => { run(); watch(); }, 0);
+
+        const runWatcher = () => { embed(); watch(); };
+        window.requestIdleCallback ? window.requestIdleCallback(runWatcher) : setTimeout(runWatcher, 0);
     };
 
     window.addEventListener('pageshow', (e) => (e.persisted || (window.performance && window.performance.navigation.type === 2)) && killAds());
