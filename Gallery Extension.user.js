@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.10
+// @version      3.11
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -57,7 +57,7 @@
         if (getVal('blockNotice')) hider.push('.show_folded_notice.pop0.notice, li.pop0.clear.notice');
         if (getVal('blockSearchAssist')) hider.push('.search_assist_hover,#search_assist_wrapper');
         if (getVal('blockNav')) hider.push('.bc0.fmkorea_navi');
-        if (getVal('blockRecent')) hider.push('.main_recent');
+        if (getVal('blockRecent')) hider.push('.main_recent,#fmrecentvisited-recent-visits');
         if (getVal('blockFmAlert')) hider.push('#fm_alert');
         if (hider.length) addCss(`${hider.join(', ')} { display: none !important; }`);
     }
