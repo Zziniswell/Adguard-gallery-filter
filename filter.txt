@@ -1,7 +1,10 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.08
+! Version: 2025.01.11
 ! Description: Adguard, uBlock Origin 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
+
+! Toss ad domain but blocking breaks the attendance event in tossinvest.
+! ||trillion.toss.im^
 
 For iOS, MV3
 !#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox)
@@ -144,7 +147,6 @@ xportsnews.com$$div[class="ad mobile"]
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
-||trillion.toss.im^
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Affiliate links
@@ -204,6 +206,7 @@ $@$link[rel="manifest"]
 @@||hanaroetf.com^$stealth=dpi
 @@||isplus.$stealth=dpi
 @@||kamp.daum.net^$xhr
+@@||pincrux.com^$stealth=dpi
 @@||searchad-phinf.pstatic.net^$app=com.nhn.android.search
 @@||shopping.naver.com^$stealth
 @@||slrclub.com/rss/today_photo.slr
