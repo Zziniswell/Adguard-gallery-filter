@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.21
+// @version      3.22
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -100,7 +100,7 @@
 
         adCheckActive = true;
         if (adTimer) clearTimeout(adTimer);
-        adTimer = setTimeout(() => { adCheckActive = false; }, 2500);
+        adTimer = setTimeout(() => { adCheckActive = false; }, 1500);
     };
 
     const fixLinks = () => {
