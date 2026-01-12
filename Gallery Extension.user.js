@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.15
+// @version      3.19
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -23,7 +23,7 @@
     const isMobile = location.hostname === 'm.fmkorea.com';
     const defs = {
         removePowerLink: true, preventAffiliate: true, noWatermark: false, imgEmbed: true, blockSearchAssist: true,
-        blockUser: false, blockUserList: '', blockKeyword: false, blockKeywordList: '',
+        blockUser: false, blockUserList: '[]', blockKeyword: false, blockKeywordList: '[]',
         blockNotice: false, blockNav: false, blockRecent: false, blockFmAlert: false, redTheme: false
     };
 
@@ -32,6 +32,21 @@
     const qs = (s, p = doc) => p.querySelector(s);
     const qsa = (s, p = doc) => p.querySelectorAll(s);
     const addCss = (c) => (doc.head || doc.documentElement).appendChild(doc.createElement('style')).textContent = c;
+    const escRE = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const getList = (k) => {
+        let raw = getVal(k);
+        if (!raw) return [];
+        if (typeof raw !== 'string') return []; 
+        try {
+            if (raw.trim().startsWith('[')) return JSON.parse(raw);
+        } catch (e) {}
+        const arr = raw.split(',').map(s => s.trim()).filter(s => s);
+        setVal(k, JSON.stringify(arr));
+        return arr;
+    };
+    
+    const setList = (k, arr) => setVal(k, JSON.stringify(arr));
 
     if (isMobile && getVal('redTheme')) {
         addCss(`#sphinx_search_tabs>.on>[href^="/index.php"],.STAR-BEST_T,.bd>.fmkorea_m_navi [href],.localNavigation>.on>[href^="/index.php"],.on>[class^="dispM"]{background-color:rgba(165,42,42,0.9)!important}.bd>.fmkorea_m_navi{background-color:rgba(255,225,225,0.4)!important}.board_autosearch_wrapper.msearch{background-color:rgba(205,92,92,0.7)!important}.comment-2.comment_best.clear.fdb_itm{background-color:rgba(255,210,210,0.5)!important}.a,.cr [href],.crhome [href]{color:rgba(165,42,42,0.9)!important}.document_writer .xe_content{color:rgba(220,20,30,0.9)!important}.ft,.hd,.pop.list,.meta>.icon-hit{background-color:rgba(165,42,42,0.9)!important}.hotdeal_var8{color:rgba(0,0,0,0.9)!important}.hotdeal_var8N{color:rgba(0,0,0,0.8)!important}.hotdeal_var8Y{color:rgba(0,0,0,0.45)!important}.inputText,.meta>.icon-hit,.socket_button>[href]{border-color:rgba(165,42,42,0.9)!important}.my_notify{background-color:rgba(165,42,42,0.7)!important}.socket_button>[href]{background-color:rgba(195,62,52,0.9)!important}.strong{color:rgba(205,92,92,0.8)!important}.comment_count{color:rgba(155,62,52,0.9)!important}.bc0.fmkorea_navi>.expanded.list{background-color:rgba(200,0,0,0.1)!important}.bc0.fmkorea_navi>.expanded.list>a[href]{background-color:rgba(155,42,62,0.7)!important}.gn>li>a{background-color:rgba(250,100,100,0.1)!important}.h1{opacity:0.1!important}li.fl{border-color:rgba(229,132,153,0.6)!important}html body .lnb>.icon>li.on>a{background-color:rgba(165,42,42,0.9)!important;box-shadow:inset 0 0 0 100vmax rgba(165,42,42,0.9)!important}body > div.bd_mobile.bd > div.bd_lst_wrp > ol > li.pop1.clear.notice{background-color:transparent!important;box-shadow:inset 0 0 0 100vmax rgba(255,210,210,0.5)!important;border-color:rgba(229,132,153,0.5)!important}body > div.bd_mobile.bd > div.bd_lst_wrp > div > ul > li.on > div.li > div.hotdeal_info > span > a.strong{color:rgba(205,0,0,0.8)!important}a.btn_img-on{ border-color:rgba(165,42,42,0.9)!important;color:rgba(165,42,42,0.9)!important;}`);
@@ -198,13 +213,10 @@
     if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', loader);
     else loader();
 
-    let bUsers = [], bKeys = [], bUValid = true, bKValid = true;
-    const chkStr = (s) => (!s || !s.trim()) ? true : (!/[^a-zA-Z가-힣,]/.test(s) && !s.includes(',,') && !s.endsWith(',') && s.split(',').every(w => w.length < 15 && w.length > 0));
-
+    let bUsers = [], bKeys = [];
     const updLists = () => {
-        const u = getVal('blockUserList'), k = getVal('blockKeywordList');
-        bUValid = chkStr(u); bKValid = chkStr(k);
-        bUsers = u ? u.split(',') : []; bKeys = k ? k.split(',') : [];
+        bUsers = getList('blockUserList');
+        bKeys = getList('blockKeywordList');
     };
     if (isMobile) updLists();
 
@@ -215,15 +227,32 @@
 
     const scan = (li) => {
         let hide = false;
-        if (getVal('blockUser') && bUValid && bUsers.length) {
+        if (getVal('blockUser') && bUsers.length) {
             const auth = qs('.author', li), lnk = qs('a[onclick]', li);
+            const addr = qs('address > strong', li);
+            const infos = qsa('.rt_area > .info > span', li);
+            
             if (auth && bUsers.some(n => auth.textContent.trim().endsWith('/ ' + n))) hide = true;
             else if (lnk && bUsers.some(n => lnk.textContent.trim() === n)) hide = true;
+            
+            if (!hide && (addr || infos.length)) {
+                hide = bUsers.some(n => {
+                    const esc = escRE(n);
+                    if (addr && new RegExp(`^${esc}$`).test(addr.textContent.trim())) return true;
+                    if (infos.length && Array.from(infos).some(sp => new RegExp(`${esc}$`).test(sp.textContent.trim()))) return true;
+                    return false;
+                });
+            }
         }
-        if (!hide && getVal('blockKeyword') && bKValid && bKeys.length) {
+        if (!hide && getVal('blockKeyword') && bKeys.length) {
             const txts = qsa('.xe_content, .read_more', li);
+            const srchT = qs('dl > dt > a', li), clrT = qs('.rt_area > h3 > a', li);
+            
             for (const t of txts) {
                 if (bKeys.some(k => t.textContent.includes(k))) { hide = true; break; }
+            }
+            if (!hide && (srchT || clrT)) {
+                if (bKeys.some(k => (srchT && srchT.textContent.includes(k)) || (clrT && clrT.textContent.includes(k)))) hide = true;
             }
         }
         li.style.cssText += hide ? 'display: none !important;' : (li.style.display === 'none' ? 'display: ;' : '');
@@ -248,6 +277,7 @@
 
     const rescan = () => qsa('li').forEach(scan);
     let uiLoaded = false;
+    let _refreshTags = null; 
 
     const getTheme = () => (qs('meta[name="theme-color"]') || {}).content || '#34495e';
     const initUI = () => (doc.readyState === 'loading') ? doc.addEventListener('DOMContentLoaded', addBtn) : addBtn();
@@ -269,11 +299,38 @@
         if (uiLoaded) return;
         uiLoaded = true;
         const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        addCss(`:root{--fmk-theme:${getTheme()}}#fmk-settings-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99998;opacity:0;visibility:hidden;backdrop-filter:blur(2px);transition:opacity 0.25s ease,visibility 0.25s ease}#fmk-settings-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(0.96);width:90%;max-width:350px;max-height:85vh;background:${isDark?'rgba(40,40,40,0.95)':'rgba(255,255,255,0.98)'};color:${isDark?'#eee':'#333'};border:1px solid ${isDark?'#555':'#ddd'};border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:99999;display:flex;flex-direction:column;font-size:14px;user-select:none;opacity:0;visibility:hidden;transition:opacity 0.25s cubic-bezier(0.2,0.8,0.2,1),transform 0.25s cubic-bezier(0.2,0.8,0.2,1),visibility 0.25s}.fmk-open#fmk-settings-overlay{opacity:1;visibility:visible}.fmk-open#fmk-settings-panel{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}.fmk-panel-header{padding:15px;border-bottom:1px solid ${isDark?'#555':'#eee'};font-weight:bold;font-size:17px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}.fmk-panel-close{cursor:pointer;padding:5px;font-size:20px;line-height:1;color:#888}.fmk-panel-body{padding:15px;overflow-y:auto;flex-grow:1}.fmk-opt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.fmk-opt-label{font-weight:bold;text-align:left;flex:1;margin-right:15px;font-size:15px}.fmk-opt-info{font-size:11px;color:#999;margin-top:-5px;margin-bottom:15px;text-align:left;line-height:1.4}.fmk-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}.fmk-switch input{opacity:0;width:0;height:0}.fmk-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.3s;border-radius:24px}.fmk-slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background-color:white;transition:.3s;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.2)}input:checked+.fmk-slider{background-color:var(--fmk-theme)}input:checked+.fmk-slider:before{transform:translateX(20px)}.fmk-input-group{display:flex;gap:5px;margin-bottom:8px;display:none;width:100%;box-sizing:border-box}.fmk-input-text{flex:1;min-width:0;padding:8px;border-radius:4px;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#fff'};color:inherit;font-size:13px;height:36px;box-sizing:border-box}.fmk-btn{width:60px;flex-shrink:0;height:36px;border-radius:4px;border:none;cursor:pointer;background:${isDark?'#555':'#eee'};color:inherit;font-weight:bold;font-size:13px;white-space:nowrap;display:flex;align-items:center;justify-content:center;transition:background-color 0.2s,color 0.2s}.fmk-btn:active{opacity:0.8}.fmk-btn.error{background-color:#ff5252;color:white}.fmk-list-area{width:100%;height:80px;resize:none;box-sizing:border-box;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#f9f9f9'};color:inherit;padding:8px;font-size:12px;margin-bottom:20px;display:none;border-radius:4px}.expanded .fmk-input-group,.expanded .fmk-list-area{display:flex}.expanded textarea.fmk-list-area{display:block}`);
+        addCss(`:root{--fmk-theme:${getTheme()}}#fmk-settings-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:99998;opacity:0;visibility:hidden;backdrop-filter:blur(2px);transition:opacity 0.25s ease,visibility 0.25s ease}#fmk-settings-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(0.96);width:90%;max-width:350px;max-height:85vh;background:${isDark?'rgba(40,40,40,0.95)':'rgba(255,255,255,0.98)'};color:${isDark?'#eee':'#333'};border:1px solid ${isDark?'#555':'#ddd'};border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:99999;display:flex;flex-direction:column;font-size:14px;user-select:none;opacity:0;visibility:hidden;transition:opacity 0.25s cubic-bezier(0.2,0.8,0.2,1),transform 0.25s cubic-bezier(0.2,0.8,0.2,1),visibility 0.25s}.fmk-open#fmk-settings-overlay{opacity:1;visibility:visible}.fmk-open#fmk-settings-panel{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}.fmk-panel-header{padding:15px;border-bottom:1px solid ${isDark?'#555':'#eee'};font-weight:bold;font-size:17px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}.fmk-panel-close{cursor:pointer;padding:5px;font-size:20px;line-height:1;color:#888}.fmk-panel-body{padding:15px;overflow-y:auto;flex-grow:1}.fmk-opt-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.fmk-opt-label{font-weight:bold;text-align:left;flex:1;margin-right:15px;font-size:15px}.fmk-opt-info{font-size:11px;color:#999;margin-top:-5px;margin-bottom:15px;text-align:left;line-height:1.4}.fmk-switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}.fmk-switch input{opacity:0;width:0;height:0}.fmk-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.3s;border-radius:24px}.fmk-slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background-color:white;transition:.3s;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.2)}input:checked+.fmk-slider{background-color:var(--fmk-theme)}input:checked+.fmk-slider:before{transform:translateX(20px)}.fmk-input-group{display:none;gap:5px;margin-bottom:8px;width:100%;box-sizing:border-box;align-items:center}.fmk-input-text{flex:1;min-width:0;padding:8px;border-radius:4px;border:1px solid ${isDark?'#666':'#ddd'};background:${isDark?'#333':'#fff'};color:inherit;font-size:13px;height:38px;box-sizing:border-box}.fmk-btn{width:50px;flex-shrink:0;height:38px;border-radius:4px;border:none;cursor:pointer;background:${isDark?'#555':'#eee'};color:inherit;font-weight:bold;font-size:13px;white-space:nowrap;display:flex;align-items:center;justify-content:center;transition:background-color 0.2s,color 0.2s}.fmk-btn:active{opacity:0.8}.fmk-tag-container{display:none;flex-wrap:wrap;gap:5px;padding:8px;border:1px solid ${isDark?'#666':'#ddd'};border-radius:4px;background:${isDark?'#333':'#f9f9f9'};max-height:120px;overflow-y:auto;margin-bottom:8px;min-height:30px}.expanded .fmk-tag-container,.expanded .fmk-input-group{display:flex}.fmk-tag{background:${isDark?'#555':'#e0e0e0'};padding:4px 8px;border-radius:12px;font-size:12px;display:flex;align-items:center;color:inherit;word-break:break-all}.fmk-tag-close{margin-left:6px;cursor:pointer;font-weight:bold;opacity:0.6;font-size:14px;line-height:1}.fmk-tag-close:hover{opacity:1}.fmk-icons-area{display:none;gap:10px;margin-right:10px}.expanded .fmk-icons-area{display:flex;align-items:center}.fmk-icon-btn{cursor:pointer;opacity:0.6;transition:opacity 0.2s;display:flex;align-items:center;justify-content:center;width:24px;height:24px}.fmk-icon-btn:hover{opacity:1}`);
 
         const overlay = doc.createElement('div'); overlay.id = 'fmk-settings-overlay';
         const panel = doc.createElement('div'); panel.id = 'fmk-settings-panel';
-        panel.innerHTML = `<div class="fmk-panel-header"><span>Settings</span><span class="fmk-panel-close">&times;</span></div><div class="fmk-panel-body"><div class="fmk-opt-info" style="text-align:center;margin-bottom:15px">대부분의 설정은 새로고침 후에 적용됩니다. 안 쓰는 옵션은 끄세요.</div><div class="fmk-opt-row"><div class="fmk-opt-label">파워링크 제거</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_powerlink"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">갤러리 필터 또는 Unicorn Pro 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">핫딜 제휴링크 변환 방지</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_affiliate"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 추적보호 필터 또는 갤러리 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">캡쳐방지 및 워터마크 해제</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_watermark"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 기타 방해요소 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">댓글 이미지 임베딩</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_imgembed"><span class="fmk-slider"></span></label></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-block-section" id="section_block_user"><div class="fmk-opt-row"><div class="fmk-opt-label">유저 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_user"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="닉네임 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><div class="fmk-block-section" id="section_block_keyword"><div class="fmk-opt-row"><div class="fmk-opt-label">게시물/댓글 키워드 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_keyword"><span class="fmk-slider"></span></label></div><div class="fmk-input-group"><input type="text" class="fmk-input-text" placeholder="키워드 입력 (한/영 14자 이내)"><button class="fmk-btn">등록</button></div><textarea class="fmk-list-area" placeholder="차단 목록"></textarea></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-opt-row"><div class="fmk-opt-label">공지사항 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_notice"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">검색 어시스턴트 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_assist"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">포텐 메인 Navi 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_nav"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">최근방문 게시판 목록 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_recent"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">새 포텐 알림 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_alert"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row" style="margin-top:15px;"><div class="fmk-opt-label">FM Korea RED 테마</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_red_theme"><span class="fmk-slider"></span></label></div></div>`;
+        
+        const svgIcon = {
+            export: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`,
+            import: `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>`
+        };
+
+        const blkHtml = (id, label) => `
+            <div class="fmk-block-section" id="${id}">
+                <div class="fmk-opt-row">
+                    <div class="fmk-opt-label">${label}</div>
+                    <div class="fmk-icons-area">
+                         <div class="fmk-icon-btn export-btn" title="내보내기">${svgIcon.export}</div>
+                         <div class="fmk-icon-btn import-btn" title="불러오기">${svgIcon.import}</div>
+                         <input type="file" accept=".json,.txt" style="display:none" class="import-file">
+                    </div>
+                    <label class="fmk-switch"><input type="checkbox" id="fmk_opt_${id.replace('section_','')}"><span class="fmk-slider"></span></label>
+                </div>
+                <div class="fmk-input-group">
+                    <input type="text" class="fmk-input-text" placeholder="입력 후 등록">
+                    <button class="fmk-btn add-btn">등록</button>
+                </div>
+                <div class="fmk-tag-container"></div>
+            </div>`;
+
+        panel.innerHTML = `<div class="fmk-panel-header"><span>Settings</span><span class="fmk-panel-close">&times;</span></div><div class="fmk-panel-body"><div class="fmk-opt-info" style="text-align:center;margin-bottom:15px">대부분의 설정은 새로고침 후에 적용됩니다. 안 쓰는 옵션은 끄세요.</div><div class="fmk-opt-row"><div class="fmk-opt-label">파워링크 제거</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_powerlink"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">갤러리 필터 또는 Unicorn Pro 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">핫딜 제휴링크 변환 방지</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_affiliate"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 추적보호 필터 또는 갤러리 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">캡쳐방지 및 워터마크 해제</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_watermark"><span class="fmk-slider"></span></label></div><div class="fmk-opt-info">AdGuard 기타 방해요소 필터 사용시 필요하지 않습니다.</div><div class="fmk-opt-row"><div class="fmk-opt-label">댓글 이미지 임베딩</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_imgembed"><span class="fmk-slider"></span></label></div><hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;">
+        ${blkHtml('section_block_user', '유저 차단')}
+        ${blkHtml('section_block_keyword', '게시물/댓글 키워드 차단')}
+        <hr style="border:0;border-top:1px solid ${isDark?'#444':'#eee'};margin:15px 0;"><div class="fmk-opt-row"><div class="fmk-opt-label">공지사항 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_notice"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">검색 어시스턴트 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_assist"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">포텐 메인 Navi 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_nav"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">최근방문 게시판 목록 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_recent"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row"><div class="fmk-opt-label">새 포텐 알림 차단</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_block_alert"><span class="fmk-slider"></span></label></div><div class="fmk-opt-row" style="margin-top:15px;"><div class="fmk-opt-label">FM Korea RED 테마</div><label class="fmk-switch"><input type="checkbox" id="fmk_opt_red_theme"><span class="fmk-slider"></span></label></div></div>`;
         doc.body.append(overlay, panel);
         overlay.addEventListener('click', toggleUI);
         qs('.fmk-panel-close', panel).addEventListener('click', toggleUI);
@@ -286,19 +343,45 @@
             if (!el) return;
             el.checked = getVal(key);
             if (sec) {
-                const s = qs('#' + sec), txt = qs('textarea', s);
+                const s = qs('#' + sec);
                 if (el.checked) s.classList.add('expanded');
-                if (key === 'blockUser') txt.value = getVal('blockUserList');
-                else if (key === 'blockKeyword') txt.value = getVal('blockKeywordList');
-                updState(s);
             }
             el.addEventListener('change', (e) => {
                 setVal(key, e.target.checked);
                 if (sec) {
                     const s = qs('#' + sec);
                     e.target.checked ? s.classList.add('expanded') : s.classList.remove('expanded');
-                    if (key === 'blockUser' || key === 'blockKeyword') { updLists(); rescan(); }
+                    if (key === 'blockUser' || key === 'blockKeyword') { 
+                        updLists(); rescan(); 
+                        if(e.target.checked) renderTags(s, key);
+                    }
                 }
+            });
+        };
+
+        const renderTags = (sec, key) => {
+            const list = getList(key);
+            const con = qs('.fmk-tag-container', sec);
+            con.innerHTML = '';
+            list.forEach((item, idx) => {
+                const tag = doc.createElement('div');
+                tag.className = 'fmk-tag';
+                tag.innerHTML = `${item.replace(/</g,'&lt;')}<span class="fmk-tag-close" data-idx="${idx}">&times;</span>`;
+                tag.querySelector('.fmk-tag-close').addEventListener('click', () => {
+                    list.splice(idx, 1);
+                    setList(key, list);
+                    renderTags(sec, key);
+                    updLists(); rescan();
+                });
+                con.appendChild(tag);
+            });
+        };
+        
+        _refreshTags = () => {
+            ['section_block_user', 'section_block_keyword'].forEach(sid => {
+                 const s = qs('#'+sid);
+                 const k = sid === 'section_block_user' ? 'blockUserList' : 'blockKeywordList';
+                 if(qs('#fmk_opt_'+sid.replace('section_','')).checked) renderTags(s, k);
             });
         };
 
@@ -311,46 +394,59 @@
         map.forEach(m => bind(...m));
 
         ['section_block_user', 'section_block_keyword'].forEach(sid => {
-            const s = qs('#' + sid), txt = qs('textarea', s), inp = qs('input[type="text"]', s), btn = qs('button', s);
+            const s = qs('#' + sid), inp = qs('input.fmk-input-text', s), addBtn = qs('.add-btn', s);
+            const expBtn = qs('.export-btn', s), impBtn = qs('.import-btn', s), fileInp = qs('.import-file', s);
             const k = sid === 'section_block_user' ? 'blockUserList' : 'blockKeywordList';
 
-            txt.addEventListener('input', () => updState(s));
-            txt.addEventListener('focus', () => updState(s));
-            inp.addEventListener('focus', () => updState(s));
-            inp.addEventListener('input', () => updState(s));
-             
-            txt.addEventListener('blur', (e) => { if (chkStr(e.target.value)) { setVal(k, e.target.value); updLists(); rescan(); } });
-
-            btn.addEventListener('click', () => {
-                if (btn.classList.contains('error')) return;
-                 
-                if (btn.textContent === '저장') {
-                    setVal(k, txt.value); updLists(); rescan();
-                    txt.blur(); btn.textContent = '등록'; btn.classList.remove('save');
-                    return;
-                }
-
+            addBtn.addEventListener('click', () => {
                 const v = inp.value.trim();
                 if (!v) return;
-                if (!/^[a-zA-Z가-힣]{1,14}$/.test(v)) return alert('입력값은 1~14자의 한글, 영어만 가능합니다.');
-                 
-                let cur = txt.value.trim();
-                if (cur) cur += ','; cur += v;
-                if (chkStr(cur)) {
-                    txt.value = cur; setVal(k, cur); updLists(); inp.value = '';
-                    updState(s); rescan();
-                } else alert('목록에 추가할 수 없습니다.');
+                const list = getList(k);
+                if (!list.includes(v)) {
+                    list.push(v);
+                    setList(k, list);
+                    renderTags(s, k);
+                    updLists(); rescan();
+                }
+                inp.value = '';
+            });
+
+            expBtn.addEventListener('click', () => {
+                const list = getList(k);
+                const blob = new Blob([JSON.stringify(list, null, 2)], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = doc.createElement('a');
+                a.href = url;
+                a.download = `${sid === 'section_block_user' ? 'fmk_block_users' : 'fmk_block_keywords'}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+            impBtn.addEventListener('click', () => fileInp.click());
+            fileInp.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    try {
+                        const parsed = JSON.parse(ev.target.result);
+                        if (Array.isArray(parsed)) {
+                            if (confirm(`현재 목록을 덮어쓰시겠습니까? (확인: 덮어쓰기 / 취소: 병합)`)) {
+                                setList(k, parsed);
+                            } else {
+                                const current = getList(k);
+                                const merged = [...new Set([...current, ...parsed])];
+                                setList(k, merged);
+                            }
+                            renderTags(s, k);
+                            updLists(); rescan();
+                        } else alert('올바른 JSON 형식이 아닙니다.');
+                    } catch(err) { alert('파일을 읽는 중 오류가 발생했습니다.'); }
+                    fileInp.value = '';
+                };
+                reader.readAsText(file);
             });
         });
-    };
-
-    const updState = (s) => {
-        const txt = qs('textarea', s), btn = qs('button', s);
-        btn.classList.remove('error', 'save');
-        if (!chkStr(txt.value)) { btn.textContent = '오류'; btn.classList.add('error'); return; }
-        const save = doc.activeElement === txt;
-        btn.textContent = save ? '저장' : '등록';
-        if (save) btn.classList.add('save');
     };
 
     const toggleUI = () => {
@@ -359,12 +455,14 @@
             setTimeout(() => {
                 qs('#fmk-settings-overlay').classList.add('fmk-open');
                 qs('#fmk-settings-panel').classList.add('fmk-open');
+                if(_refreshTags) _refreshTags();
             }, 10);
             return;
         }
         const ov = qs('#fmk-settings-overlay'), pn = qs('#fmk-settings-panel');
         ov.classList.toggle('fmk-open');
         pn.classList.toggle('fmk-open');
+        if (pn.classList.contains('fmk-open') && _refreshTags) _refreshTags();
     };
 
     if (isMobile) initUI();
