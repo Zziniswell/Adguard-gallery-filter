@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.19
+// @version      3.20
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -81,29 +81,19 @@
         if (hider.length) addCss(`${hider.join(', ')} { display: none !important; }`);
     }
 
+    const isBad = (el) => {
+        const s = window.getComputedStyle(el);
+        const h = parseInt(s.height), p = parseFloat(s.padding), mt = parseFloat(s.marginTop), ml = parseFloat(s.marginLeft);
+        return (h >= 60 && h <= 200 && p <= 5 && mt <= 5 && ml <= 5);
+    };
+
     const killAds = () => {
         if (!isMobile || !getVal('removePowerLink')) return;
         if (!doc.body) return window.addEventListener('DOMContentLoaded', killAds);
         if (!doc.body.classList.contains('mac_os')) return;
 
-        const isBad = (el) => {
-            const s = window.getComputedStyle(el);
-            const h = parseInt(s.height), p = parseFloat(s.padding), mt = parseFloat(s.marginTop), ml = parseFloat(s.marginLeft);
-            return (h >= 60 && h <= 200 && p <= 5 && mt <= 5 && ml <= 5);
-        };
-
         const sweep = () => qsa('script ~ div.bd_mobile.bd, section.fmWidgetStyle2019.bd_mobile.bd').forEach(el => isBad(el) && el.remove());
         sweep();
-
-        let tm;
-        const obs = new MutationObserver(ms => {
-            if (ms.some(m => m.addedNodes.length)) {
-                clearTimeout(tm);
-                tm = setTimeout(sweep, 20);
-            }
-        });
-        obs.observe(doc.body, {childList: true, subtree: true});
-        setTimeout(() => obs.disconnect(), 2000);
     };
 
     const fixLinks = () => {
@@ -123,95 +113,65 @@
         ['mousedown', 'touchstart', 'pointerdown'].forEach(ev => doc.body.addEventListener(ev, handler, true));
     };
 
-    const embedMedia = () => {
-        if (isMobile && !getVal('imgEmbed')) return;
-        
-        const CFG = {
-            imgRx: /\.(jpe?g|png|webp|avif|gif)([?&#/].*)?$/i,
-            vidRx: /\.(mp4|mkv)([?&#].*)?$/i,
-            imgEncRx: /\.(jpe?g|png|webp|avif|gif)%3F/i,
-            imgHosts: ['pbs.twimg.com', 'images?q', '/image/', '/img', 'thumb', '/_next/image?url=']
-        };
-        
-        const processed = new Set();
-        let observerInstance = null;
-
-        const cleanSet = () => {
-            try {
-                const cur = new Set();
-                qsa('li[id^="comment"] a[href]').forEach(a => cur.add(a.getAttribute('href')));
-                processed.forEach(u => !cur.has(u) && processed.delete(u));
-            } catch(e) {}
-        };
-
-        const getType = (url) => {
-            if (CFG.imgRx.test(url) || CFG.imgEncRx.test(url)) return 'img';
-            if (CFG.vidRx.test(url)) return 'video';
-            return CFG.imgHosts.some(host => url.includes(host)) ? 'img' : null;
-        };
-
-        const mkEl = (type, src, txt) => {
-            const el = doc.createElement(type);
-            el.src = src.startsWith('//') ? 'https:' + src : src;
-            Object.assign(el.style, {maxWidth: '100%', display: 'block', marginTop: '10px', marginBottom: '10px'});
-            el.loading = 'lazy';
-            if (type === 'img') el.alt = txt;
-            else el.controls = true;
-            return el;
-        };
-
-        const embed = () => {
-            try {
-                cleanSet();
-                qsa('li[id^="comment"]:not([data-done])').forEach(comment => {
-                    comment.setAttribute('data-done', 'true');
-                    comment.querySelectorAll('a[href]:not([data-done])').forEach(link => {
-                        try {
-                            const url = link.getAttribute('href');
-                            if ((!url.startsWith('http') && !url.startsWith('//')) || url.includes('wikipedia.org')) return;
-                            
-                            const type = getType(url);
-                            if (!type) return;
-
-                            link.setAttribute('data-done', 'true');
-                            processed.add(url);
-                            link.style.display = 'none';
-
-                            const element = mkEl(type, url, link.textContent);
-                            element.onerror = () => {
-                                try { element.remove(); link.style.display = ''; processed.delete(url); } catch(e){}
-                            };
-                            link.parentNode.insertBefore(element, link.nextSibling);
-                        } catch(e) {}
-                    });
-                });
-            } catch(e) {}
-        };
-
-        const watch = () => {
-            if (observerInstance) return;
-            let timeout;
-            observerInstance = new MutationObserver(mutations => {
-                if (mutations.some(m => m.addedNodes.length && [...m.addedNodes].some(n => n.nodeType === 1 && (n.matches?.('li[id^="comment"]') || n.querySelector?.('li[id^="comment"]'))))) {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => {
-                        window.requestIdleCallback ? window.requestIdleCallback(embed) : setTimeout(embed, 0);
-                    }, 100);
-                }
-            });
-            const ctr = qs('.comment_list') || doc.body;
-            if (ctr) observerInstance.observe(ctr, {childList: true, subtree: true});
-        };
-
-        const runWatcher = () => { embed(); watch(); };
-        window.requestIdleCallback ? window.requestIdleCallback(runWatcher) : setTimeout(runWatcher, 0);
+    const CFG = {
+        imgRx: /\.(jpe?g|png|webp|avif|gif)([?&#/].*)?$/i,
+        vidRx: /\.(mp4|mkv)([?&#].*)?$/i,
+        imgEncRx: /\.(jpe?g|png|webp|avif|gif)%3F/i,
+        imgHosts: ['pbs.twimg.com', 'images?q', '/image/', '/img', 'thumb', '/_next/image?url=']
+    };
+    
+    const processed = new Set();
+    const cleanSet = () => {
+        try {
+            const cur = new Set();
+            qsa('li[id^="comment"] a[href]').forEach(a => cur.add(a.getAttribute('href')));
+            processed.forEach(u => !cur.has(u) && processed.delete(u));
+        } catch(e) {}
     };
 
-    window.addEventListener('pageshow', (e) => (e.persisted || (window.performance && window.performance.navigation.type === 2)) && killAds());
+    const getType = (url) => {
+        if (CFG.imgRx.test(url) || CFG.imgEncRx.test(url)) return 'img';
+        if (CFG.vidRx.test(url)) return 'video';
+        return CFG.imgHosts.some(host => url.includes(host)) ? 'img' : null;
+    };
 
-    const loader = () => { killAds(); fixLinks(); embedMedia(); if (isMobile && getVal('redTheme')) redTxt(); };
-    if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', loader);
-    else loader();
+    const mkEl = (type, src, txt) => {
+        const el = doc.createElement(type);
+        el.src = src.startsWith('//') ? 'https:' + src : src;
+        Object.assign(el.style, {maxWidth: '100%', display: 'block', marginTop: '10px', marginBottom: '10px'});
+        el.loading = 'lazy';
+        if (type === 'img') el.alt = txt;
+        else el.controls = true;
+        return el;
+    };
+
+    const embed = () => {
+        try {
+            cleanSet();
+            qsa('li[id^="comment"]:not([data-done])').forEach(comment => {
+                comment.setAttribute('data-done', 'true');
+                comment.querySelectorAll('a[href]:not([data-done])').forEach(link => {
+                    try {
+                        const url = link.getAttribute('href');
+                        if ((!url.startsWith('http') && !url.startsWith('//')) || url.includes('wikipedia.org')) return;
+                        
+                        const type = getType(url);
+                        if (!type) return;
+
+                        link.setAttribute('data-done', 'true');
+                        processed.add(url);
+                        link.style.display = 'none';
+
+                        const element = mkEl(type, url, link.textContent);
+                        element.onerror = () => {
+                            try { element.remove(); link.style.display = ''; processed.delete(url); } catch(e){}
+                        };
+                        link.parentNode.insertBefore(element, link.nextSibling);
+                    } catch(e) {}
+                });
+            });
+        } catch(e) {}
+    };
 
     let bUsers = [], bKeys = [];
     const updLists = () => {
@@ -258,24 +218,70 @@
         li.style.cssText += hide ? 'display: none !important;' : (li.style.display === 'none' ? 'display: ;' : '');
     };
 
-    if (isMobile && (getVal('blockUser') || getVal('blockKeyword') || getVal('redTheme'))) {
-        const filterNode = (n) => {
-            if (n.nodeType !== 1) return;
-            n.tagName === 'LI' ? scan(n) : qsa('li', n).forEach(scan);
-        };
-        const filterObs = new MutationObserver(ms => {
-            ms.forEach(m => m.addedNodes.forEach(filterNode));
-            if (getVal('redTheme')) redTxt();
-        });
-        const root = doc.documentElement || doc.body;
-        if (root) filterObs.observe(root, {childList: true, subtree: true});
-        else window.addEventListener('DOMContentLoaded', () => {
-            filterObs.observe(doc.documentElement, {childList: true, subtree: true});
-            qsa('li').forEach(scan);
-        });
-    }
-
     const rescan = () => qsa('li').forEach(scan);
+
+    let embedTimer;
+    const runEmbed = () => {
+        if (embedTimer) clearTimeout(embedTimer);
+        embedTimer = setTimeout(() => {
+            window.requestIdleCallback ? window.requestIdleCallback(embed) : setTimeout(embed, 0);
+        }, 100);
+    };
+
+    const mainObserver = new MutationObserver(ms => {
+        const doAds = isMobile && getVal('removePowerLink');
+        const doEmbed = isMobile && getVal('imgEmbed');
+        const doFilter = isMobile && (getVal('blockUser') || getVal('blockKeyword') || getVal('redTheme'));
+        const doRed = isMobile && getVal('redTheme');
+        const isMacOS = doc.body && doc.body.classList.contains('mac_os');
+
+        if (!doAds && !doEmbed && !doFilter) return;
+
+        ms.forEach(m => {
+            if (!m.addedNodes.length) return;
+            m.addedNodes.forEach(n => {
+                if (n.nodeType !== 1) return;
+
+                if (doFilter) {
+                    if (n.tagName === 'LI') scan(n);
+                    else if (n.querySelectorAll) n.querySelectorAll('li').forEach(scan);
+                }
+
+                if (doRed) redTxt();
+
+                if (doAds && isMacOS) {
+                    if (n.matches && (n.matches('div.bd_mobile.bd') || n.matches('section.fmWidgetStyle2019'))) {
+                        if (isBad(n)) n.remove();
+                    } else if (n.querySelectorAll) {
+                        n.querySelectorAll('script ~ div.bd_mobile.bd, section.fmWidgetStyle2019.bd_mobile.bd').forEach(el => isBad(el) && el.remove());
+                    }
+                }
+
+                if (doEmbed) {
+                    if ((n.matches && n.matches('li[id^="comment"]')) || (n.querySelector && n.querySelector('li[id^="comment"]'))) {
+                        runEmbed();
+                    }
+                }
+            });
+        });
+    });
+
+    window.addEventListener('pageshow', (e) => (e.persisted || (window.performance && window.performance.navigation.type === 2)) && killAds());
+
+    const loader = () => {
+        killAds();
+        fixLinks();
+        if (isMobile && getVal('imgEmbed')) embed();
+        if (isMobile && getVal('redTheme')) redTxt();
+        if (isMobile) {
+            rescan();
+            mainObserver.observe(doc.documentElement || doc.body, {childList: true, subtree: true});
+        }
+    };
+    
+    if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', loader);
+    else loader();
+
     let uiLoaded = false;
     let _refreshTags = null; 
 
