@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Gallery Extension for FMKOREA
-// @version      3.20
+// @version      3.21
 // @description  (모바일) 사이트 좌측 상단에서 메뉴를 열어주세요. PC는 일부 옵션만 자동 적용됩니다.
 // @author       cent8649
 // @match        https://m.fmkorea.com/*
@@ -87,6 +87,9 @@
         return (h >= 60 && h <= 200 && p <= 5 && mt <= 5 && ml <= 5);
     };
 
+    let adCheckActive = false;
+    let adTimer;
+
     const killAds = () => {
         if (!isMobile || !getVal('removePowerLink')) return;
         if (!doc.body) return window.addEventListener('DOMContentLoaded', killAds);
@@ -94,6 +97,10 @@
 
         const sweep = () => qsa('script ~ div.bd_mobile.bd, section.fmWidgetStyle2019.bd_mobile.bd').forEach(el => isBad(el) && el.remove());
         sweep();
+
+        adCheckActive = true;
+        if (adTimer) clearTimeout(adTimer);
+        adTimer = setTimeout(() => { adCheckActive = false; }, 2500);
     };
 
     const fixLinks = () => {
@@ -229,11 +236,10 @@
     };
 
     const mainObserver = new MutationObserver(ms => {
-        const doAds = isMobile && getVal('removePowerLink');
+        const doAds = isMobile && getVal('removePowerLink') && adCheckActive;
         const doEmbed = isMobile && getVal('imgEmbed');
         const doFilter = isMobile && (getVal('blockUser') || getVal('blockKeyword') || getVal('redTheme'));
         const doRed = isMobile && getVal('redTheme');
-        const isMacOS = doc.body && doc.body.classList.contains('mac_os');
 
         if (!doAds && !doEmbed && !doFilter) return;
 
@@ -249,7 +255,7 @@
 
                 if (doRed) redTxt();
 
-                if (doAds && isMacOS) {
+                if (doAds) {
                     if (n.matches && (n.matches('div.bd_mobile.bd') || n.matches('section.fmWidgetStyle2019'))) {
                         if (isBad(n)) n.remove();
                     } else if (n.querySelectorAll) {
