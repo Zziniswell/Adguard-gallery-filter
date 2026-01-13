@@ -1,10 +1,8 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.11
-! Description: Adguard, uBlock Origin 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
+! Version: 2025.01.13
+! Description: Adguard, uBlock Origin, Unicorn Pro 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
-! Toss ad domain but blocking breaks the attendance event in tossinvest.
-! ||trillion.toss.im^
 
 For iOS, MV3
 !#if (adguard && adguard_app_ios && adguard_ext_safari && adguard_ext_chromium && adguard_ext_edge && adguard_ext_firefox)
@@ -73,6 +71,7 @@ etoland.co.kr,m.ppomppu.co.kr,m.ppomppu1.co.kr##[id$='_popup']
 fc-info.com##div[class^='Venatus_']
 fmkorea.com##[class$='_ad']
 gmarket.co.kr##.js-impressionable.box__head-ad
+gpters.org###gpters-snippets_newsletter-popup-dialog
 greend.kr#@#[class*='ad'][id^='AD']
 harpi.in##div:has(> script[src])
 hygall.com##div[style='display: flex;justify-content: center; width:100%;height:100px;']
@@ -80,7 +79,7 @@ instiz.net##.view_top
 instiz.net##div[class^='hot_u']
 instiz.net##div[style='min-height:250px;']
 inven.co.kr,mt.co.kr##[class$='ads']
-inven.co.kr,wowtv.co.kr##[class*='-banner']
+inven.co.kr,wowtv.co.kr,gpters.org##[class*='-banner']
 k-hentai.org##.my-3.container
 m.bobaedream.co.kr##div[style$='height:50px;']
 m.cafe.daum.net##[class*='_banner']
@@ -145,14 +144,13 @@ xportsnews.com$$div[class="ad mobile"]
 ||dvdprime.com/file/*/banner
 ||get*ads-*-du.a.run.app^
 ||kamp.kakao.com^$app=com.kakao.talk
+||link.gmarket.co.kr/*PARTNERSHIP$all,reason=수익링크
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
 ||vs*.play.kakao.com^$app=com.kakao.talk
 
-! Affiliate links
-fmkorea.com##+js(set, link_url, '')
-||link.coupang.com/re/CSHARE$all
-||link.gmarket.co.kr/*PARTNERSHIP$all
+! It's a toss ad domain but blocking it causes a black screen in the tossinvest's attendance check event.
+||trillion.toss.im^
 
 ! Minor distractions
 arca.live##.d-lg-none.topbar-area
@@ -178,6 +176,7 @@ search.dcinside.com##.right_content
 ! Annoyances
 cafe.naver.com##+js(remove-class, disable-select, #ct)
 chimhaha.*##+js(aeld, click, bypass)
+fmkorea.com##+js(set, link_url, '')
 manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##+js(acis, oncontextmenu)
 namu.wiki##div[class]:matches-css(position: sticky)
 reddit.com$$script[id="googleid-signin-script"]
@@ -196,7 +195,7 @@ m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ! Incorrect blocking
 $@$link[rel="manifest"]
 @@/gaScript.js
-@@||192.168.$stealth
+@@||192.168.$stealth=dpi
 @@||ad-creative.pstatic.net^$app=com.nhn.android.search
 @@||ad-img.gmarket.com^$image,domain=gmarket.co.kr|auction.co.kr
 @@||adtouch.$app=com.kakao.talk
@@ -228,10 +227,12 @@ mlbpark.donga.com#@$#div[id^="SmartPhone_"][id$="_today"] .lists > li::before { 
 mule.co.kr#@#.ad-mobile
 www.gmarket.co.kr#@#.section__main-inner > .box__promotion .box__item > *
 ||api-ao.adison.co^$badfilter
+||api.mumuglobal.com^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
 ||photo.jtbc.co.kr/news/cms/etc/$badfilter
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
+||store-api.mumuglobal.com^$badfilter
 
 ! Etc
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
@@ -245,3 +246,5 @@ m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-mweb) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'MOBILE')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:not(:has(span.sp-icon)) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'PC')
 dcinside.com#%#(function(){'use strict';const u=location.href,h=location.hostname;let dcbest=!1;if(h==='m.dcinside.com'){const m=u.match(/^https:\/\/m\.dcinside\.com\/(board|mini|person)\/([^\/]+)\/\d+/);dcbest=!!(m&&m[2]==='dcbest');}else if(h==='gall.dcinside.com'){const p=new URLSearchParams(location.search);dcbest=p.get('id')==='dcbest'&&p.has('no');}else return;let s;if(h==='gall.dcinside.com')s='button.img_comment_toggle,.btn_imgcmtopen,.img_comment';else if(h==='m.dcinside.com')s='button.btn-imgcomment,.img-comment';else return;const e=document.createElement('style');e.textContent=`${s}{display:none!important;}`;if(!dcbest)document.head.appendChild(e);document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('[alt="imgtoggle"]');if(t)t.style.cursor='pointer',t.addEventListener('click',()=>{e.disabled=!e.disabled;if(!e.parentNode&&!e.disabled)document.head.appendChild(e);});});})();
+
+! ============================== ! No more
