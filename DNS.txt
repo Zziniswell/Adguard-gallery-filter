@@ -9,7 +9,6 @@
 ||ad-creative.pstatic.net^$badfilter
 ||adshnk.com^$badfilter
 ||adtouch.adbrix.io^$badfilter
-||api-ao.adison.co^$badfilter
 ||api.mumuglobal.com^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
 ||searchad-phinf.pstatic.net^$badfilter
