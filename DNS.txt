@@ -5,12 +5,12 @@
 
 
 ! Disable incorrect blocking
-@@||airbridge.io^
 ||ad-creative.pstatic.net^$badfilter
 ||adshnk.com^$badfilter
 ||adtouch.adbrix.io^$badfilter
 ||api.mumuglobal.com^$badfilter
 ||dadispapi.gmarket.co.kr^$badfilter
+||sdk.airbridge.io^$badfilter
 ||searchad-phinf.pstatic.net^$badfilter
 ||store-api.mumuglobal.com^$badfilter
 ||tivan.naver.com^$badfilter
