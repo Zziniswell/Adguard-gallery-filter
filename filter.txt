@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.13
+! Version: 2025.01.20
 ! Description: Adguard, uBlock Origin, Unicorn Pro 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -10,9 +10,6 @@ For iOS, MV3
 ###img_row_container
 ###viewCover
 ##.banner_wrap2
-com,net##.board-tail-banner
-com,net##.col-sm-9.col-md-9.col-15
-com,net##[style='margin-bottom: 20px;'].row.row-15
 !#endif
 
 ! Ads
@@ -30,9 +27,6 @@ com,net##[style='margin-bottom: 20px;'].row.row-15
 ##iframe[src*='targetpush.co.kr']
 *##[target='_blank']:has([src*='/banner/'])
 *tcid=$all
-[$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##[style='margin-bottom: 20px;'].row.row-15
-[$domain=/^[a-z]*toki[0-9]*\.[a-z]{3}/]##li:has([target]:not([href*=bbs]))
-[$domain=/^booktoki[0-9]*\.com/]##.col-sm-9.col-md-9.col-15
 [$domain=/^hoohootv[0-9]*\.[a-z]{2,}/]###img_row_container
 [$domain=/^tkor[0-9]*\.com/]##.bnt.bn
 [$domain=/^toonkor[0-9]*\.net/]##.bnt.bn
@@ -55,6 +49,9 @@ avsee.ru##[alt$='gif']
 bbs.ruliweb.com##div.clear:has([style*='overflow-x'])
 bbs.ruliweb.com##tr:has(.nick[style^='display: inline-block'])
 blog.naver.com,comic.naver.com##[class*='banner_area']
+booktoki469.com,booktoki470.com##.col-sm-9.col-md-9.col-15
+booktoki469.com,booktoki470.com,manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##[style='margin-bottom: 20px;'].row.row-15
+booktoki469.com,booktoki470.com,manatoki469.net,manatoki470.net,newtoki469.com,newtoki470.com##li:has([target]:not([href*=bbs]))
 chimhaha.net##[id^='slot']
 chimhaha.net##div[style='margin-top: 50px; ']
 chimhaha.net,seoul.co.kr,mule.co.kr##[class*='Ad']
@@ -140,24 +137,22 @@ web.joongna.com,nexon.com,gg,ps,xyz,loawa.com#@#[target='_blank']:has([src*='/ba
 windowsforum.kr,seoul.co.kr,xportsnews.com##.ad
 wowtv.co.kr,cafe.naver.com##[class*='Banner']
 xportsnews.com$$div[class="ad mobile"]
+||*ads-*-du.a.run.app^
 ||ader.naver.com/*?c=m_$all
 ||dvdprime.com/file/*/banner
-||get*ads-*-du.a.run.app^
 ||kamp.kakao.com^$app=com.kakao.talk
-||link.gmarket.co.kr/*PARTNERSHIP$all,reason=수익링크
+||link.gmarket.co.kr/*PARTNERSHIP$all
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
-||vs*.play.kakao.com^$app=com.kakao.talk
-
-! It's a toss ad domain but blocking it causes a black screen in the tossinvest's attendance check event.
 ||trillion.toss.im^
+||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Minor distractions
 arca.live##.d-lg-none.topbar-area
 dcinside.com##.dc_all
 dcinside.com##.dcmedia.content_box
-gall.dcinside.com##.gall_list tr[class='ub-content ']
 gall.dcinside.com##.r_dcmedia
+gall.dcinside.com##tr[class='ub-content ']
 inven.co.kr##.inven-float-alarm
 inven.co.kr##li.games.list > [href*='naver.com']
 m.cafe.naver.com##.FloatingJoinButton
@@ -208,6 +203,7 @@ $@$link[rel="manifest"]
 @@||pincrux.com^$stealth=dpi
 @@||searchad-phinf.pstatic.net^$app=com.nhn.android.search
 @@||shopping.naver.com^$stealth
+@@||siasiu.com/partials/*sign-in*.html$document
 @@||slrclub.com/rss/today_photo.slr
 @@||smartstore.naver.com^$stealth
 @@||sprintenergy.kr^$stealth=dpi
@@ -233,6 +229,7 @@ www.gmarket.co.kr#@#.section__main-inner > .box__promotion .box__item > *
 ||ssl.pstatic.net/t.static.blog/nmobile/versioning//common/lib/ntm/ntm-blog-web-*.js$badfilter
 ||static.danawa.com/globaljs/static/bdl/dsas_client.min.js$badfilter
 ||store-api.mumuglobal.com^$badfilter
+||tnkfactory.com^$badfilter
 
 ! Etc
 dmm.co.jp#%#//scriptlet('trusted-set-cookie-reload', 'ckcy_remedied_check', 'ec_mrnhbtk', '1year', '/', '.dmm.co.jp')
@@ -246,5 +243,8 @@ m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-mweb) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'MOBILE')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:not(:has(span.sp-icon)) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'PC')
 dcinside.com#%#(function(){'use strict';const u=location.href,h=location.hostname;let dcbest=!1;if(h==='m.dcinside.com'){const m=u.match(/^https:\/\/m\.dcinside\.com\/(board|mini|person)\/([^\/]+)\/\d+/);dcbest=!!(m&&m[2]==='dcbest');}else if(h==='gall.dcinside.com'){const p=new URLSearchParams(location.search);dcbest=p.get('id')==='dcbest'&&p.has('no');}else return;let s;if(h==='gall.dcinside.com')s='button.img_comment_toggle,.btn_imgcmtopen,.img_comment';else if(h==='m.dcinside.com')s='button.btn-imgcomment,.img-comment';else return;const e=document.createElement('style');e.textContent=`${s}{display:none!important;}`;if(!dcbest)document.head.appendChild(e);document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('[alt="imgtoggle"]');if(t)t.style.cursor='pointer',t.addEventListener('click',()=>{e.disabled=!e.disabled;if(!e.parentNode&&!e.disabled)document.head.appendChild(e);});});})();
+dcinside.com#%#(function(){const z=()=>{const k="dcimg5.dcinside.com/dccon.php?no=62b5df2be09d3ca567b1c5bc12d46b394aa3b1058c6e4d0ca41648b658ee267290f2f29d6566e2e971685cc47ebb7f5abc59c5140f2cd81eea985d1f58344a664c58946f",s=`img[src*="${k}"],video[data-src*="${k}"],video[ori-data*="${k}"]`,f=e=>{if(e.dataset.proc||!e.closest("li[id^='comment']"))return;e.dataset.proc=1;let w=document.createElement("div"),o=document.createElement("div");w.style.cssText="position:relative;display:inline-block;min-width:100px;min-height:100px;vertical-align:middle;",o.style.cssText="position:absolute;top:0;left:0;width:100%;height:100%;background:#222;color:#fff;display:flex;justify-content:center;align-items:center;cursor:pointer;z-index:99;font-size:12px;font-weight:bold;",o.textContent="Click to Load",o.onclick=()=>o.remove(),e.replaceWith(w),w.appendChild(e),w.appendChild(o)};new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>n.nodeType===1&&(n.matches(s)?f(n):n.querySelectorAll(s).forEach(f))))).observe(document.body,{childList:!0,subtree:!0}),document.querySelectorAll(s).forEach(f)};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",z):z()})()
 
-! ============================== ! No more
+
+
+! =============== END =============== !
