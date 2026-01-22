@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.22
+! Version: 2025.01.22.2
 ! Description: Adguard, uBlock Origin, Unicorn Pro 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -183,6 +183,7 @@ reddit.com$$script[id="googleid-signin-script"]
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 battlecats-db.com#$#body { display: block !important; }
+kissjav.com##+js(acis, window.addEventListener, checkAndLock)
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 ~adblock.turtlecute.org##+js(no-fetch-if, doubleclick.net)
@@ -245,6 +246,5 @@ m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:has(span.sp-mweb) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'MOBILE')
 m.dcinside.com#%#//scriptlet('trusted-create-element', 'div.gallview-tit-box:not(:has(span.sp-icon)) > div > ul.ginfo2', 'li', 'alt="imgtoggle"', 'PC')
 dcinside.com#%#(function(){'use strict';const u=location.href,h=location.hostname;let dcbest=!1;if(h==='m.dcinside.com'){const m=u.match(/^https:\/\/m\.dcinside\.com\/(board|mini|person)\/([^\/]+)\/\d+/);dcbest=!!(m&&m[2]==='dcbest');}else if(h==='gall.dcinside.com'){const p=new URLSearchParams(location.search);dcbest=p.get('id')==='dcbest'&&p.has('no');}else return;let s;if(h==='gall.dcinside.com')s='button.img_comment_toggle,.btn_imgcmtopen,.img_comment';else if(h==='m.dcinside.com')s='button.btn-imgcomment,.img-comment';else return;const e=document.createElement('style');e.textContent=`${s}{display:none!important;}`;if(!dcbest)document.head.appendChild(e);document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('[alt="imgtoggle"]');if(t)t.style.cursor='pointer',t.addEventListener('click',()=>{e.disabled=!e.disabled;if(!e.parentNode&&!e.disabled)document.head.appendChild(e);});});})();
-
 
 ! =============== END =============== !
