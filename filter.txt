@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.22.2
+! Version: 2025.01.25
 ! Description: Adguard, uBlock Origin, Unicorn Pro 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -183,7 +183,7 @@ reddit.com$$script[id="googleid-signin-script"]
 @@||piku.co.kr^$generichide
 aagag.com#$#.la { position: absolute !important; left: -3000px !important; width: 60px !important; height: 20px !important; }
 battlecats-db.com#$#body { display: block !important; }
-kissjav.com##+js(acis, window.addEventListener, checkAndLock)
+kissjav.com###guard-overlay:remove()
 m.fmkorea.com##+js(set, _make_power_link_identifier, noopFunc)
 ||maxmovie.com/_next/static/chunks/framework.aa400efa16f23e2b0cfe.js
 ~adblock.turtlecute.org##+js(no-fetch-if, doubleclick.net)
