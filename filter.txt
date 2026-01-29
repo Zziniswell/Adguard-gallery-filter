@@ -1,5 +1,5 @@
 ! Title: 애드가드 갤러리 필터
-! Version: 2025.01.26
+! Version: 2025.01.29
 ! Description: Adguard, uBlock Origin, Unicorn Pro 필터의 오차단 및 남은 광고와 안티 애드블록을 해결합니다.
 ! Homepage: https://m.dcinside.com/gallog/cent8649
 
@@ -145,13 +145,13 @@ xportsnews.com$$div[class="ad mobile"]
 ||kamp.kakao.com^$app=com.kakao.talk
 ||shortformstats.kakao.com^$app=com.kakao.talk
 ||t*kor*.com/images/
+||thumb.kakaocdn.net^$app=com.kakao.talk
 ||trillion.toss.im^
-||vs*.play.kakao.com^$app=com.kakao.talk
 
 ! Minor distractions
 arca.live##.d-lg-none.topbar-area
-dcinside.com##.dc_all
-dcinside.com##.dcmedia.content_box
+gall.dcinside.com##.dc_all
+gall.dcinside.com##.dcmedia.content_box
 gall.dcinside.com##.r_dcmedia
 gall.dcinside.com##tr[class='ub-content ']
 inven.co.kr##.inven-float-alarm
